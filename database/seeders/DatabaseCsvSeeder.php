@@ -17,7 +17,7 @@ class DatabaseCsvSeeder extends Seeder
 {
     public function run()
     {
-        $path = 'C:\Users\muham\Downloads\smpn8_csv_detail_full\\';
+        $path = storage_path('app/csv/');
         
         // 1. Time Slots (Dummy for 1 - 10 hour periods)
         for ($i=1; $i<=10; $i++) {
