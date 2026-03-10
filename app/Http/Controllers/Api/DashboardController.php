@@ -14,9 +14,6 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        ini_set('display_errors', 1);
-        error_reporting(E_ALL);
-
         $user = Auth::user();
         if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
@@ -103,8 +100,6 @@ class DashboardController extends Controller
         }
 
         $responseArray = \json_decode(\json_encode($response), true);
-        \Log::info('Dashboard API Response:', ['jadwal_hari' => $responseArray['data']['jadwal_hari_ini']]);
-        \Log::info('FULL DASHBOARD JSON PAYLOAD GURU:', $responseArray);
         return response()->json($responseArray);
 
         } catch (\Throwable $e) {
