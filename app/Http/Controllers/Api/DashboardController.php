@@ -14,6 +14,9 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        ini_set('display_errors', 1);
+        error_reporting(E_ALL);
+
         $user = Auth::user();
         if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
