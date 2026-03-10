@@ -99,9 +99,11 @@ class DashboardController extends Controller
                 ->get();
         }
 
-        \Log::info('Dashboard API Response:', ['jadwal_hari' => $response['data']['jadwal_hari_ini']]);
-        \Log::info('FULL DASHBOARD JSON PAYLOAD GURU:', $response);
-        return response()->json($response);
+        $responseArray = \json_decode(\json_encode($response), true);
+        \Log::info('Dashboard API Response:', ['jadwal_hari' => $responseArray['data']['jadwal_hari_ini']]);
+        \Log::info('FULL DASHBOARD JSON PAYLOAD GURU:', $responseArray);
+        return response()->json($responseArray);
+
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => 'error',

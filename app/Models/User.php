@@ -34,10 +34,6 @@ class User extends Authenticatable implements FilamentUser
         'is_inval_piket',
     ];
 
-    protected $appends = [
-        'wali_kelas',
-    ];
-
     public function getWaliKelasAttribute()
     {
         return $this->homeroomClass ? (string) $this->homeroomClass->id : null;
