@@ -99,6 +99,7 @@ class DashboardController extends Controller
         }
 
         \Log::info('Dashboard API Response:', ['jadwal_hari' => $response['data']['jadwal_hari_ini']]);
+        \Log::info('FULL DASHBOARD JSON PAYLOAD GURU:', $response);
         return response()->json($response);
     }
     public function bkDashboard(Request $request)
