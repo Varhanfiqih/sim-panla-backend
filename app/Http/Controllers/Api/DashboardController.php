@@ -19,7 +19,8 @@ class DashboardController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        // Tentukan hari ini (Indonesia)
+        try {
+            // Tentukan hari ini (Indonesia)
         Carbon::setLocale('id');
         $hariIniStr = strtoupper(Carbon::now()->isoFormat('dddd')); // e.g., 'SENIN', 'SABTU'
         $periode = 'Tahun Ajaran 2025/2026 Genap'; // Bisa dinamis dari DB Pengaturan kelak
@@ -101,6 +102,14 @@ class DashboardController extends Controller
         \Log::info('Dashboard API Response:', ['jadwal_hari' => $response['data']['jadwal_hari_ini']]);
         \Log::info('FULL DASHBOARD JSON PAYLOAD GURU:', $response);
         return response()->json($response);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile()
+            ], 500);
+        }
     }
     public function bkDashboard(Request $request)
     {
