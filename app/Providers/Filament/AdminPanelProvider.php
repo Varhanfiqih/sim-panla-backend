@@ -28,7 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login(\App\Filament\Pages\Auth\Login::class)
             ->brandName('SIM Panla')
-            ->brandLogo(asset('logo.ico'))
+            ->brandLogo(asset('logo.png'))
             ->brandLogoHeight('3.5rem')
             ->colors([
                 'primary' => Color::Amber,
