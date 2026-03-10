@@ -24,7 +24,7 @@ class Login extends BaseLogin
     protected function getNipFormComponent(): Component
     {
         return TextInput::make('nip')
-            ->label('NIP / NISN')
+            ->label('Username')
             ->required()
             ->autocomplete()
             ->autofocus()
