@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Filament\Resources\GradeCategoryResource\Pages;
+
+use App\Filament\Resources\GradeCategoryResource;
+use Filament\Actions;
+use Filament\Resources\Pages\EditRecord;
+
+class EditGradeCategory extends EditRecord
+{
+    protected static string $resource = GradeCategoryResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\DeleteAction::make(),
+        ];
+    }
+}

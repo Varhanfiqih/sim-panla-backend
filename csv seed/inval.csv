@@ -1,0 +1,158 @@
+inval_id,date,class_id,period,subject_id,subject_name,teacher_id,teacher_name,material
+1,2025-07-26 23:49:26.807000,9A,"2, 3",,,198602012022211002,"LATIF ABDILLAH, S.Kom",Mencatat halaman 1-2 Paket
+2,2025-07-27 00:00:30.993000,9B,"5, 6",1.0,Bahasa Indonesia,198602012022211002,"LATIF ABDILLAH, S.Kom",mencatat paket hal 34
+3,2025-07-27 12:33:15.427000,9A,1,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",a
+4,2025-07-27 12:42:06.420000,7A,1,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",Q
+5,2025-07-27 12:47:48.390000,8G,1,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",aku anak sehat
+6,2025-08-01 09:18:56.453000,7E,1,4.0,Bimbingan Konseling,1,GURU PIKET,Menceritakan tentang cita cita
+7,2025-08-05 07:48:41.940000,7C,"1, 2, 3",11.0,"Pendidikan Jasmani, Olahraga dan Kesehatan",1,GURU PIKET,Kebugaran Jasmani
+8,2025-08-06 08:24:10.620000,7G,"1, 2, 3",11.0,"Pendidikan Jasmani, Olahraga dan Kesehatan",1,GURU PIKET,bola basket
+9,2025-08-06 10:49:49.543000,8D,"5, 6",2.0,Bahasa Inggris,1,GURU PIKET,Menerjemahkan dialog hal 39-40
+10,2025-08-06 11:04:19.505000,9F,"6, 7",1.0,Bahasa Indonesia,1,GURU PIKET,Tugas kegiatan 6
+11,2025-08-06 11:06:37.908000,7A,"6, 7",1.0,Bahasa Indonesia,1,GURU PIKET,Mengerjakan hal 14-15 dan 19-20
+12,2025-08-06 11:07:17.528000,9G,"6, 7",2.0,Bahasa Inggris,1,GURU PIKET,Tugas
+13,2025-08-06 11:16:02.237000,8F,"6, 7, 8",5.0,Ilmu Pengetahuan Alam,1,GURU PIKET,Tugas mind mip
+14,2025-08-06 11:16:57.954000,7B,"7, 8",2.0,Bahasa Inggris,1,GURU PIKET,Mengerjakan buku paket hal 28-29
+15,2025-08-06 11:17:09.880000,9B,"6, 7",8.0,Matematika,1,GURU PIKET,Tugas
+16,2025-08-06 11:17:56.952000,9B,"8, 9",5.0,Ilmu Pengetahuan Alam,1,GURU PIKET,Tugas
+17,2025-08-06 12:06:17.898000,8A,"7, 8",8.0,Matematika,1,GURU PIKET,"Mengerjakan hal 25 nomor 4,5,6"
+18,2025-08-06 12:52:03.023000,7F,"5, 6",2.0,Bahasa Inggris,1,GURU PIKET,TUGAS
+19,2025-08-07 07:22:20.583000,7E,"1, 2, 3",11.0,"Pendidikan Jasmani, Olahraga dan Kesehatan",1,GURU PIKET,Kebugaran jasmani
+20,2025-08-07 08:01:33.702000,7F,"1, 2, 3",11.0,"Pendidikan Jasmani, Olahraga dan Kesehatan",1,GURU PIKET,Kebugaran jasmani
+21,2025-08-19 10:24:16.103000,9F,"4, 5",7.0,Informatika,1,GURU PIKET,Tugas mengerjakan soal informatika
+22,2025-08-20 07:44:19.216000,8G,"1, 2, 3",13.0,Pendidikan Pancasila,1,GURU PIKET,Mengerjakan soal isian singkat no 1-10 dan uraian no 1-2
+23,2025-08-21 09:34:37.111000,7G,"1, 2",2.0,Bahasa Inggris,1,GURU PIKET,Tugas Tertulis
+24,2025-08-21 10:15:01.087000,7D,"6, 7, 8",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,"Menerangkan materi tehnik pengolahan, hal 179 - 184 dibuku cara an dan di kumpulkan di meja guru prakarya"
+25,2025-08-21 10:22:03.178000,7A,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Tugas kelompok
+26,2025-08-21 10:35:00.406000,8B,"5, 6",2.0,Bahasa Inggris,1,GURU PIKET,Tugas mengerjakan soal
+27,2025-08-22 07:50:49.958000,7E,"1, 2",6.0,Ilmu Pengetahuan Sosial,1,GURU PIKET,IPS
+28,2025-08-22 10:09:18.209000,9G,"3, 4",6.0,Ilmu Pengetahuan Sosial,1,GURU PIKET,Tugas dari PK ilyas
+29,2025-08-23 09:42:01.765000,7D,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Operasi campuran bilangan bulat
+30,2025-08-25 07:16:03.763000,7A,"2, 3",8.0,Matematika,1,GURU PIKET,Persen dan pecahan kontekstual
+31,2025-08-25 08:43:20.143000,7C,"4, 5",8.0,Matematika,1,GURU PIKET,Soal kontekstual
+32,2025-08-25 12:13:08.732000,8B,"1, 2, 3",13.0,Pendidikan Pancasila,1,GURU PIKET,Latihan soal
+33,2025-08-26 09:08:01.856000,7F,"1, 2",1.0,Bahasa Indonesia,1,GURU PIKET,Membuat teks deskripsi
+34,2025-08-26 09:33:44.879000,7G,"3, 4",1.0,Bahasa Indonesia,1,GURU PIKET,Membuat teks deskripsi
+35,2025-08-26 09:34:33.619000,7F,"1, 2",1.0,Bahasa Indonesia,1,GURU PIKET,Membuat teks deskripsi
+36,2025-08-26 10:01:10.967000,7D,"4, 5",8.0,Matematika,1,GURU PIKET,Latihan soal
+37,2025-08-26 10:58:02.697000,9G,"6, 7, 8",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Tugas membuat gambar sesuai imajinasi murid dari garis yang sudah disediakan.
+38,2025-08-26 12:11:14.092000,7B,"6, 7, 8",8.0,Matematika,1,GURU PIKET,Latihan soal
+39,2025-08-27 08:03:11.954000,7C,"1, 2, 3",8.0,Matematika,1,GURU PIKET,Latihan soal
+40,2025-08-27 08:20:36.538000,7F,"1, 2",6.0,Ilmu Pengetahuan Sosial,1,GURU PIKET,Mengerjakan soal dari guru dan membaca materi dibuku paket hal. 11 - 17
+41,2025-08-27 09:50:33.569000,7G,"4, 5, 6",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Tugas kelompok
+42,2025-08-27 10:26:57.311000,7B,"5, 6",8.0,Matematika,1,GURU PIKET,Latihan soal
+43,2025-08-28 09:51:17.729000,7A,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Latihansoal
+44,2025-08-29 07:37:22.916000,9D,"1, 2",2.0,Bahasa Inggris,1,GURU PIKET,"Paket hal.24 dan hal.28,29"
+45,2025-08-30 09:58:53.934000,7D,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Uh1
+46,2025-09-01 08:14:17.685000,7A,"2, 3",8.0,Matematika,1,GURU PIKET,UH1 bilangan bulat
+47,2025-09-01 09:44:06.967000,7C,"4, 5",8.0,Matematika,1,GURU PIKET,Uh1 bilangan bulat
+48,2025-09-01 10:08:31.822000,7C,"4, 5",8.0,Matematika,1,GURU PIKET,Uh1 bilangan bulat
+49,2025-09-01 12:24:44.070000,7C,"6, 7, 8",5.0,Ilmu Pengetahuan Alam,1,GURU PIKET,Latihan soal
+50,2025-09-08 08:21:46.727000,7A,"2, 3",8.0,Matematika,1,GURU PIKET,Pengenalan bentuk aljabar
+51,2025-09-08 09:47:04.845000,7C,"4, 5",8.0,Matematika,1,GURU PIKET,Pengenalan aljabar
+52,2025-09-09 07:23:07.326000,9A,"1, 2",2.0,Bahasa Inggris,1,GURU PIKET,Tugas: Habitat
+53,2025-09-09 09:43:10.278000,7D,"4, 5",8.0,Matematika,1,GURU PIKET,Pengenalan aljabar
+54,2025-09-09 11:57:51.745000,7B,"6, 7, 8",8.0,Matematika,1,GURU PIKET,Uh 1 bilangan bulat
+55,2025-09-10 07:23:11.752000,7C,"1, 2, 3",8.0,Matematika,1,GURU PIKET,Aljabar awal
+56,2025-09-10 10:16:55.862000,7B,"5, 6",8.0,Matematika,1,GURU PIKET,Pengenalan aljabar
+57,2025-09-11 08:51:19.922000,7B,"3, 4, 5",5.0,Ilmu Pengetahuan Alam,1,GURU PIKET,Menggambar Alat² Laboratorium
+58,2025-09-11 09:55:52.242000,7A,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Pengenalan aljabar
+59,2025-09-11 11:02:47.930000,7E,"6, 7, 8",5.0,Ilmu Pengetahuan Alam,1,GURU PIKET,Mengerjakan tugas
+60,2025-09-13 10:00:19.135000,7D,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Penjumlahan pengurangan aljabar
+61,2025-09-13 12:25:28.898000,9A,"2, 3",1.0,Bahasa Indonesia,1,GURU PIKET,Telaah teks
+62,2025-09-15 08:12:59.076000,7A,"2, 3",8.0,Matematika,1,GURU PIKET,Penjumlahan dan pengurangan aljabar
+63,2025-09-15 09:54:21.476000,7C,"4, 5",8.0,Matematika,1,GURU PIKET,Penjumlahan dan pengurangan aljabar
+64,2025-09-16 07:31:08.730000,8F,"1, 2",6.0,Ilmu Pengetahuan Sosial,1,GURU PIKET,Tugas Halaman 28-33
+65,2025-09-16 09:32:51.436000,9E,"4, 5",1.0,Bahasa Indonesia,1,GURU PIKET,"Kegiatan 4. 
+Kegiatan 5.
+Hal 39-41"
+66,2025-09-16 09:37:31.405000,7D,"4, 5",8.0,Matematika,1,GURU PIKET,GAME ALJABAR
+67,2025-09-16 09:46:31.477000,8E,"4, 5",6.0,Ilmu Pengetahuan Sosial,1,GURU PIKET,Tugas
+68,2025-09-16 12:06:18.662000,7B,"6, 7, 8",8.0,Matematika,1,GURU PIKET,Game aljabar
+69,2025-09-17 07:20:44.750000,7D,"1, 2",6.0,Ilmu Pengetahuan Sosial,1,GURU PIKET,Cuaca dan Iklim
+70,2025-09-17 07:23:55.224000,7C,"1, 2, 3",8.0,Matematika,1,GURU PIKET,Perkalian aljabar
+71,2025-09-17 08:03:12.452000,9C,1,3.0,Bahasa Jawa,1,GURU PIKET,Membentuk kelompok drama
+72,2025-09-17 08:04:20.959000,8F,"1, 2",6.0,Ilmu Pengetahuan Sosial,1,GURU PIKET,Tugas
+73,2025-09-17 10:21:14.185000,7B,"5, 6",8.0,Matematika,1,GURU PIKET,Perkalian aljabar
+74,2025-09-17 11:09:34.056000,7F,"5, 6",2.0,Bahasa Inggris,1,GURU PIKET,Hal 81
+75,2025-09-18 09:57:13.621000,7A,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Perkalian aljabar
+76,2025-09-18 12:11:15.136000,8A,"7, 8",1.0,Bahasa Indonesia,1,GURU PIKET,Mengerjakan soal bahasa indonesia
+77,2025-09-20 09:44:33.239000,7D,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Perkalian aljabar
+78,2025-09-20 10:17:39.557000,9F,"5, 6",2.0,Bahasa Inggris,1,GURU PIKET,Tugas Halaman 28-29 Mengerjakan Dialog
+79,2025-09-20 10:18:58.075000,8F,"5, 6",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Tugas
+80,2025-09-20 10:21:37.577000,8F,"5, 6",13.0,Pendidikan Pancasila,1,GURU PIKET,tugas
+81,2025-09-20 10:22:47.007000,8E,"4, 5",1.0,Bahasa Indonesia,1,GURU PIKET,"Mengerjakan Kegiatan 2,3 Paket"
+82,2025-09-20 10:51:58.504000,8F,"2, 3",1.0,Bahasa Indonesia,1,GURU PIKET,"Piket,mengerjakan tugas paket B.Indonesia 8"
+83,2025-09-20 10:54:18.772000,8D,"5, 6",5.0,Ilmu Pengetahuan Alam,1,GURU PIKET,Tugas Resume 1 paket halaman 50-60
+84,2025-09-20 11:43:55.176000,8D,7,16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,tugas
+85,2025-09-20 11:45:41.457000,8D,"2, 3, 4",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,tugas
+86,2025-09-20 11:57:38.452000,8D,"2, 3, 4",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,tugas
+87,2025-09-22 07:15:08.962000,7A,"2, 3",8.0,Matematika,1,GURU PIKET,Evaluasi materi sebelumnya dan Pembagian aljabar
+88,2025-09-22 08:41:50.256000,7C,"4, 5",8.0,Matematika,1,GURU PIKET,Evaluasi materi sebelumnya dan pembagian aljabar
+89,2025-09-23 11:03:22.205000,8C,6,4.0,Bimbingan Konseling,1,GURU PIKET,Mengerjakan tugas BK
+90,2025-09-23 11:04:27.232000,8C,6,4.0,Bimbingan Konseling,1,GURU PIKET,Mengerjakan tugas BK
+91,2025-09-24 07:35:15.376000,7C,"1, 2, 3",8.0,Matematika,1,GURU PIKET,Latihan soal
+92,2025-09-24 07:40:08.167000,8A,"1, 2",1.0,Bahasa Indonesia,1,GURU PIKET,Hal 60-61
+93,2025-09-24 09:32:06.440000,8B,"4, 5",1.0,Bahasa Indonesia,1,GURU PIKET,hal 60-61
+94,2025-09-24 10:28:57.639000,7B,"5, 6",8.0,Matematika,1,GURU PIKET,Soal matematika
+95,2025-09-24 13:07:22.898000,7G,"7, 8",1.0,Bahasa Indonesia,1,GURU PIKET,Menulis
+96,2025-09-25 09:47:19.716000,7A,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Latihan soal di paket hal 85
+97,2025-09-25 11:09:07.241000,8D,"6, 7, 8",10.0,Pendidikan Agama Islam dan Budi Pekerti,1,GURU PIKET,Mengerjakan soal pilihan ganda dan essai.
+98,2025-09-25 13:53:51.153000,8E,"2, 3",7.0,Informatika,1,GURU PIKET,Mengirim Email dengan menggunakan data Sheet
+99,2025-09-27 10:57:48.034000,7D,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Pembagian aljabar
+100,2025-09-27 11:48:21.956000,7G,"2, 3",1.0,Bahasa Indonesia,1,GURU PIKET,"Menulis ulang Alur Teks Naratif. 
+Pembahasan"
+101,2025-09-27 11:51:05.587000,8B,"5, 6",1.0,Bahasa Indonesia,1,GURU PIKET,Membahas kalimat imperatif dan persuasif pada iklan
+102,2025-09-27 13:16:04.684000,9B,3,16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Olah suara
+103,2025-09-29 09:59:36.497000,7C,"4, 5",8.0,Matematika,1,GURU PIKET,Latihan soal
+104,2025-09-30 07:37:33.114000,7F,"1, 2",1.0,Bahasa Indonesia,1,GURU PIKET,Mengidentifikasi Elemen dalam Teks Naratif ( membahas)
+105,2025-09-30 09:57:35.658000,7D,"4, 5",8.0,Matematika,1,GURU PIKET,Latihan soal
+106,2025-09-30 11:23:34.227000,9E,"6, 7, 8",10.0,Pendidikan Agama Islam dan Budi Pekerti,1,GURU PIKET,"Meresume Bab 4 
+Penyembeluhan hewan korban
+Aqiqah
+Kueban"
+107,2025-09-30 11:27:12.669000,9E,"6, 7, 8",10.0,Pendidikan Agama Islam dan Budi Pekerti,1,GURU PIKET,"Meresume Bab 4 
+Penyembeluhan hewan korban
+Aqiqah
+Kueban"
+108,2025-09-30 12:05:53.450000,7B,"6, 7, 8",8.0,Matematika,1,GURU PIKET,Pembagian aljabar
+109,2025-10-01 08:42:05.087000,7C,"1, 2, 3",8.0,Matematika,1,GURU PIKET,UH 2 Aljabar
+110,2025-10-01 09:06:06.790000,9C,"2, 3",7.0,Informatika,1,GURU PIKET,Tugas
+111,2025-10-01 09:53:33.120000,9D,"4, 5",7.0,Informatika,1,GURU PIKET,Tugas logika
+112,2025-10-01 10:20:14.746000,7B,"5, 6",8.0,Matematika,1,GURU PIKET,UH 2 Aljabar
+113,2025-10-01 11:09:14.970000,7C,"6, 7, 8",13.0,Pendidikan Pancasila,1,GURU PIKET,Mengerjakan buku paket
+114,2025-10-02 10:11:05.392000,7A,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Uh 2 aljabar
+115,2025-10-03 07:17:31.415000,7G,"1, 2, 3",7.0,Informatika,1,GURU PIKET,File and folder
+116,2025-10-03 07:18:49.841000,7G,"1, 2, 3",7.0,Informatika,1,GURU PIKET,File and folder
+117,2025-10-03 07:55:43.470000,7C,"1, 2, 3",10.0,Pendidikan Agama Islam dan Budi Pekerti,1,GURU PIKET,Merangkum bab 3
+118,2025-10-04 09:05:09.054000,7F,"2, 3",2.0,Bahasa Inggris,1,GURU PIKET,"Mengerjakan paket hal 109/110 bagian C,, paket hal 111 bagian D"
+119,2025-10-04 09:55:27.119000,7D,"4, 5, 6",8.0,Matematika,1,GURU PIKET,UH 2 ALJABAR
+120,2025-10-13 08:41:03.203000,7A,"2, 3",8.0,Matematika,1,GURU PIKET,Bab 3 persamaan linier
+121,2025-10-13 10:11:34.328000,9G,"2, 3",5.0,Ilmu Pengetahuan Alam,1,GURU PIKET,Tugas mind map
+122,2025-10-14 09:44:44.392000,7D,"4, 5",8.0,Matematika,1,GURU PIKET,Persamaan linier
+123,2025-10-14 10:50:50.092000,7B,"6, 7, 8",8.0,Matematika,1,GURU PIKET,Persamaan Linier satu variabel
+124,2025-10-14 10:57:05.499000,9G,"6, 7, 8",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Mencatat tentang Pertunjukan Seni Teater.
+125,2025-10-15 07:12:17.212000,9E,"1, 2, 3",5.0,Ilmu Pengetahuan Alam,1,GURU PIKET,Mind map
+126,2025-10-15 07:15:46.171000,7C,"1, 2, 3",8.0,Matematika,1,GURU PIKET,Persamaan linier satu variabel
+127,2025-10-15 08:46:57.506000,9A,"3, 4, 5",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Mencatat
+128,2025-10-15 10:12:46.183000,8F,"6, 7, 8",5.0,Ilmu Pengetahuan Alam,1,GURU PIKET,Mind mapping
+129,2025-10-15 10:15:57.340000,9G,6,4.0,Bimbingan Konseling,1,GURU PIKET,Aspek pernyataan
+130,2025-10-15 10:17:03.815000,7B,"5, 6",8.0,Matematika,1,GURU PIKET,Persamaan linier satu variabel
+131,2025-10-15 12:15:30.383000,9E,"6, 7, 8",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Tugas
+132,2025-10-16 07:27:40.100000,9C,"1, 2",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Memproduksi pertunjukan teater (catat)
+133,2025-10-16 09:44:28.831000,7A,"4, 5, 6",8.0,Matematika,1,GURU PIKET,Persamaan linier satu variabel
+134,2025-10-16 10:53:19.658000,9D,"6, 7, 8",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Mengerjakan soal
+135,2025-10-16 10:55:25.180000,9D,"6, 7, 8",16.0,"Seni, Budaya dan Prakarya",1,GURU PIKET,Mengerjakan soal
+136,2025-10-17 07:17:51.600000,7E,"1, 2",6.0,Ilmu Pengetahuan Sosial,1,GURU PIKET,Mengenal kegiatan ekonomi di sekitar kita
+137,2025-10-17 08:21:07.595000,8A,"1, 2",1.0,Bahasa Indonesia,1,GURU PIKET,Mengerjakan hal 85
+138,2025-10-17 09:09:56.205000,9G,"3, 4",6.0,Ilmu Pengetahuan Sosial,1,GURU PIKET,13 soal tentang mata uang
+139,2025-10-18 10:03:16.506000,7D,"5, 6",8.0,Matematika,1,GURU PIKET,Persamaan linier
+140,2025-10-20 09:48:38.738000,7A,"2, 3",8.0,Matematika,1,GURU PIKET,"Persamaan linier 
+Hal 103 soal 4"
+141,2025-10-20 09:53:26.385000,7C,"4, 5",8.0,Matematika,1,GURU PIKET,Persamaan linier soal 4 hal 103
+142,2025-10-21 09:41:37.516000,7D,"4, 5",8.0,Matematika,1,GURU PIKET,Persamaan linier
+143,2025-10-21 10:53:11.317000,7B,"6, 7, 8",8.0,Matematika,1,GURU PIKET,Persamaan linier
+144,2025-10-21 10:54:40.381000,8C,6,4.0,Bimbingan Konseling,1,GURU PIKET,Mengerjakan soal.
+145,2025-10-22 07:28:10.682000,7C,"1, 2, 3",8.0,Matematika,1,GURU PIKET,Persamaan linier satu variabel
+146,2025-10-22 08:43:44.432000,7G,"1, 2, 3",11.0,"Pendidikan Jasmani, Olahraga dan Kesehatan",1,GURU PIKET,tugas
+147,2025-10-22 10:29:16.579000,7B,"5, 6",8.0,Matematika,1,GURU PIKET,Persamaan lInier

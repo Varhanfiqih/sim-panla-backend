@@ -1,0 +1,4 @@
+followup_id,timestamp,student_id,student_name,class_id,action_type,photo_url,note,status,handled_by
+1,2025-08-15 10:58:40.832000,119042597,AHMAD FATHONI KHOIRI HIKAM,9C,Pemanggilan Ortu,https://drive.google.com/file/d/181okjG1gQQFI9Ac6-ZDdisF7BoV6GVW_/view?usp=drivesdk,panggil ortu,Dalam Proses,"AGUSTIN NUR HIDAYATI, S.Psi"
+2,2025-08-15 11:05:35.463000,119042597,AHMAD FATHONI KHOIRI HIKAM,9C,Home Visit,https://drive.google.com/file/d/1i0D9AYJDpdAwMENTP-_URSywzmGW-sW0/view?usp=drivesdk,uji coba,Dalam Proses,"ALVY HASNIAH RAMADHANI, S.Psi"
+3,2025-08-15 11:18:56.328000,119042597,AHMAD FATHONI KHOIRI HIKAM,9C,Home Visit,https://drive.google.com/file/d/1d3xDJ2cHM5RS9caYX8Fh_X3U3XvML2Zt/view?usp=drivesdk,dfasdfs,Dalam Proses,"DIKA MIFTAKHUL H.R., S.Pd"

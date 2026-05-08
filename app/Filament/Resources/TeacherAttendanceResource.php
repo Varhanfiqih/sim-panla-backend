@@ -5,23 +5,57 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TeacherAttendanceResource\Pages;
 use App\Filament\Resources\TeacherAttendanceResource\RelationManagers;
 use App\Models\TeacherAttendance;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TeacherAttendanceResource extends Resource
 {
     protected static ?string $model = TeacherAttendance::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
     protected static ?string $navigationLabel = 'Kehadiran & Izin Guru';
-    protected static ?string $navigationGroup = 'Manajemen';
+    protected static ?string $navigationGroup = 'Operasional';
     protected static ?string $pluralModelLabel = 'Daftar Izin/Kehadiran Guru';
     protected static ?int $navigationSort = 3;
+
+    // ─── Otorisasi Resource ───────────────────────────────────────────────────
+
+    /** Super Admin, Admin IT, dan Kepala Sekolah bisa melihat. */
+    public static function canViewAny(): bool
+    {
+        $user = auth()->user();
+        return $user?->isStaff() || $user?->isKepsek();
+    }
+
+    /** Admin IT bisa mencatat kehadiran guru (operasional harian). */
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->isStaff() ?? false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->isStaff() ?? false;
+    }
+
+    /** Hanya Super Admin yang bisa hapus data kehadiran. */
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
+
 
     public static function form(Form $form): Form
     {

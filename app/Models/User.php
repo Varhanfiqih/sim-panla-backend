@@ -15,10 +15,53 @@ class User extends Authenticatable implements FilamentUser
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
 
-    // Hanya Admin yang bisa akses Web Panel Filament
+    // ─── Role Constants ───────────────────────────────────────────────────────
+    const ROLE_SUPER_ADMIN   = 'Super Admin';
+    const ROLE_ADMIN_IT      = 'Admin IT';
+    const ROLE_KEPALA_SEKOLAH = 'Kepala Sekolah';
+    const ROLE_GURU          = 'Guru';
+    const ROLE_GURU_BK       = 'Guru BK';
+
+    /**
+     * Super Admin, Admin IT, dan Kepala Sekolah boleh masuk ke Web Panel.
+     * Kepala Sekolah hanya bisa view (Read-Only) sesuai policy resource.
+     */
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->role === 'Admin';
+        return in_array($this->role, [self::ROLE_SUPER_ADMIN, self::ROLE_ADMIN_IT, self::ROLE_KEPALA_SEKOLAH]);
+    }
+
+    // ─── Role Helper Methods ──────────────────────────────────────────────────
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === self::ROLE_SUPER_ADMIN;
+    }
+
+    public function isAdminIT(): bool
+    {
+        return $this->role === self::ROLE_ADMIN_IT;
+    }
+
+    public function isKepsek(): bool
+    {
+        return $this->role === self::ROLE_KEPALA_SEKOLAH;
+    }
+
+    public function isGuru(): bool
+    {
+        return $this->role === self::ROLE_GURU;
+    }
+
+    public function isGuroBK(): bool
+    {
+        return $this->role === self::ROLE_GURU_BK;
+    }
+
+    /** Apakah user termasuk staf admin (Super Admin atau Admin IT) */
+    public function isStaff(): bool
+    {
+        return in_array($this->role, [self::ROLE_SUPER_ADMIN, self::ROLE_ADMIN_IT]);
     }
 
     /**

@@ -20,6 +20,14 @@ class PengaturanPresensi extends Page
     protected static ?string $title = 'Aturan Absensi Sekolah';
     protected static string $view = 'filament.pages.pengaturan-presensi';
 
+    // ─── Otorisasi Resource ───────────────────────────────────────────────────
+
+    /** Super Admin dan Admin IT bisa mengakses pengaturan presensi */
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->isStaff() ?? false;
+    }
+
     public ?array $data = [];
 
     public function mount(): void

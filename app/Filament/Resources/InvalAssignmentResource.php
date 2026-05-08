@@ -17,15 +17,25 @@ class InvalAssignmentResource extends Resource
 {
     protected static ?string $model = InvalAssignment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-path';
 
     protected static ?string $modelLabel = 'Penugasan Inval';
 
     protected static ?string $pluralModelLabel = 'Daftar Penugasan Inval';
 
-    protected static ?string $navigationGroup = 'Manajemen Jurnal';
+    protected static ?string $navigationGroup = 'Operasional';
     
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
+
+    public static function canViewAny(): bool
+    {
+        $user = auth()->user();
+        return $user?->isStaff() || $user?->isKepsek();
+    }
+
+    public static function canCreate(): bool { return auth()->user()?->isStaff() ?? false; }
+    public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool { return auth()->user()?->isStaff() ?? false; }
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool { return auth()->user()?->isStaff() ?? false; }
 
     public static function form(Form $form): Form
     {

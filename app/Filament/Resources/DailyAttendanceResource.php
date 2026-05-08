@@ -17,11 +17,18 @@ class DailyAttendanceResource extends Resource
 {
     protected static ?string $model = DailyAttendance::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+    protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
     protected static ?string $navigationLabel = 'Laporan Harian';
     protected static ?string $navigationGroup = 'Laporan';
     protected static ?string $pluralModelLabel = 'Rekapitulasi Presensi Harian';
     protected static ?int $navigationSort = 1;
+
+    // Hanya Kepala Sekolah dan Super Admin yang bisa melihat Laporan Harian
+    public static function canViewAny(): bool
+    {
+        $user = auth()->user();
+        return $user?->isKepsek() || $user?->isSuperAdmin();
+    }
 
     // Menonaktifkan tombol tambah data karena ini tabel rekap (Read-Only)
     public static function canCreate(): bool

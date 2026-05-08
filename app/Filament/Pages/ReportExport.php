@@ -15,11 +15,20 @@ use App\Exports\JournalExport;
 
 class ReportExport extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-arrow-down';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-down-tray';
     protected static ?string $navigationLabel = 'Ekspor Laporan';
     protected static ?string $navigationGroup = 'Laporan';
     protected static ?string $title = 'Ekspor Rekapan';
     protected static string $view = 'filament.pages.report-export';
+
+    // ─── Otorisasi Resource ───────────────────────────────────────────────────
+
+    /** Super Admin, Admin IT, dan Kepala Sekolah bisa melakukan export laporan */
+    public static function canAccess(): bool
+    {
+        $user = auth()->user();
+        return $user?->isKepsek() || $user?->isSuperAdmin();
+    }
 
     public $attendance_date;
     public $attendance_class;

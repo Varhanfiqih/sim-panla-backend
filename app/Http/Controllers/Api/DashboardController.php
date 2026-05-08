@@ -49,25 +49,42 @@ class DashboardController extends Controller
         ];
 
         // Custom Logic by Role
-        if ($user->role === 'Admin') {
-            // Metrics Kepsek / Superadmin (Global)
+        $adminRoles = [\App\Models\User::ROLE_SUPER_ADMIN, \App\Models\User::ROLE_ADMIN_IT];
+
+        if (in_array($user->role, $adminRoles)) {
+            // Metrics Admin IT / Super Admin (Global — akses operasional penuh)
             $response['data']['metrics'] = [
-                'total_guru' => User::whereIn('role', ['Guru', 'Guru BK'])->count(),
-                'total_siswa' => Student::count(),
-                'kelas_kosong' => 0, // TODO: filter hariIniStr dari schedule yang belum ada jurnal
-                'persentase_kehadiran' => 98 // Dummy %
+                'total_guru'            => User::whereIn('role', [User::ROLE_GURU, User::ROLE_GURU_BK])->count(),
+                'total_siswa'           => Student::count(),
+                'kelas_kosong'          => 0, // TODO: filter hariIniStr dari schedule yang belum ada jurnal
+                'persentase_kehadiran'  => 98 // Dummy %
             ];
-            
-            // Opsional: kepsek juga lihat jadwal global hr ini
+
+            // Admin juga lihat jadwal global hari ini
             $response['data']['jadwal_hari_ini'] = Schedule::with('guru:nip,name')
                 ->where('hari', $hariIniStr)
                 ->orderBy('jam_ke', 'asc')
                 ->get();
-                
+
+        } elseif ($user->role === \App\Models\User::ROLE_KEPALA_SEKOLAH) {
+            // Metrics Kepala Sekolah — Executive Dashboard (read-only, statistik global)
+            $response['data']['metrics'] = [
+                'total_guru'            => User::whereIn('role', [User::ROLE_GURU, User::ROLE_GURU_BK])->count(),
+                'total_siswa'           => Student::count(),
+                'kelas_kosong'          => 0,
+                'persentase_kehadiran'  => 98 // Dummy %
+            ];
+
+            // Kepsek lihat jadwal global hari ini (read-only)
+            $response['data']['jadwal_hari_ini'] = Schedule::with('guru:nip,name')
+                ->where('hari', $hariIniStr)
+                ->orderBy('jam_ke', 'asc')
+                ->get();
+
         } else {
-            // Metrics Guru (Personal)
+            // Metrics Guru / Guru BK (Personal)
             $totalJadwalPekanIni = Schedule::where('teacher_id', $user->nip)->count();
-            
+
             $jumlahSiswaWali = 0;
             $homeroomClass = $user->homeroomClass;
             if ($homeroomClass) {
@@ -84,14 +101,14 @@ class DashboardController extends Controller
                 ->count();
 
             $response['data']['metrics'] = [
-                'total_mengajar' => $totalJadwalPekanIni,
-                'siswa_wali' => $jumlahSiswaWali,
-                'total_inval' => $totalInval,
-                'done_journals_today' => $doneJournalsToday,
-                'persentase_kehadiran' => 100 // Dummy persen kehadiran kelas dia
+                'total_mengajar'        => $totalJadwalPekanIni,
+                'siswa_wali'            => $jumlahSiswaWali,
+                'total_inval'           => $totalInval,
+                'done_journals_today'   => $doneJournalsToday,
+                'persentase_kehadiran'  => 100 // Dummy persen kehadiran kelas dia
             ];
 
-            // Jadwal ngajar guru log in
+            // Jadwal ngajar guru login
             $response['data']['jadwal_hari_ini'] = Schedule::with(['timeSlot', 'subject', 'schoolClass'])
                 ->where('teacher_id', $user->nip)
                 ->where('day_of_week', strtoupper($hariIniStr))
@@ -104,10 +121,10 @@ class DashboardController extends Controller
 
         } catch (\Throwable $e) {
             return response()->json([
-                'status' => 'error',
+                'status'  => 'error',
                 'message' => $e->getMessage(),
-                'line' => $e->getLine(),
-                'file' => $e->getFile()
+                'line'    => $e->getLine(),
+                'file'    => $e->getFile()
             ], 500);
         }
     }

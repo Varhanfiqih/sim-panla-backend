@@ -27,21 +27,28 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(\App\Filament\Pages\Auth\Login::class)
-            ->brandName('SIM Panla')
-            ->brandLogo(asset('logo.png'))
+            ->brandName('SMP NEGERI 8 PASURUAN')
+            ->brandLogo(fn () => new \Illuminate\Support\HtmlString('
+                <div class="flex items-center gap-3">
+                    <img src="' . asset('logo.png') . '" alt="Logo" style="height: 3.5rem;">
+                    <span class="font-bold text-lg tracking-tight text-gray-900 dark:text-white whitespace-nowrap">
+                        SMP NEGERI 8 PASURUAN
+                    </span>
+                </div>
+            '))
             ->brandLogoHeight('3.5rem')
+            ->favicon(asset('favicon.ico'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                \App\Filament\Widgets\WelcomeRoleWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

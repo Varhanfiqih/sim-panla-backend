@@ -10,15 +10,47 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class ScheduleResource extends Resource
 {
     protected static ?string $model = Schedule::class;
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
     protected static ?string $navigationLabel = 'Jadwal';
-    protected static ?string $navigationGroup = 'Manajemen';
+    protected static ?string $navigationGroup = 'Master Data';
     protected static ?int $navigationSort = 3;
     protected static ?string $modelLabel = 'Jadwal';
+    protected static ?string $pluralModelLabel = 'Jadwal';
+
+    // ─── Otorisasi Resource ───────────────────────────────────────────────────
+
+    /** Super Admin & Admin IT bisa melihat. Kepala Sekolah read-only. */
+    public static function canViewAny(): bool
+    {
+        $user = auth()->user();
+        return $user?->isStaff() || $user?->isKepsek();
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->isStaff() ?? false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->isStaff() ?? false;
+    }
+
+    /** Hanya Super Admin yang bisa hapus jadwal. */
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
 
     public static function form(Form $form): Form
     {
@@ -52,8 +84,25 @@ class ScheduleResource extends Resource
                         ])
                         ->required(),
                     Forms\Components\Select::make('time_slot_id')
-                        ->label('Jam Pelajaran Ke-')
+                        ->label('Jam Pelajaran Ke- / Waktu')
                         ->relationship('timeSlot', 'id')
+                        ->getOptionLabelFromRecordUsing(fn (Model $record) => "Jam Ke-{$record->id} (" . substr($record->start_time, 0, 5) . " - " . substr($record->end_time, 0, 5) . ")")
+                        ->searchable()
+                        ->preload()
+                        ->createOptionForm([
+                            Forms\Components\TimePicker::make('start_time')->label('Jam Mulai')->seconds(false)->required(),
+                            Forms\Components\TimePicker::make('end_time')->label('Jam Selesai')->seconds(false)->required(),
+                            Forms\Components\Select::make('type')->label('Jenis Kegiatan')
+                                ->options(['KBM' => 'KBM (Mengajar)', 'ISTIRAHAT' => 'Istirahat', 'UPACARA' => 'Upacara'])
+                                ->default('KBM')->required(),
+                        ])
+                        ->editOptionForm([
+                            Forms\Components\TimePicker::make('start_time')->label('Jam Mulai')->seconds(false)->required(),
+                            Forms\Components\TimePicker::make('end_time')->label('Jam Selesai')->seconds(false)->required(),
+                            Forms\Components\Select::make('type')->label('Jenis Kegiatan')
+                                ->options(['KBM' => 'KBM (Mengajar)', 'ISTIRAHAT' => 'Istirahat', 'UPACARA' => 'Upacara'])
+                                ->required(),
+                        ])
                         ->required(),
                     Forms\Components\TextInput::make('keterangan')
                         ->label('Keterangan / Catatan Tambahan')

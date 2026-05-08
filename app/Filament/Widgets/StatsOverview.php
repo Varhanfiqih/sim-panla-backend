@@ -19,7 +19,7 @@ class StatsOverview extends BaseWidget
         $today = Carbon::today();
 
         $totalSiswa = Student::count();
-        $totalGuru  = User::where('role', 'Guru')->count();
+        $totalGuru  = User::whereIn('role', [User::ROLE_GURU, User::ROLE_GURU_BK])->count();
 
         // Scan masuk hari ini
         $scanMasuk = Attendance::whereDate('created_at', $today)

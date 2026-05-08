@@ -5,23 +5,51 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\JournalResource\Pages;
 use App\Filament\Resources\JournalResource\RelationManagers;
 use App\Models\Journal;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class JournalResource extends Resource
 {
     protected static ?string $model = Journal::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-book-open';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationLabel = 'Jurnal Mengajar';
     protected static ?string $navigationGroup = 'Laporan';
     protected static ?string $pluralModelLabel = 'Daftar Jurnal Mengajar';
     protected static ?int $navigationSort = 2; // Tepat di bawah Rekap Presensi (1)
+
+    // ─── Otorisasi Resource ───────────────────────────────────────────────────
+
+    /** Laporan jurnal hanya bisa dilihat oleh Kepala Sekolah (dan Super Admin). Admin IT tidak bisa. */
+    public static function canViewAny(): bool
+    {
+        $user = auth()->user();
+        return $user?->isKepsek() || $user?->isSuperAdmin();
+    }
+
+    /** Jurnal tidak bisa dibuat manual dari Filament (hanya dari aplikasi guru). */
+    public static function canCreate(): bool { return false; }
+
+    /** Hanya Super Admin yang bisa edit jurnal (untuk koreksi data). */
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
+
+    /** Hanya Super Admin yang bisa hapus jurnal. */
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
+
+
     public static function form(Form $form): Form
     {
         return $form

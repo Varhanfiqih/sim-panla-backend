@@ -1,0 +1,422 @@
+schedule_id,day,class_id,period_start,period_end,subject_id,subject_name,teacher_id,teacher_name,note,session_label
+1,JUMAT,7F,2.0,4.0,16.0,"Seni, Budaya dan Prakarya",196912111997031009,"ABD HALIM, S.Pd",-,"JUMAT | 7F | 2-4 | Seni, Budaya dan Prakarya"
+2,KAMIS,7A,1.0,3.0,16.0,"Seni, Budaya dan Prakarya",196912111997031009,"ABD HALIM, S.Pd",-,"KAMIS | 7A | 1-3 | Seni, Budaya dan Prakarya"
+3,KAMIS,7D,6.0,8.0,16.0,"Seni, Budaya dan Prakarya",196912111997031009,"ABD HALIM, S.Pd",-,"KAMIS | 7D | 6-8 | Seni, Budaya dan Prakarya"
+4,RABU,7G,4.0,6.0,16.0,"Seni, Budaya dan Prakarya",196912111997031009,"ABD HALIM, S.Pd",-,"RABU | 7G | 4-6 | Seni, Budaya dan Prakarya"
+5,SABTU,7C,2.0,4.0,16.0,"Seni, Budaya dan Prakarya",196912111997031009,"ABD HALIM, S.Pd",-,"SABTU | 7C | 2-4 | Seni, Budaya dan Prakarya"
+6,SENIN,7B,6.0,8.0,16.0,"Seni, Budaya dan Prakarya",196912111997031009,"ABD HALIM, S.Pd",-,"SENIN | 7B | 6-8 | Seni, Budaya dan Prakarya"
+7,SENIN,7E,2.0,4.0,16.0,"Seni, Budaya dan Prakarya",196912111997031009,"ABD HALIM, S.Pd",-,"SENIN | 7E | 2-4 | Seni, Budaya dan Prakarya"
+8,RABU,9D,8.0,8.0,4.0,Bimbingan Konseling,198508042022212022,"AGUSTIN NUR HIDAYATI, S.Psi",-,RABU | 9D | 8 | Bimbingan Konseling
+9,RABU,9G,6.0,6.0,4.0,Bimbingan Konseling,198508042022212022,"AGUSTIN NUR HIDAYATI, S.Psi",-,RABU | 9G | 6 | Bimbingan Konseling
+10,SELASA,9B,5.0,5.0,4.0,Bimbingan Konseling,198508042022212022,"AGUSTIN NUR HIDAYATI, S.Psi",-,SELASA | 9B | 5 | Bimbingan Konseling
+11,SELASA,9C,6.0,6.0,4.0,Bimbingan Konseling,198508042022212022,"AGUSTIN NUR HIDAYATI, S.Psi",-,SELASA | 9C | 6 | Bimbingan Konseling
+12,SELASA,9E,1.0,1.0,4.0,Bimbingan Konseling,198508042022212022,"AGUSTIN NUR HIDAYATI, S.Psi",-,SELASA | 9E | 1 | Bimbingan Konseling
+13,SENIN,9A,4.0,4.0,4.0,Bimbingan Konseling,198508042022212022,"AGUSTIN NUR HIDAYATI, S.Psi",-,SENIN | 9A | 4 | Bimbingan Konseling
+14,SENIN,9F,6.0,6.0,4.0,Bimbingan Konseling,198508042022212022,"AGUSTIN NUR HIDAYATI, S.Psi",-,SENIN | 9F | 6 | Bimbingan Konseling
+15,JUMAT,8A,3.0,3.0,4.0,Bimbingan Konseling,199602062024212021,"ALVY HASNIAH R, S.Psi",-,JUMAT | 8A | 3 | Bimbingan Konseling
+16,JUMAT,8B,1.0,1.0,4.0,Bimbingan Konseling,199602062024212021,"ALVY HASNIAH R, S.Psi",-,JUMAT | 8B | 1 | Bimbingan Konseling
+17,JUMAT,8D,4.0,4.0,4.0,Bimbingan Konseling,199602062024212021,"ALVY HASNIAH R, S.Psi",-,JUMAT | 8D | 4 | Bimbingan Konseling
+18,RABU,8G,4.0,4.0,4.0,Bimbingan Konseling,199602062024212021,"ALVY HASNIAH R, S.Psi",-,RABU | 8G | 4 | Bimbingan Konseling
+19,SELASA,8C,6.0,6.0,4.0,Bimbingan Konseling,199602062024212021,"ALVY HASNIAH R, S.Psi",-,SELASA | 8C | 6 | Bimbingan Konseling
+20,SENIN,8E,6.0,6.0,4.0,Bimbingan Konseling,199602062024212021,"ALVY HASNIAH R, S.Psi",-,SENIN | 8E | 6 | Bimbingan Konseling
+21,SENIN,8F,8.0,8.0,4.0,Bimbingan Konseling,199602062024212021,"ALVY HASNIAH R, S.Psi",-,SENIN | 8F | 8 | Bimbingan Konseling
+22,JUMAT,8C,1.0,2.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,JUMAT | 8C | 1-2 | Bahasa Inggris
+23,JUMAT,8F,3.0,4.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,JUMAT | 8F | 3-4 | Bahasa Inggris
+24,KAMIS,8G,5.0,6.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,KAMIS | 8G | 5-6 | Bahasa Inggris
+25,KAMIS,9G,7.0,8.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,KAMIS | 9G | 7-8 | Bahasa Inggris
+26,RABU,8D,5.0,6.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,RABU | 8D | 5-6 | Bahasa Inggris
+27,RABU,8F,1.0,2.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,RABU | 8F | 1-2 | Bahasa Inggris
+28,RABU,9G,7.0,8.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,RABU | 9G | 7-8 | Bahasa Inggris
+29,SABTU,8E,2.0,3.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,SABTU | 8E | 2-3 | Bahasa Inggris
+30,SELASA,8C,1.0,2.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,SELASA | 8C | 1-2 | Bahasa Inggris
+31,SENIN,8D,2.0,3.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,SENIN | 8D | 2-3 | Bahasa Inggris
+32,SENIN,8E,7.0,8.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,SENIN | 8E | 7-8 | Bahasa Inggris
+33,SENIN,8G,5.0,6.0,2.0,Bahasa Inggris,197108291998022001,"AMIN WIJAYANTI, S.Pd",-,SENIN | 8G | 5-6 | Bahasa Inggris
+34,KAMIS,8G,3.0,4.0,7.0,Informatika,198512012022211019,"ANGGARA ARDI K.P, S.Kom",-,KAMIS | 8G | 3-4 | Informatika
+35,RABU,8C,7.0,8.0,7.0,Informatika,198512012022211019,"ANGGARA ARDI K.P, S.Kom",-,RABU | 8C | 7-8 | Informatika
+36,SELASA,8B,7.0,8.0,7.0,Informatika,198512012022211019,"ANGGARA ARDI K.P, S.Kom",-,SELASA | 8B | 7-8 | Informatika
+37,SELASA,8D,1.0,2.0,7.0,Informatika,198512012022211019,"ANGGARA ARDI K.P, S.Kom",-,SELASA | 8D | 1-2 | Informatika
+38,SELASA,8F,5.0,6.0,7.0,Informatika,198512012022211019,"ANGGARA ARDI K.P, S.Kom",-,SELASA | 8F | 5-6 | Informatika
+39,SENIN,8A,4.0,5.0,7.0,Informatika,198512012022211019,"ANGGARA ARDI K.P, S.Kom",-,SENIN | 8A | 4-5 | Informatika
+40,SENIN,8E,2.0,3.0,7.0,Informatika,198512012022211019,"ANGGARA ARDI K.P, S.Kom",-,SENIN | 8E | 2-3 | Informatika
+41,KAMIS,9A,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197409022008011012,"BAMBANG RASTUDIANTO, S.Pd",-,"KAMIS | 9A | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+42,KAMIS,9B,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197409022008011012,"BAMBANG RASTUDIANTO, S.Pd",-,"KAMIS | 9B | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+43,RABU,9G,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197409022008011012,"BAMBANG RASTUDIANTO, S.Pd",-,"RABU | 9G | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+44,SABTU,9E,2.0,4.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197409022008011012,"BAMBANG RASTUDIANTO, S.Pd",-,"SABTU | 9E | 2-4 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+45,SABTU,9F,2.0,4.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197409022008011012,"BAMBANG RASTUDIANTO, S.Pd",-,"SABTU | 9F | 2-4 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+46,SELASA,9C,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197409022008011012,"BAMBANG RASTUDIANTO, S.Pd",-,"SELASA | 9C | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+47,SELASA,9D,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197409022008011012,"BAMBANG RASTUDIANTO, S.Pd",-,"SELASA | 9D | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+48,KAMIS,9C,1.0,3.0,16.0,"Seni, Budaya dan Prakarya",198610032010012022,"BINA KURNIA DAMAYANTI, S.Pd",-,"KAMIS | 9C | 1-3 | Seni, Budaya dan Prakarya"
+49,KAMIS,9D,6.0,8.0,16.0,"Seni, Budaya dan Prakarya",198610032010012022,"BINA KURNIA DAMAYANTI, S.Pd",-,"KAMIS | 9D | 6-8 | Seni, Budaya dan Prakarya"
+50,RABU,9A,3.0,5.0,16.0,"Seni, Budaya dan Prakarya",198610032010012022,"BINA KURNIA DAMAYANTI, S.Pd",-,"RABU | 9A | 3-5 | Seni, Budaya dan Prakarya"
+51,RABU,9E,6.0,8.0,16.0,"Seni, Budaya dan Prakarya",198610032010012022,"BINA KURNIA DAMAYANTI, S.Pd",-,"RABU | 9E | 6-8 | Seni, Budaya dan Prakarya"
+52,SABTU,9B,2.0,4.0,16.0,"Seni, Budaya dan Prakarya",198610032010012022,"BINA KURNIA DAMAYANTI, S.Pd",-,"SABTU | 9B | 2-4 | Seni, Budaya dan Prakarya"
+53,SELASA,9F,1.0,3.0,16.0,"Seni, Budaya dan Prakarya",198610032010012022,"BINA KURNIA DAMAYANTI, S.Pd",-,"SELASA | 9F | 1-3 | Seni, Budaya dan Prakarya"
+54,SELASA,9G,6.0,8.0,16.0,"Seni, Budaya dan Prakarya",198610032010012022,"BINA KURNIA DAMAYANTI, S.Pd",-,"SELASA | 9G | 6-8 | Seni, Budaya dan Prakarya"
+55,KAMIS,8E,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197811012022211001,"CHOIRI, S.Pd",-,"KAMIS | 8E | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+56,KAMIS,8F,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197811012022211001,"CHOIRI, S.Pd",-,"KAMIS | 8F | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+57,RABU,8C,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197811012022211001,"CHOIRI, S.Pd",-,"RABU | 8C | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+58,RABU,8D,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197811012022211001,"CHOIRI, S.Pd",-,"RABU | 8D | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+59,SABTU,8G,2.0,4.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197811012022211001,"CHOIRI, S.Pd",-,"SABTU | 8G | 2-4 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+60,SELASA,8A,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197811012022211001,"CHOIRI, S.Pd",-,"SELASA | 8A | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+61,SELASA,8B,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",197811012022211001,"CHOIRI, S.Pd",-,"SELASA | 8B | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+62,KAMIS,9B,4.0,6.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198810152019031006,"DAYU SUMANTORO, S.Pd.I",-,KAMIS | 9B | 4-6 | Pendidikan Agama Islam dan Budi Pekerti
+63,SABTU,9A,4.0,6.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198810152019031006,"DAYU SUMANTORO, S.Pd.I",-,SABTU | 9A | 4-6 | Pendidikan Agama Islam dan Budi Pekerti
+64,SELASA,9E,6.0,8.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198810152019031006,"DAYU SUMANTORO, S.Pd.I",-,SELASA | 9E | 6-8 | Pendidikan Agama Islam dan Budi Pekerti
+65,SENIN,9C,2.0,4.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198810152019031006,"DAYU SUMANTORO, S.Pd.I",-,SENIN | 9C | 2-4 | Pendidikan Agama Islam dan Budi Pekerti
+66,SENIN,9D,6.0,8.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198810152019031006,"DAYU SUMANTORO, S.Pd.I",-,SENIN | 9D | 6-8 | Pendidikan Agama Islam dan Budi Pekerti
+67,KAMIS,7E,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",199506272023212019,"DEWI SUSANTI, S.Pd",-,"KAMIS | 7E | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+68,KAMIS,7F,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",199506272023212019,"DEWI SUSANTI, S.Pd",-,"KAMIS | 7F | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+69,RABU,7G,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",199506272023212019,"DEWI SUSANTI, S.Pd",-,"RABU | 7G | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+70,SABTU,7A,2.0,4.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",199506272023212019,"DEWI SUSANTI, S.Pd",-,"SABTU | 7A | 2-4 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+71,SABTU,7B,2.0,4.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",199506272023212019,"DEWI SUSANTI, S.Pd",-,"SABTU | 7B | 2-4 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+72,SELASA,7C,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",199506272023212019,"DEWI SUSANTI, S.Pd",-,"SELASA | 7C | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+73,SELASA,7D,1.0,3.0,12.0,"Pendidikan Jasmani, Olahraga, dan Kesehatan",199506272023212019,"DEWI SUSANTI, S.Pd",-,"SELASA | 7D | 1-3 | Pendidikan Jasmani, Olahraga, dan Kesehatan"
+74,JUMAT,8A,1.0,2.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,JUMAT | 8A | 1-2 | Bahasa Indonesia
+75,KAMIS,7F,4.0,5.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,KAMIS | 7F | 4-5 | Bahasa Indonesia
+76,KAMIS,8A,7.0,8.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,KAMIS | 8A | 7-8 | Bahasa Indonesia
+77,KAMIS,8B,1.0,2.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,KAMIS | 8B | 1-2 | Bahasa Indonesia
+78,RABU,7G,7.0,8.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,RABU | 7G | 7-8 | Bahasa Indonesia
+79,RABU,8A,1.0,2.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,RABU | 8A | 1-2 | Bahasa Indonesia
+80,RABU,8B,4.0,5.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,RABU | 8B | 4-5 | Bahasa Indonesia
+81,SABTU,7G,2.0,3.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,SABTU | 7G | 2-3 | Bahasa Indonesia
+82,SABTU,8B,5.0,6.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,SABTU | 8B | 5-6 | Bahasa Indonesia
+83,SELASA,7F,1.0,2.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,SELASA | 7F | 1-2 | Bahasa Indonesia
+84,SELASA,7G,3.0,4.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,SELASA | 7G | 3-4 | Bahasa Indonesia
+85,SENIN,7F,2.0,3.0,1.0,Bahasa Indonesia,199502072024211025,"DIKA MIFTAKHUL H.R., S.Pd",-,SENIN | 7F | 2-3 | Bahasa Indonesia
+86,JUMAT,9B,2.0,4.0,13.0,Pendidikan Pancasila,196812272012122001,Dra. NURUL IZZAH,-,JUMAT | 9B | 2-4 | Pendidikan Pancasila
+87,KAMIS,8A,1.0,3.0,13.0,Pendidikan Pancasila,196812272012122001,Dra. NURUL IZZAH,-,KAMIS | 8A | 1-3 | Pendidikan Pancasila
+88,KAMIS,9E,4.0,6.0,13.0,Pendidikan Pancasila,196812272012122001,Dra. NURUL IZZAH,-,KAMIS | 9E | 4-6 | Pendidikan Pancasila
+89,RABU,9A,6.0,8.0,13.0,Pendidikan Pancasila,196812272012122001,Dra. NURUL IZZAH,-,RABU | 9A | 6-8 | Pendidikan Pancasila
+90,RABU,9F,1.0,3.0,13.0,Pendidikan Pancasila,196812272012122001,Dra. NURUL IZZAH,-,RABU | 9F | 1-3 | Pendidikan Pancasila
+91,SABTU,9C,2.0,4.0,13.0,Pendidikan Pancasila,196812272012122001,Dra. NURUL IZZAH,-,SABTU | 9C | 2-4 | Pendidikan Pancasila
+92,SELASA,9D,6.0,8.0,13.0,Pendidikan Pancasila,196812272012122001,Dra. NURUL IZZAH,-,SELASA | 9D | 6-8 | Pendidikan Pancasila
+93,SELASA,9G,3.0,5.0,13.0,Pendidikan Pancasila,196812272012122001,Dra. NURUL IZZAH,-,SELASA | 9G | 3-5 | Pendidikan Pancasila
+94,JUMAT,7A,3.0,4.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,JUMAT | 7A | 3-4 | Bahasa Inggris
+95,JUMAT,7D,1.0,2.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,JUMAT | 7D | 1-2 | Bahasa Inggris
+96,KAMIS,7C,1.0,2.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,KAMIS | 7C | 1-2 | Bahasa Inggris
+97,RABU,7A,1.0,2.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,RABU | 7A | 1-2 | Bahasa Inggris
+98,RABU,7B,7.0,8.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,RABU | 7B | 7-8 | Bahasa Inggris
+99,RABU,7F,5.0,6.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,RABU | 7F | 5-6 | Bahasa Inggris
+100,SABTU,7E,5.0,6.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,SABTU | 7E | 5-6 | Bahasa Inggris
+101,SABTU,7F,2.0,3.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,SABTU | 7F | 2-3 | Bahasa Inggris
+102,SELASA,7C,5.0,6.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,SELASA | 7C | 5-6 | Bahasa Inggris
+103,SELASA,7E,1.0,2.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,SELASA | 7E | 1-2 | Bahasa Inggris
+104,SENIN,7B,3.0,4.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,SENIN | 7B | 3-4 | Bahasa Inggris
+105,SENIN,7D,5.0,6.0,2.0,Bahasa Inggris,197108092009042001,"ENNY MINARNI, S.Pd",-,SENIN | 7D | 5-6 | Bahasa Inggris
+106,KAMIS,8B,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,KAMIS | 8B | 7-8 | Ilmu Pengetahuan Sosial
+107,RABU,7C,6.0,8.0,13.0,Pendidikan Pancasila,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,RABU | 7C | 6-8 | Pendidikan Pancasila
+108,RABU,7D,3.0,5.0,13.0,Pendidikan Pancasila,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,RABU | 7D | 3-5 | Pendidikan Pancasila
+109,SABTU,8A,5.0,6.0,6.0,Ilmu Pengetahuan Sosial,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,SABTU | 8A | 5-6 | Ilmu Pengetahuan Sosial
+110,SABTU,8C,3.0,4.0,6.0,Ilmu Pengetahuan Sosial,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,SABTU | 8C | 3-4 | Ilmu Pengetahuan Sosial
+111,SELASA,7A,6.0,8.0,13.0,Pendidikan Pancasila,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,SELASA | 7A | 6-8 | Pendidikan Pancasila
+112,SELASA,7B,3.0,5.0,13.0,Pendidikan Pancasila,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,SELASA | 7B | 3-5 | Pendidikan Pancasila
+113,SENIN,8A,2.0,3.0,6.0,Ilmu Pengetahuan Sosial,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,SENIN | 8A | 2-3 | Ilmu Pengetahuan Sosial
+114,SENIN,8B,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,SENIN | 8B | 7-8 | Ilmu Pengetahuan Sosial
+115,SENIN,8C,5.0,6.0,6.0,Ilmu Pengetahuan Sosial,199805042024212040,"FARADISA RIZKINARA, S.Pd",-,SENIN | 8C | 5-6 | Ilmu Pengetahuan Sosial
+116,SENIN,7A,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 7A | 1 | Upacara Bendera
+117,SENIN,7B,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 7B | 1 | Upacara Bendera
+118,SENIN,7C,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 7C | 1 | Upacara Bendera
+119,SENIN,7D,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 7D | 1 | Upacara Bendera
+120,SENIN,7E,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 7E | 1 | Upacara Bendera
+121,SENIN,7F,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 7F | 1 | Upacara Bendera
+122,SENIN,7G,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 7G | 1 | Upacara Bendera
+123,SENIN,8A,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 8A | 1 | Upacara Bendera
+124,SENIN,8B,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 8B | 1 | Upacara Bendera
+125,SENIN,8C,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 8C | 1 | Upacara Bendera
+126,SENIN,8D,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 8D | 1 | Upacara Bendera
+127,SENIN,8E,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 8E | 1 | Upacara Bendera
+128,SENIN,8F,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 8F | 1 | Upacara Bendera
+129,SENIN,8G,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 8G | 1 | Upacara Bendera
+130,SENIN,9A,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 9A | 1 | Upacara Bendera
+131,SENIN,9B,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 9B | 1 | Upacara Bendera
+132,SENIN,9C,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 9C | 1 | Upacara Bendera
+133,SENIN,9D,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 9D | 1 | Upacara Bendera
+134,SENIN,9E,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 9E | 1 | Upacara Bendera
+135,SENIN,9F,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 9F | 1 | Upacara Bendera
+136,SENIN,9G,1.0,1.0,17.0,Upacara Bendera,1,Guru Piket,Kegiatan Wajib,SENIN | 9G | 1 | Upacara Bendera
+137,JUMAT,9A,1.0,2.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,JUMAT | 9A | 1-2 | Matematika
+138,JUMAT,9D,3.0,4.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,JUMAT | 9D | 3-4 | Matematika
+139,KAMIS,9C,6.0,8.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,KAMIS | 9C | 6-8 | Matematika
+140,KAMIS,9D,3.0,5.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,KAMIS | 9D | 3-5 | Matematika
+141,RABU,9B,5.0,6.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,RABU | 9B | 5-6 | Matematika
+142,SABTU,9E,5.0,6.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,SABTU | 9E | 5-6 | Matematika
+143,SELASA,9A,6.0,8.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,SELASA | 9A | 6-8 | Matematika
+144,SELASA,9C,4.0,5.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,SELASA | 9C | 4-5 | Matematika
+145,SENIN,9B,6.0,8.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,SENIN | 9B | 6-8 | Matematika
+146,SENIN,9E,2.0,4.0,8.0,Matematika,197302121998021004,"HAPPY ISNAINI, S.Pd. MT",-,SENIN | 9E | 2-4 | Matematika
+147,JUMAT,7G,3.0,4.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,JUMAT | 7G | 3-4 | Matematika
+148,KAMIS,8B,3.0,4.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,KAMIS | 8B | 3-4 | Matematika
+149,KAMIS,8C,6.0,8.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,KAMIS | 8C | 6-8 | Matematika
+150,RABU,7E,1.0,2.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,RABU | 7E | 1-2 | Matematika
+151,RABU,7F,3.0,4.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,RABU | 7F | 3-4 | Matematika
+152,RABU,8A,7.0,8.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,RABU | 8A | 7-8 | Matematika
+153,SABTU,8B,2.0,4.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,SABTU | 8B | 2-4 | Matematika
+154,SABTU,8C,5.0,6.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,SABTU | 8C | 5-6 | Matematika
+155,SELASA,7E,3.0,5.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,SELASA | 7E | 3-5 | Matematika
+156,SELASA,7F,6.0,8.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,SELASA | 7F | 6-8 | Matematika
+157,SENIN,7G,2.0,4.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,SENIN | 7G | 2-4 | Matematika
+158,SENIN,8A,6.0,8.0,8.0,Matematika,196904061993011005,"HERIAT PUJIONO, S.Pd",-,SENIN | 8A | 6-8 | Matematika
+159,JUMAT,7A,1.0,2.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,JUMAT | 7A | 1-2 | Ilmu Pengetahuan Alam
+160,JUMAT,7B,3.0,4.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,JUMAT | 7B | 3-4 | Ilmu Pengetahuan Alam
+161,KAMIS,7B,3.0,5.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,KAMIS | 7B | 3-5 | Ilmu Pengetahuan Alam
+162,KAMIS,7E,6.0,8.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,KAMIS | 7E | 6-8 | Ilmu Pengetahuan Alam
+163,RABU,7A,3.0,5.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,RABU | 7A | 3-5 | Ilmu Pengetahuan Alam
+164,RABU,7D,6.0,8.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,RABU | 7D | 6-8 | Ilmu Pengetahuan Alam
+165,SABTU,7C,5.0,6.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,SABTU | 7C | 5-6 | Ilmu Pengetahuan Alam
+166,SABTU,7E,2.0,3.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,SABTU | 7E | 2-3 | Ilmu Pengetahuan Alam
+167,SELASA,7D,7.0,8.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,SELASA | 7D | 7-8 | Ilmu Pengetahuan Alam
+168,SELASA,7F,3.0,5.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,SELASA | 7F | 3-5 | Ilmu Pengetahuan Alam
+169,SENIN,7C,6.0,8.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,SENIN | 7C | 6-8 | Ilmu Pengetahuan Alam
+170,SENIN,7F,4.0,5.0,5.0,Ilmu Pengetahuan Alam,197107202006042017,"IIN YULIANA, S.Pd",-,SENIN | 7F | 4-5 | Ilmu Pengetahuan Alam
+171,JUMAT,7E,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,JUMAT | 7E | 1-2 | Ilmu Pengetahuan Sosial
+172,JUMAT,9G,3.0,4.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,JUMAT | 9G | 3-4 | Ilmu Pengetahuan Sosial
+173,KAMIS,7A,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,KAMIS | 7A | 7-8 | Ilmu Pengetahuan Sosial
+174,KAMIS,7B,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,KAMIS | 7B | 1-2 | Ilmu Pengetahuan Sosial
+175,KAMIS,7C,5.0,6.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,KAMIS | 7C | 5-6 | Ilmu Pengetahuan Sosial
+176,RABU,7B,3.0,4.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,RABU | 7B | 3-4 | Ilmu Pengetahuan Sosial
+177,RABU,7D,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,RABU | 7D | 1-2 | Ilmu Pengetahuan Sosial
+178,SABTU,9G,5.0,6.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,SABTU | 9G | 5-6 | Ilmu Pengetahuan Sosial
+179,SELASA,7C,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,SELASA | 7C | 7-8 | Ilmu Pengetahuan Sosial
+180,SENIN,7A,4.0,5.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,SENIN | 7A | 4-5 | Ilmu Pengetahuan Sosial
+181,SENIN,7D,2.0,3.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,SENIN | 7D | 2-3 | Ilmu Pengetahuan Sosial
+182,SENIN,7E,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,199608052024211017,"ILYAS MADAN, M.Pd",-,SENIN | 7E | 7-8 | Ilmu Pengetahuan Sosial
+183,JUMAT,8D,1.0,3.0,13.0,Pendidikan Pancasila,198403052024212025,"INDRI ARDININGTIA, S.Pd",-,JUMAT | 8D | 1-3 | Pendidikan Pancasila
+184,KAMIS,7F,6.0,8.0,13.0,Pendidikan Pancasila,198403052024212025,"INDRI ARDININGTIA, S.Pd",-,KAMIS | 7F | 6-8 | Pendidikan Pancasila
+185,KAMIS,7G,3.0,5.0,13.0,Pendidikan Pancasila,198403052024212025,"INDRI ARDININGTIA, S.Pd",-,KAMIS | 7G | 3-5 | Pendidikan Pancasila
+186,RABU,7E,6.0,8.0,13.0,Pendidikan Pancasila,198403052024212025,"INDRI ARDININGTIA, S.Pd",-,RABU | 7E | 6-8 | Pendidikan Pancasila
+187,RABU,8G,1.0,3.0,13.0,Pendidikan Pancasila,198403052024212025,"INDRI ARDININGTIA, S.Pd",-,RABU | 8G | 1-3 | Pendidikan Pancasila
+188,SABTU,8F,4.0,6.0,13.0,Pendidikan Pancasila,198403052024212025,"INDRI ARDININGTIA, S.Pd",-,SABTU | 8F | 4-6 | Pendidikan Pancasila
+189,SELASA,8C,3.0,5.0,13.0,Pendidikan Pancasila,198403052024212025,"INDRI ARDININGTIA, S.Pd",-,SELASA | 8C | 3-5 | Pendidikan Pancasila
+190,SELASA,8E,6.0,8.0,13.0,Pendidikan Pancasila,198403052024212025,"INDRI ARDININGTIA, S.Pd",-,SELASA | 8E | 6-8 | Pendidikan Pancasila
+191,SENIN,8B,2.0,4.0,13.0,Pendidikan Pancasila,198403052024212025,"INDRI ARDININGTIA, S.Pd",-,SENIN | 8B | 2-4 | Pendidikan Pancasila
+192,KAMIS,7A,4.0,6.0,8.0,Matematika,199809122023212009,"ISLAMIAH NUR CAHYANI, S.Pd",-,KAMIS | 7A | 4-6 | Matematika
+193,RABU,7B,5.0,6.0,8.0,Matematika,199809122023212009,"ISLAMIAH NUR CAHYANI, S.Pd",-,RABU | 7B | 5-6 | Matematika
+194,RABU,7C,1.0,3.0,8.0,Matematika,199809122023212009,"ISLAMIAH NUR CAHYANI, S.Pd",-,RABU | 7C | 1-3 | Matematika
+195,SABTU,7D,4.0,6.0,8.0,Matematika,199809122023212009,"ISLAMIAH NUR CAHYANI, S.Pd",-,SABTU | 7D | 4-6 | Matematika
+196,SELASA,7B,6.0,8.0,8.0,Matematika,199809122023212009,"ISLAMIAH NUR CAHYANI, S.Pd",-,SELASA | 7B | 6-8 | Matematika
+197,SELASA,7D,4.0,5.0,8.0,Matematika,199809122023212009,"ISLAMIAH NUR CAHYANI, S.Pd",-,SELASA | 7D | 4-5 | Matematika
+198,SENIN,7A,2.0,3.0,8.0,Matematika,199809122023212009,"ISLAMIAH NUR CAHYANI, S.Pd",-,SENIN | 7A | 2-3 | Matematika
+199,SENIN,7C,4.0,5.0,8.0,Matematika,199809122023212009,"ISLAMIAH NUR CAHYANI, S.Pd",-,SENIN | 7C | 4-5 | Matematika
+200,JUMAT,9D,1.0,2.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,JUMAT | 9D | 1-2 | Bahasa Inggris
+201,KAMIS,9A,4.0,5.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,KAMIS | 9A | 4-5 | Bahasa Inggris
+202,KAMIS,9B,7.0,8.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,KAMIS | 9B | 7-8 | Bahasa Inggris
+203,KAMIS,9E,1.0,2.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,KAMIS | 9E | 1-2 | Bahasa Inggris
+204,RABU,9C,7.0,8.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,RABU | 9C | 7-8 | Bahasa Inggris
+205,RABU,9D,1.0,2.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,RABU | 9D | 1-2 | Bahasa Inggris
+206,RABU,9F,4.0,5.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,RABU | 9F | 4-5 | Bahasa Inggris
+207,SABTU,9F,5.0,6.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,SABTU | 9F | 5-6 | Bahasa Inggris
+208,SELASA,9A,1.0,2.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,SELASA | 9A | 1-2 | Bahasa Inggris
+209,SENIN,9B,2.0,3.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,SENIN | 9B | 2-3 | Bahasa Inggris
+210,SENIN,9C,7.0,8.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,SENIN | 9C | 7-8 | Bahasa Inggris
+211,SENIN,9E,5.0,6.0,2.0,Bahasa Inggris,197912262009042001,"JUWITA KUSUMAWATI, S.Pd",-,SENIN | 9E | 5-6 | Bahasa Inggris
+212,JUMAT,9G,1.0,2.0,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",-,JUMAT | 9G | 1-2 | Informatika
+213,RABU,9C,2.0,3.0,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",-,RABU | 9C | 2-3 | Informatika
+214,RABU,9D,4.0,5.0,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",-,RABU | 9D | 4-5 | Informatika
+215,SELASA,9E,2.0,3.0,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",-,SELASA | 9E | 2-3 | Informatika
+216,SELASA,9F,4.0,5.0,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",-,SELASA | 9F | 4-5 | Informatika
+217,SENIN,9A,2.0,3.0,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",-,SENIN | 9A | 2-3 | Informatika
+218,SENIN,9B,4.0,5.0,7.0,Informatika,198602012022211002,"LATIF ABDILLAH, S.Kom",-,SENIN | 9B | 4-5 | Informatika
+219,JUMAT,7C,1.0,3.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198205282022211002,"MAS'UD, S.Pd.I",-,JUMAT | 7C | 1-3 | Pendidikan Agama Islam dan Budi Pekerti
+220,KAMIS,7B,6.0,8.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198205282022211002,"MAS'UD, S.Pd.I",-,KAMIS | 7B | 6-8 | Pendidikan Agama Islam dan Budi Pekerti
+221,KAMIS,7D,3.0,5.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198205282022211002,"MAS'UD, S.Pd.I",-,KAMIS | 7D | 3-5 | Pendidikan Agama Islam dan Budi Pekerti
+222,RABU,7E,3.0,5.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198205282022211002,"MAS'UD, S.Pd.I",-,RABU | 7E | 3-5 | Pendidikan Agama Islam dan Budi Pekerti
+223,SABTU,7F,4.0,6.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198205282022211002,"MAS'UD, S.Pd.I",-,SABTU | 7F | 4-6 | Pendidikan Agama Islam dan Budi Pekerti
+224,SELASA,7A,1.0,3.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198205282022211002,"MAS'UD, S.Pd.I",-,SELASA | 7A | 1-3 | Pendidikan Agama Islam dan Budi Pekerti
+225,SELASA,9F,6.0,8.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198205282022211002,"MAS'UD, S.Pd.I",-,SELASA | 9F | 6-8 | Pendidikan Agama Islam dan Budi Pekerti
+226,SENIN,9G,6.0,8.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198205282022211002,"MAS'UD, S.Pd.I",-,SENIN | 9G | 6-8 | Pendidikan Agama Islam dan Budi Pekerti
+227,JUMAT,8E,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,JUMAT | 8E | 1-2 | Ilmu Pengetahuan Sosial
+228,JUMAT,8G,3.0,4.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,JUMAT | 8G | 3-4 | Ilmu Pengetahuan Sosial
+229,KAMIS,8D,4.0,5.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,KAMIS | 8D | 4-5 | Ilmu Pengetahuan Sosial
+230,KAMIS,8F,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,KAMIS | 8F | 7-8 | Ilmu Pengetahuan Sosial
+231,KAMIS,8G,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,KAMIS | 8G | 1-2 | Ilmu Pengetahuan Sosial
+232,RABU,7F,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,RABU | 7F | 1-2 | Ilmu Pengetahuan Sosial
+233,SABTU,7G,4.0,5.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,SABTU | 7G | 4-5 | Ilmu Pengetahuan Sosial
+234,SELASA,8D,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,SELASA | 8D | 7-8 | Ilmu Pengetahuan Sosial
+235,SELASA,8E,4.0,5.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,SELASA | 8E | 4-5 | Ilmu Pengetahuan Sosial
+236,SELASA,8F,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,SELASA | 8F | 1-2 | Ilmu Pengetahuan Sosial
+237,SENIN,7F,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,SENIN | 7F | 7-8 | Ilmu Pengetahuan Sosial
+238,SENIN,7G,5.0,6.0,6.0,Ilmu Pengetahuan Sosial,199602172024211012,"MISBAHUL ULUM, S.Pd",-,SENIN | 7G | 5-6 | Ilmu Pengetahuan Sosial
+239,JUMAT,8E,3.0,4.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,JUMAT | 8E | 3-4 | Ilmu Pengetahuan Alam
+240,KAMIS,8A,4.0,6.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,KAMIS | 8A | 4-6 | Ilmu Pengetahuan Alam
+241,KAMIS,8D,1.0,3.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,KAMIS | 8D | 1-3 | Ilmu Pengetahuan Alam
+242,RABU,8A,3.0,4.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,RABU | 8A | 3-4 | Ilmu Pengetahuan Alam
+243,RABU,8E,6.0,8.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,RABU | 8E | 6-8 | Ilmu Pengetahuan Alam
+244,SABTU,8D,5.0,6.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,SABTU | 8D | 5-6 | Ilmu Pengetahuan Alam
+245,SELASA,8B,4.0,6.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,SELASA | 8B | 4-6 | Ilmu Pengetahuan Alam
+246,SELASA,8C,7.0,8.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,SELASA | 8C | 7-8 | Ilmu Pengetahuan Alam
+247,SENIN,8B,5.0,6.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,SENIN | 8B | 5-6 | Ilmu Pengetahuan Alam
+248,SENIN,8C,2.0,4.0,5.0,Ilmu Pengetahuan Alam,196710161991021002,"MOH TAUFIQ, M.Pd",-,SENIN | 8C | 2-4 | Ilmu Pengetahuan Alam
+249,JUMAT,9F,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,JUMAT | 9F | 1-2 | Ilmu Pengetahuan Sosial
+250,KAMIS,9A,6.0,7.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,KAMIS | 9A | 6-7 | Ilmu Pengetahuan Sosial
+251,RABU,9B,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,RABU | 9B | 1-2 | Ilmu Pengetahuan Sosial
+252,RABU,9E,4.0,5.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,RABU | 9E | 4-5 | Ilmu Pengetahuan Sosial
+253,SABTU,9C,5.0,6.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,SABTU | 9C | 5-6 | Ilmu Pengetahuan Sosial
+254,SABTU,9D,2.0,3.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,SABTU | 9D | 2-3 | Ilmu Pengetahuan Sosial
+255,SELASA,9B,1.0,2.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,SELASA | 9B | 1-2 | Ilmu Pengetahuan Sosial
+256,SELASA,9C,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,SELASA | 9C | 7-8 | Ilmu Pengetahuan Sosial
+257,SELASA,9D,4.0,5.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,SELASA | 9D | 4-5 | Ilmu Pengetahuan Sosial
+258,SENIN,9A,5.0,6.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,SENIN | 9A | 5-6 | Ilmu Pengetahuan Sosial
+259,SENIN,9E,7.0,8.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,SENIN | 9E | 7-8 | Ilmu Pengetahuan Sosial
+260,SENIN,9F,2.0,3.0,6.0,Ilmu Pengetahuan Sosial,196512191989012002,"MUFIDA ALQURIAH, S.Pd",-,SENIN | 9F | 2-3 | Ilmu Pengetahuan Sosial
+261,KAMIS,8C,3.0,5.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198302072022211003,"MUHAMMAD HASYIM, S.Pd.I",-,KAMIS | 8C | 3-5 | Pendidikan Agama Islam dan Budi Pekerti
+262,KAMIS,8D,6.0,8.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198302072022211003,"MUHAMMAD HASYIM, S.Pd.I",-,KAMIS | 8D | 6-8 | Pendidikan Agama Islam dan Budi Pekerti
+263,RABU,8B,1.0,3.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198302072022211003,"MUHAMMAD HASYIM, S.Pd.I",-,RABU | 8B | 1-3 | Pendidikan Agama Islam dan Budi Pekerti
+264,SABTU,8A,2.0,4.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198302072022211003,"MUHAMMAD HASYIM, S.Pd.I",-,SABTU | 8A | 2-4 | Pendidikan Agama Islam dan Budi Pekerti
+265,SELASA,7G,5.0,7.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198302072022211003,"MUHAMMAD HASYIM, S.Pd.I",-,SELASA | 7G | 5-7 | Pendidikan Agama Islam dan Budi Pekerti
+266,SELASA,8E,1.0,3.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198302072022211003,"MUHAMMAD HASYIM, S.Pd.I",-,SELASA | 8E | 1-3 | Pendidikan Agama Islam dan Budi Pekerti
+267,SENIN,8F,5.0,7.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198302072022211003,"MUHAMMAD HASYIM, S.Pd.I",-,SENIN | 8F | 5-7 | Pendidikan Agama Islam dan Budi Pekerti
+268,SENIN,8G,2.0,4.0,10.0,Pendidikan Agama Islam dan Budi Pekerti,198302072022211003,"MUHAMMAD HASYIM, S.Pd.I",-,SENIN | 8G | 2-4 | Pendidikan Agama Islam dan Budi Pekerti
+269,JUMAT,8B,2.0,4.0,16.0,"Seni, Budaya dan Prakarya",198907172024212033,"NAJFA, S.Pd",-,"JUMAT | 8B | 2-4 | Seni, Budaya dan Prakarya"
+270,RABU,8C,4.0,6.0,16.0,"Seni, Budaya dan Prakarya",198907172024212033,"NAJFA, S.Pd",-,"RABU | 8C | 4-6 | Seni, Budaya dan Prakarya"
+271,RABU,8E,1.0,3.0,16.0,"Seni, Budaya dan Prakarya",198907172024212033,"NAJFA, S.Pd",-,"RABU | 8E | 1-3 | Seni, Budaya dan Prakarya"
+272,SABTU,8D,2.0,4.0,16.0,"Seni, Budaya dan Prakarya",198907172024212033,"NAJFA, S.Pd",-,"SABTU | 8D | 2-4 | Seni, Budaya dan Prakarya"
+273,SELASA,8A,6.0,8.0,16.0,"Seni, Budaya dan Prakarya",198907172024212033,"NAJFA, S.Pd",-,"SELASA | 8A | 6-8 | Seni, Budaya dan Prakarya"
+274,SELASA,8G,3.0,5.0,16.0,"Seni, Budaya dan Prakarya",198907172024212033,"NAJFA, S.Pd",-,"SELASA | 8G | 3-5 | Seni, Budaya dan Prakarya"
+275,SENIN,8F,2.0,4.0,16.0,"Seni, Budaya dan Prakarya",198907172024212033,"NAJFA, S.Pd",-,"SENIN | 8F | 2-4 | Seni, Budaya dan Prakarya"
+276,JUMAT,7C,4.0,4.0,4.0,Bimbingan Konseling,199511302024212041,"NOVITA HOSNANIAH, S.Psi",-,JUMAT | 7C | 4 | Bimbingan Konseling
+277,JUMAT,7F,1.0,1.0,4.0,Bimbingan Konseling,199511302024212041,"NOVITA HOSNANIAH, S.Psi",-,JUMAT | 7F | 1 | Bimbingan Konseling
+278,RABU,7A,8.0,8.0,4.0,Bimbingan Konseling,199511302024212041,"NOVITA HOSNANIAH, S.Psi",-,RABU | 7A | 8 | Bimbingan Konseling
+279,SABTU,7E,4.0,4.0,4.0,Bimbingan Konseling,199511302024212041,"NOVITA HOSNANIAH, S.Psi",-,SABTU | 7E | 4 | Bimbingan Konseling
+280,SABTU,7G,6.0,6.0,4.0,Bimbingan Konseling,199511302024212041,"NOVITA HOSNANIAH, S.Psi",-,SABTU | 7G | 6 | Bimbingan Konseling
+281,SELASA,7D,6.0,6.0,4.0,Bimbingan Konseling,199511302024212041,"NOVITA HOSNANIAH, S.Psi",-,SELASA | 7D | 6 | Bimbingan Konseling
+282,SENIN,7B,2.0,2.0,4.0,Bimbingan Konseling,199511302024212041,"NOVITA HOSNANIAH, S.Psi",-,SENIN | 7B | 2 | Bimbingan Konseling
+283,SABTU,7A,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 7A | 1 | Program Sekolah
+284,SABTU,7B,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 7B | 1 | Program Sekolah
+285,SABTU,7C,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 7C | 1 | Program Sekolah
+286,SABTU,7D,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 7D | 1 | Program Sekolah
+287,SABTU,7E,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 7E | 1 | Program Sekolah
+288,SABTU,7F,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 7F | 1 | Program Sekolah
+289,SABTU,7G,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 7G | 1 | Program Sekolah
+290,SABTU,8A,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 8A | 1 | Program Sekolah
+291,SABTU,8B,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 8B | 1 | Program Sekolah
+292,SABTU,8C,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 8C | 1 | Program Sekolah
+293,SABTU,8D,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 8D | 1 | Program Sekolah
+294,SABTU,8E,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 8E | 1 | Program Sekolah
+295,SABTU,8F,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 8F | 1 | Program Sekolah
+296,SABTU,8G,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 8G | 1 | Program Sekolah
+297,SABTU,9A,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 9A | 1 | Program Sekolah
+298,SABTU,9B,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 9B | 1 | Program Sekolah
+299,SABTU,9C,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 9C | 1 | Program Sekolah
+300,SABTU,9D,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 9D | 1 | Program Sekolah
+301,SABTU,9E,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 9E | 1 | Program Sekolah
+302,SABTU,9F,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 9F | 1 | Program Sekolah
+303,SABTU,9G,1.0,1.0,14.0,Program Sekolah,,Program Sekolah,-,SABTU | 9G | 1 | Program Sekolah
+304,JUMAT,9E,1.0,2.0,1.0,Bahasa Indonesia,196809222006042005,"PUJI UTAMI, S.Pd",-,JUMAT | 9E | 1-2 | Bahasa Indonesia
+305,KAMIS,9E,7.0,8.0,1.0,Bahasa Indonesia,196809222006042005,"PUJI UTAMI, S.Pd",-,KAMIS | 9E | 7-8 | Bahasa Indonesia
+306,KAMIS,9F,4.0,5.0,1.0,Bahasa Indonesia,196809222006042005,"PUJI UTAMI, S.Pd",-,KAMIS | 9F | 4-5 | Bahasa Indonesia
+307,KAMIS,9G,1.0,2.0,1.0,Bahasa Indonesia,196809222006042005,"PUJI UTAMI, S.Pd",-,KAMIS | 9G | 1-2 | Bahasa Indonesia
+308,RABU,9F,6.0,7.0,1.0,Bahasa Indonesia,196809222006042005,"PUJI UTAMI, S.Pd",-,RABU | 9F | 6-7 | Bahasa Indonesia
+309,RABU,9G,4.0,5.0,1.0,Bahasa Indonesia,196809222006042005,"PUJI UTAMI, S.Pd",-,RABU | 9G | 4-5 | Bahasa Indonesia
+310,SELASA,9E,4.0,5.0,1.0,Bahasa Indonesia,196809222006042005,"PUJI UTAMI, S.Pd",-,SELASA | 9E | 4-5 | Bahasa Indonesia
+311,SENIN,9F,7.0,8.0,1.0,Bahasa Indonesia,196809222006042005,"PUJI UTAMI, S.Pd",-,SENIN | 9F | 7-8 | Bahasa Indonesia
+312,SENIN,9G,4.0,5.0,1.0,Bahasa Indonesia,196809222006042005,"PUJI UTAMI, S.Pd",-,SENIN | 9G | 4-5 | Bahasa Indonesia
+313,JUMAT,9F,3.0,4.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,JUMAT | 9F | 3-4 | Matematika
+314,KAMIS,8E,4.0,6.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,KAMIS | 8E | 4-6 | Matematika
+315,KAMIS,9F,1.0,3.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,KAMIS | 9F | 1-3 | Matematika
+316,RABU,8F,3.0,5.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,RABU | 8F | 3-5 | Matematika
+317,RABU,8G,6.0,8.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,RABU | 8G | 6-8 | Matematika
+318,SABTU,8G,5.0,6.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,SABTU | 8G | 5-6 | Matematika
+319,SABTU,9G,2.0,4.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,SABTU | 9G | 2-4 | Matematika
+320,SELASA,8D,5.0,6.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,SELASA | 8D | 5-6 | Matematika
+321,SELASA,8F,7.0,8.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,SELASA | 8F | 7-8 | Matematika
+322,SELASA,9G,1.0,2.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,SELASA | 9G | 1-2 | Matematika
+323,SENIN,8D,6.0,8.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,SENIN | 8D | 6-8 | Matematika
+324,SENIN,8E,4.0,5.0,8.0,Matematika,196705191990032002,"RINA NURMAYANI, S.Pd",-,SENIN | 8E | 4-5 | Matematika
+325,JUMAT,8G,1.0,2.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,JUMAT | 8G | 1-2 | Bahasa Indonesia
+326,JUMAT,9C,3.0,4.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,JUMAT | 9C | 3-4 | Bahasa Indonesia
+327,KAMIS,8G,7.0,8.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,KAMIS | 8G | 7-8 | Bahasa Indonesia
+328,KAMIS,9C,4.0,5.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,KAMIS | 9C | 4-5 | Bahasa Indonesia
+329,KAMIS,9D,1.0,2.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,KAMIS | 9D | 1-2 | Bahasa Indonesia
+330,RABU,9A,1.0,2.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,RABU | 9A | 1-2 | Bahasa Indonesia
+331,RABU,9B,3.0,4.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,RABU | 9B | 3-4 | Bahasa Indonesia
+332,RABU,9D,6.0,7.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,RABU | 9D | 6-7 | Bahasa Indonesia
+333,SABTU,9A,2.0,3.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,SABTU | 9A | 2-3 | Bahasa Indonesia
+334,SABTU,9B,5.0,6.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,SABTU | 9B | 5-6 | Bahasa Indonesia
+335,SELASA,8G,1.0,2.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,SELASA | 8G | 1-2 | Bahasa Indonesia
+336,SELASA,9B,3.0,4.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,SELASA | 9B | 3-4 | Bahasa Indonesia
+337,SENIN,9A,7.0,8.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,SENIN | 9A | 7-8 | Bahasa Indonesia
+338,SENIN,9C,5.0,6.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,SENIN | 9C | 5-6 | Bahasa Indonesia
+339,SENIN,9D,2.0,3.0,1.0,Bahasa Indonesia,199401192023212022,"SUCI WIDYA NINGRUM, S.Pd",-,SENIN | 9D | 2-3 | Bahasa Indonesia
+340,JUMAT,7B,1.0,2.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,JUMAT | 7B | 1-2 | Bahasa Indonesia
+341,JUMAT,7E,3.0,4.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,JUMAT | 7E | 3-4 | Bahasa Indonesia
+342,KAMIS,7C,7.0,8.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,KAMIS | 7C | 7-8 | Bahasa Indonesia
+343,KAMIS,7D,1.0,2.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,KAMIS | 7D | 1-2 | Bahasa Indonesia
+344,KAMIS,7E,4.0,5.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,KAMIS | 7E | 4-5 | Bahasa Indonesia
+345,RABU,7A,6.0,7.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,RABU | 7A | 6-7 | Bahasa Indonesia
+346,RABU,7B,1.0,2.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,RABU | 7B | 1-2 | Bahasa Indonesia
+347,RABU,7C,4.0,5.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,RABU | 7C | 4-5 | Bahasa Indonesia
+348,SABTU,7A,5.0,6.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,SABTU | 7A | 5-6 | Bahasa Indonesia
+349,SABTU,7D,2.0,3.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,SABTU | 7D | 2-3 | Bahasa Indonesia
+350,SELASA,7A,4.0,5.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,SELASA | 7A | 4-5 | Bahasa Indonesia
+351,SELASA,7B,1.0,2.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,SELASA | 7B | 1-2 | Bahasa Indonesia
+352,SENIN,7C,2.0,3.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,SENIN | 7C | 2-3 | Bahasa Indonesia
+353,SENIN,7D,7.0,8.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,SENIN | 7D | 7-8 | Bahasa Indonesia
+354,SENIN,7E,5.0,6.0,1.0,Bahasa Indonesia,196802042006042012,"SUKATMI, S.Pd",-,SENIN | 7E | 5-6 | Bahasa Indonesia
+355,JUMAT,8C,3.0,4.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,JUMAT | 8C | 3-4 | Bahasa Indonesia
+356,JUMAT,8F,1.0,2.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,JUMAT | 8F | 1-2 | Bahasa Indonesia
+357,KAMIS,8C,1.0,2.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,KAMIS | 8C | 1-2 | Bahasa Indonesia
+358,KAMIS,8E,7.0,8.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,KAMIS | 8E | 7-8 | Bahasa Indonesia
+359,KAMIS,8F,5.0,6.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,KAMIS | 8F | 5-6 | Bahasa Indonesia
+360,RABU,8D,7.0,8.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,RABU | 8D | 7-8 | Bahasa Indonesia
+361,RABU,8E,4.0,5.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,RABU | 8E | 4-5 | Bahasa Indonesia
+362,SABTU,8E,4.0,5.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,SABTU | 8E | 4-5 | Bahasa Indonesia
+363,SABTU,8F,2.0,3.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,SABTU | 8F | 2-3 | Bahasa Indonesia
+364,SELASA,8D,3.0,4.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,SELASA | 8D | 3-4 | Bahasa Indonesia
+365,SENIN,8C,7.0,8.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,SENIN | 8C | 7-8 | Bahasa Indonesia
+366,SENIN,8D,4.0,5.0,1.0,Bahasa Indonesia,196909122012122001,"SULICHA, S.Pd",-,SENIN | 8D | 4-5 | Bahasa Indonesia
+367,JUMAT,9A,3.0,4.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,JUMAT | 9A | 3-4 | Ilmu Pengetahuan Alam
+368,JUMAT,9C,1.0,2.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,JUMAT | 9C | 1-2 | Ilmu Pengetahuan Alam
+369,KAMIS,7G,6.0,8.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,KAMIS | 7G | 6-8 | Ilmu Pengetahuan Alam
+370,RABU,9B,7.0,8.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,RABU | 9B | 7-8 | Ilmu Pengetahuan Alam
+371,RABU,9C,4.0,6.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,RABU | 9C | 4-6 | Ilmu Pengetahuan Alam
+372,SABTU,9D,4.0,6.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,SABTU | 9D | 4-6 | Ilmu Pengetahuan Alam
+373,SELASA,9A,3.0,5.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,SELASA | 9A | 3-5 | Ilmu Pengetahuan Alam
+374,SELASA,9B,6.0,8.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,SELASA | 9B | 6-8 | Ilmu Pengetahuan Alam
+375,SENIN,7G,7.0,8.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,SENIN | 7G | 7-8 | Ilmu Pengetahuan Alam
+376,SENIN,9D,4.0,5.0,5.0,Ilmu Pengetahuan Alam,196711131991021001,"TOTOK SUBANI, S.Pd",-,SENIN | 9D | 4-5 | Ilmu Pengetahuan Alam
+377,JUMAT,8A,4.0,4.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,JUMAT | 8A | 4 | Bahasa Jawa
+378,JUMAT,9B,1.0,1.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,JUMAT | 9B | 1 | Bahasa Jawa
+379,KAMIS,8F,4.0,4.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,KAMIS | 8F | 4 | Bahasa Jawa
+380,KAMIS,9A,8.0,8.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,KAMIS | 9A | 8 | Bahasa Jawa
+381,KAMIS,9E,3.0,3.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,KAMIS | 9E | 3 | Bahasa Jawa
+382,KAMIS,9G,6.0,6.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,KAMIS | 9G | 6 | Bahasa Jawa
+383,RABU,8B,6.0,6.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,RABU | 8B | 6 | Bahasa Jawa
+384,RABU,8D,4.0,4.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,RABU | 8D | 4 | Bahasa Jawa
+385,RABU,8G,5.0,5.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,RABU | 8G | 5 | Bahasa Jawa
+386,RABU,9C,1.0,1.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,RABU | 9C | 1 | Bahasa Jawa
+387,RABU,9D,3.0,3.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,RABU | 9D | 3 | Bahasa Jawa
+388,RABU,9F,8.0,8.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,RABU | 9F | 8 | Bahasa Jawa
+389,SABTU,8C,2.0,2.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,SABTU | 8C | 2 | Bahasa Jawa
+390,SABTU,8E,6.0,6.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,SABTU | 8E | 6 | Bahasa Jawa
+391,SELASA,7C,4.0,4.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,SELASA | 7C | 4 | Bahasa Jawa
+392,SELASA,7E,6.0,6.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,SELASA | 7E | 6 | Bahasa Jawa
+393,SELASA,7G,8.0,8.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,SELASA | 7G | 8 | Bahasa Jawa
+394,SENIN,7A,8.0,8.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,SENIN | 7A | 8 | Bahasa Jawa
+395,SENIN,7B,5.0,5.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,SENIN | 7B | 5 | Bahasa Jawa
+396,SENIN,7D,4.0,4.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,SENIN | 7D | 4 | Bahasa Jawa
+397,SENIN,7F,6.0,6.0,3.0,Bahasa Jawa,198602082024212029,"UNUN NIKMATUL IZAH, S.Pd",-,SENIN | 7F | 6 | Bahasa Jawa
+398,JUMAT,7D,3.0,4.0,7.0,Informatika,198308042022212002,"WAHYU SULISTIYARINI, S.Kom",-,JUMAT | 7D | 3-4 | Informatika
+399,JUMAT,7G,1.0,2.0,7.0,Informatika,198308042022212002,"WAHYU SULISTIYARINI, S.Kom",-,JUMAT | 7G | 1-2 | Informatika
+400,KAMIS,7C,3.0,4.0,7.0,Informatika,198308042022212002,"WAHYU SULISTIYARINI, S.Kom",-,KAMIS | 7C | 3-4 | Informatika
+401,RABU,7F,7.0,8.0,7.0,Informatika,198308042022212002,"WAHYU SULISTIYARINI, S.Kom",-,RABU | 7F | 7-8 | Informatika
+402,SABTU,7B,5.0,6.0,7.0,Informatika,198308042022212002,"WAHYU SULISTIYARINI, S.Kom",-,SABTU | 7B | 5-6 | Informatika
+403,SELASA,7E,7.0,8.0,7.0,Informatika,198308042022212002,"WAHYU SULISTIYARINI, S.Kom",-,SELASA | 7E | 7-8 | Informatika
+404,SENIN,7A,6.0,7.0,7.0,Informatika,198308042022212002,"WAHYU SULISTIYARINI, S.Kom",-,SENIN | 7A | 6-7 | Informatika
+405,JUMAT,9E,3.0,4.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,JUMAT | 9E | 3-4 | Ilmu Pengetahuan Alam
+406,KAMIS,9F,6.0,8.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,KAMIS | 9F | 6-8 | Ilmu Pengetahuan Alam
+407,KAMIS,9G,3.0,5.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,KAMIS | 9G | 3-5 | Ilmu Pengetahuan Alam
+408,RABU,8F,6.0,8.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,RABU | 8F | 6-8 | Ilmu Pengetahuan Alam
+409,RABU,9E,1.0,3.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,RABU | 9E | 1-3 | Ilmu Pengetahuan Alam
+410,SELASA,8F,3.0,4.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,SELASA | 8F | 3-4 | Ilmu Pengetahuan Alam
+411,SELASA,8G,6.0,8.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,SELASA | 8G | 6-8 | Ilmu Pengetahuan Alam
+412,SENIN,8G,7.0,8.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,SENIN | 8G | 7-8 | Ilmu Pengetahuan Alam
+413,SENIN,9F,4.0,5.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,SENIN | 9F | 4-5 | Ilmu Pengetahuan Alam
+414,SENIN,9G,2.0,3.0,5.0,Ilmu Pengetahuan Alam,198107122006042036,"YULI WINANTI, M.Pd",-,SENIN | 9G | 2-3 | Ilmu Pengetahuan Alam
+415,KAMIS,7G,1.0,2.0,2.0,Bahasa Inggris,801,"YULIATI, S.Pd",-,KAMIS | 7G | 1-2 | Bahasa Inggris
+416,KAMIS,8B,5.0,6.0,2.0,Bahasa Inggris,801,"YULIATI, S.Pd",-,KAMIS | 8B | 5-6 | Bahasa Inggris
+417,RABU,8A,5.0,6.0,2.0,Bahasa Inggris,801,"YULIATI, S.Pd",-,RABU | 8A | 5-6 | Bahasa Inggris
+418,RABU,8B,7.0,8.0,2.0,Bahasa Inggris,801,"YULIATI, S.Pd",-,RABU | 8B | 7-8 | Bahasa Inggris
+419,SELASA,7G,1.0,2.0,2.0,Bahasa Inggris,801,"YULIATI, S.Pd",-,SELASA | 7G | 1-2 | Bahasa Inggris
+420,SELASA,8A,4.0,5.0,2.0,Bahasa Inggris,801,"YULIATI, S.Pd",-,SELASA | 8A | 4-5 | Bahasa Inggris
+421,,,,,,,,,-,
