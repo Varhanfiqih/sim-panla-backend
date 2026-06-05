@@ -12,6 +12,7 @@ class Journal extends Model
         'is_inval',
         'material',
         'cleanliness',   // 'sudah_bersih' | 'kotor'
+        'attachment_path',
     ];
 
     protected function casts(): array

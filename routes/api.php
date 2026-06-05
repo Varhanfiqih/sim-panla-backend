@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\BkController;
+use App\Http\Controllers\Api\GradeController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Models\User;
 
 Route::prefix('v1')->group(function () {
@@ -22,6 +24,10 @@ Route::prefix('v1')->group(function () {
         });
 
         Route::post('/logout', [AuthController::class, 'logout']);
+        Route::get('/profile', [ProfileController::class, 'show']);
+        Route::post('/profile', [ProfileController::class, 'update']);
+        Route::delete('/profile/photo', [ProfileController::class, 'destroyPhoto']);
+        Route::post('/profile/change-password', [ProfileController::class, 'changePassword']);
 
         // Dashboard utama (response berbeda-beda berdasarkan role, logic di controller)
         Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -36,6 +42,8 @@ Route::prefix('v1')->group(function () {
             Route::post('/bk/action', [BkController::class, 'storeAction']);
             Route::get('/bk/actions', [BkController::class, 'allActions']);
             Route::get('/bk/monitoring', [BkController::class, 'monitoring']);
+            Route::post('/bk/permissions/{permission}/approve', [PermissionController::class, 'approveByBk']);
+            Route::post('/bk/permissions/{permission}/reject', [PermissionController::class, 'rejectByBk']);
         });
 
         // ─── Endpoint Guru & Wali Kelas (Operasional KBM) ────────────────────
@@ -47,6 +55,7 @@ Route::prefix('v1')->group(function () {
             Route::post('/attendance/scan', [\App\Http\Controllers\Api\AttendanceController::class, 'scan']);
             Route::get('/schedules', [\App\Http\Controllers\Api\ScheduleController::class, 'index']);
             Route::get('/journal/inval-classes', [\App\Http\Controllers\Api\JournalController::class, 'invalClasses']);
+            Route::get('/journal/inval-history', [\App\Http\Controllers\Api\JournalController::class, 'invalHistory']);
             Route::post('/journal/inval-claim', [\App\Http\Controllers\Api\JournalController::class, 'claimInvalClass']);
             Route::get('/journal/students/{schedule_id}', [\App\Http\Controllers\Api\JournalController::class, 'students']);
             Route::post('/journal/store', [\App\Http\Controllers\Api\JournalController::class, 'store']);
@@ -56,6 +65,13 @@ Route::prefix('v1')->group(function () {
             Route::get('/permissions', [PermissionController::class, 'index']);
             Route::post('/permissions/store', [PermissionController::class, 'store']);
             Route::get('/permissions/students', [PermissionController::class, 'studentsByClass']);
+
+            Route::get('/grades/meta', [GradeController::class, 'meta']);
+            Route::get('/grades/students', [GradeController::class, 'students']);
+            Route::get('/grades/scores', [GradeController::class, 'scores']);
+            Route::get('/grades/summary', [GradeController::class, 'summary']);
+            Route::post('/grades/scores/bulk-upsert', [GradeController::class, 'bulkUpsert']);
+            Route::post('/grades/finish-lock', [GradeController::class, 'finishLock']);
         });
 
         // ─── Endpoint Kepala Sekolah (Read-Only Monitoring) ───────────────────

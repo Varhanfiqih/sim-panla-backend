@@ -115,7 +115,6 @@ class StudentResource extends Resource
                         <div class="flex flex-col items-center justify-center text-center pb-4">
                             <div class="p-4 bg-white border border-gray-200 rounded-xl shadow-sm inline-block min-w-[300px]">
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' . urlencode($record->qr_code ?? $record->nisn) . '" alt="QR Code" class="mx-auto mb-3" style="width: 250px; height: 250px;">
-                                <div class="text-sm font-semibold text-gray-700">NISN: ' . e($record->nisn) . '</div>
                                 <div class="font-bold text-lg text-black mt-1 uppercase">' . e($record->name) . '</div>
                                 <div class="text-sm text-gray-500">NISN: ' . e($record->nisn) . '</div>
                             </div>
@@ -128,9 +127,14 @@ class StudentResource extends Resource
                             ->label('Download PDF')
                             ->color('warning')
                             ->icon('heroicon-o-arrow-down-tray')
-                            ->extraAttributes([
-                                'onclick' => 'window.print()',
-                            ])
+                            ->url(
+                                fn (Student $record): string => route(
+                                    'admin.students.qr.download',
+                                    ['student' => $record],
+                                    absolute: false,
+                                ),
+                            )
+                            ->openUrlInNewTab()
                     ]),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

@@ -59,11 +59,12 @@ class ScheduleController extends Controller
             ->whereDate('created_at', $todayString)
             ->get();
 
-        // VALIDASI: Cek apakah guru sedang Izin/Sakit/Tidak Hadir hari ini
-        $isAbsentToday = \App\Models\TeacherAttendance::where('user_id', $user->id)
+        // VALIDASI: jurnal hari ini hanya terbuka setelah guru check-in hadir.
+        $teacherAttendance = \App\Models\TeacherAttendance::where('user_id', $user->id)
             ->where('date', $todayString)
-            ->where('status', 'tidak_hadir')
-            ->exists();
+            ->first();
+        $hasCheckedInToday = $teacherAttendance !== null;
+        $isAbsentToday = $teacherAttendance?->status === 'tidak_hadir';
 
         // GROUPING LOGIC
         $groupedSchedules = [];
@@ -107,7 +108,7 @@ class ScheduleController extends Controller
 
 
         // VALIDASI STATUS JURNAL
-        $data = array_values(array_map(function ($group) use ($sekarang, $journalsToday, $currentDate, $isAbsentToday) {
+        $data = array_values(array_map(function ($group) use ($sekarang, $journalsToday, $currentDate, $hasCheckedInToday, $isAbsentToday) {
             $statusJurnal = 'LOCKED';
             $journalId = null;
 
@@ -119,7 +120,10 @@ class ScheduleController extends Controller
                 $journalId = $existingJournal->id;
             } else {
                 // Untuk menentukan OPEN/LOCKED, patokan pake $sekarang (waktu riil) dibanding startDate (kalender)
-                if ($isAbsentToday) {
+                if ($currentDate->isToday() && ! $hasCheckedInToday) {
+                    $statusJurnal = 'LOCKED';
+                    $group['keterangan'] = 'Belum Check-In';
+                } elseif ($isAbsentToday) {
                     // Blokir tombol jurnal jika hari ini sang guru sudah terdata sakit/izin
                     $statusJurnal = 'LOCKED';
                     $group['keterangan'] = 'Guru Berhalangan Hadir';
@@ -156,4 +160,3 @@ class ScheduleController extends Controller
         ]);
     }
 }
-

@@ -2,14 +2,33 @@
 
 namespace App\Filament\Pages\Auth;
 
+use Filament\Actions\Action;
 use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Component;
 use Filament\Pages\Auth\Login as BaseLogin;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Validation\ValidationException;
 
 class Login extends BaseLogin
 {
+    public function getTitle(): string | Htmlable
+    {
+        return 'Login';
+    }
+
+    public function getHeading(): string | Htmlable
+    {
+        return 'Login';
+    }
+
+    protected function getAuthenticateFormAction(): Action
+    {
+        return Action::make('authenticate')
+            ->label('Login')
+            ->submit('authenticate');
+    }
+
     public function form(Form $form): Form
     {
         return $form

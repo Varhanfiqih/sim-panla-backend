@@ -36,34 +36,20 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        if ($err = $this->assertWaliKelas($request)) return $err;
-
         try {
             $user = $request->user();
 
-            $permissions = Permission::with('student')
-                ->where('nip_guru', $user->nip)
-                ->orderByDesc('created_at')
-                ->get()
-                ->map(function ($perm) {
-                    return [
-                        'id'         => $perm->id,
-                        'student'    => [
-                            'id'       => $perm->student?->id,
-                            'name'     => $perm->student?->name,
-                            'nis'      => $perm->student?->nis,
-                            'class_id' => $perm->student?->class_id,
-                        ],
-                        'type'       => $perm->type,
-                        'start_date' => $perm->start_date?->format('Y-m-d'),
-                        'end_date'   => $perm->end_date?->format('Y-m-d'),
-                        'total_hari' => $perm->total_hari,
-                        'keterangan' => $perm->keterangan,
-                        'foto_url'   => $perm->foto_path ? url('storage/' . $perm->foto_path) : null,
-                        'status'     => $perm->status,
-                        'created_at' => $perm->created_at?->format('d M Y'),
-                    ];
-                });
+            if ($user->role !== 'Guru BK') {
+                if ($err = $this->assertWaliKelas($request)) return $err;
+            }
+
+            $query = Permission::with('student')->orderByDesc('created_at');
+
+            if ($user->role !== 'Guru BK') {
+                $query->where('nip_guru', $user->nip);
+            }
+
+            $permissions = $query->get()->map(fn ($perm) => $this->formatPermission($perm));
 
             return response()->json(['status' => 'success', 'data' => $permissions]);
 
@@ -159,5 +145,66 @@ class PermissionController extends Controller
             'data'   => $students,
             'kelas'  => $classId,
         ]);
+    }
+
+    /**
+     * Approve pengajuan izin oleh Guru BK.
+     * POST /api/v1/bk/permissions/{permission}/approve
+     */
+    public function approveByBk(Request $request, int $permission)
+    {
+        if ($request->user()->role !== 'Guru BK') {
+            return response()->json(['status' => 'error', 'message' => 'Akses ditolak.'], 403);
+        }
+
+        $permissionModel = Permission::findOrFail($permission);
+        $permissionModel->update(['status' => 'approved']);
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Pengajuan berhasil disetujui BK.',
+            'data'    => $this->formatPermission($permissionModel->fresh('student')),
+        ]);
+    }
+
+    /**
+     * Reject pengajuan izin oleh Guru BK.
+     * POST /api/v1/bk/permissions/{permission}/reject
+     */
+    public function rejectByBk(Request $request, int $permission)
+    {
+        if ($request->user()->role !== 'Guru BK') {
+            return response()->json(['status' => 'error', 'message' => 'Akses ditolak.'], 403);
+        }
+
+        $permissionModel = Permission::findOrFail($permission);
+        $permissionModel->update(['status' => 'rejected']);
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Pengajuan berhasil ditolak BK.',
+            'data'    => $this->formatPermission($permissionModel->fresh('student')),
+        ]);
+    }
+
+    private function formatPermission(Permission $perm): array
+    {
+        return [
+            'id'         => $perm->id,
+            'student'    => [
+                'id'       => $perm->student?->id,
+                'name'     => $perm->student?->name,
+                'nis'      => $perm->student?->nis,
+                'class_id' => $perm->student?->class_id,
+            ],
+            'type'       => $perm->type,
+            'start_date' => $perm->start_date?->format('Y-m-d'),
+            'end_date'   => $perm->end_date?->format('Y-m-d'),
+            'total_hari' => $perm->total_hari,
+            'keterangan' => $perm->keterangan,
+            'foto_url'   => $perm->foto_path ? url('storage/' . $perm->foto_path) : null,
+            'status'     => $perm->status,
+            'created_at' => $perm->created_at?->format('d M Y'),
+        ];
     }
 }

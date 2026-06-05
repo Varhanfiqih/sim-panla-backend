@@ -4,7 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StudentGradeResource\Pages;
 use App\Filament\Resources\StudentGradeResource\RelationManagers;
+use App\Models\GradeCategory;
+use App\Models\GradePeriod;
+use App\Models\SchoolClass;
 use App\Models\StudentGrade;
+use App\Models\Subject;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -31,10 +35,10 @@ class StudentGradeResource extends Resource
         return $user?->isStaff() || $user?->isKepsek();
     }
 
-    public static function canCreate(): bool { return auth()->user()?->isStaff() ?? false; }
-    public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool { return auth()->user()?->isStaff() ?? false; }
-    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool { return auth()->user()?->isStaff() ?? false; }
-    public static function canDeleteAny(): bool { return auth()->user()?->isStaff() ?? false; }
+    public static function canCreate(): bool { return auth()->user()?->isSuperAdmin() ?? false; }
+    public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool { return auth()->user()?->isSuperAdmin() ?? false; }
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool { return auth()->user()?->isSuperAdmin() ?? false; }
+    public static function canDeleteAny(): bool { return auth()->user()?->isSuperAdmin() ?? false; }
 
     public static function form(Form $form): Form
     {
@@ -60,6 +64,12 @@ class StudentGradeResource extends Resource
                     ->relationship('gradePeriod', 'name')
                     ->searchable()
                     ->required(),
+                Forms\Components\TextInput::make('item_no')
+                    ->label('Item Ke')
+                    ->numeric()
+                    ->minValue(1)
+                    ->default(1)
+                    ->required(),
                 Forms\Components\TextInput::make('score')
                     ->label('Nilai')
                     ->numeric()
@@ -79,21 +89,81 @@ class StudentGradeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('student.name')->label('Siswa')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('student.nis')
+                    ->label('NIS')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('subject.name')->label('Mata Pelajaran')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('gradeCategory.name')->label('Kategori')->sortable(),
+                Tables\Columns\TextColumn::make('item_no')->label('Item Ke')->numeric()->sortable(),
                 Tables\Columns\TextColumn::make('gradePeriod.name')->label('Periode')->sortable(),
                 Tables\Columns\TextColumn::make('score')->label('Nilai')->numeric(2)->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime('d M Y, H:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y, H:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('grade_period_id')
+                    ->label('Periode')
+                    ->options(fn (): array => GradePeriod::query()
+                        ->orderByDesc('is_active')
+                        ->orderByDesc('start_date')
+                        ->pluck('name', 'id')
+                        ->all())
+                    ->searchable()
+                    ->preload(),
+                Tables\Filters\SelectFilter::make('class_id')
+                    ->label('Kelas')
+                    ->options(fn (): array => SchoolClass::query()
+                        ->orderBy('name')
+                        ->pluck('name', 'id')
+                        ->all())
+                    ->query(fn (Builder $query, array $data): Builder => $query->when(
+                        filled($data['value']),
+                        fn (Builder $query): Builder => $query->whereHas(
+                            'student',
+                            fn (Builder $studentQuery): Builder => $studentQuery->where('class_id', $data['value']),
+                        ),
+                    ))
+                    ->searchable()
+                    ->preload(),
+                Tables\Filters\SelectFilter::make('subject_id')
+                    ->label('Mapel')
+                    ->options(fn (): array => Subject::query()
+                        ->orderBy('name')
+                        ->pluck('name', 'id')
+                        ->all())
+                    ->searchable()
+                    ->preload(),
+                Tables\Filters\SelectFilter::make('grade_category_id')
+                    ->label('Kategori')
+                    ->options(fn (): array => GradeCategory::query()
+                        ->orderBy('sort_order')
+                        ->orderBy('name')
+                        ->pluck('name', 'id')
+                        ->all())
+                    ->searchable()
+                    ->preload(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn (): bool => auth()->user()?->isSuperAdmin() ?? false),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn (): bool => auth()->user()?->isSuperAdmin() ?? false),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                ])->visible(fn (): bool => auth()->user()?->isSuperAdmin() ?? false),
             ]);
     }
 

@@ -6,7 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class GradePeriod extends Model
 {
-    protected $fillable = ['name', 'is_active', 'start_date', 'end_date'];
+    protected $fillable = [
+        'name',
+        'semester',
+        'academic_year',
+        'is_active',
+        'start_date',
+        'end_date',
+    ];
 
     public function studentGrades()
     {

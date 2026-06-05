@@ -39,7 +39,7 @@ class AttendanceController extends Controller
             if (!$student) {
                 return response()->json([
                     'status'  => 'error',
-                    'message' => 'QR Code tidak ditemukan atau tidak valid.',
+                    'message' => 'QR Code atau NISN siswa tidak ditemukan.',
                 ], 404);
             }
 

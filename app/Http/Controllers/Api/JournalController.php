@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Journal;
 use App\Models\StudentNote;
 use App\Models\Attendance;
+use App\Models\Permission;
 use App\Models\Student;
 use App\Models\InvalAssignment;
 use Carbon\Carbon;
@@ -107,12 +108,16 @@ class JournalController extends Controller
 
             // Convert ke format response Flutter
             $remaining = array_values(array_map(function ($g) {
+                $start = Carbon::createFromFormat('H:i', $g['start_time']);
+                $end = Carbon::createFromFormat('H:i', $g['end_time']);
+
                 return [
                     'id'            => $g['id'],
                     'schedule_ids'  => $g['schedule_ids'],
                     'date'          => $g['date'],
                     'subject'       => $g['subject_name'],
                     'time'          => $g['start_time'] . ' - ' . $g['end_time'],
+                    'duration_minutes' => $start->diffInMinutes($end),
                     'className'     => $g['className'],
                     'teacherAbsent' => $g['teacherAbsent'],
                 ];
@@ -129,6 +134,58 @@ class JournalController extends Controller
                 'status'  => 'error',
                 'message' => 'Gagal mengambil daftar kelas kosong.',
                 'error'   => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Riwayat klaim kelas inval pada hari ini.
+     * GET /api/v1/journal/inval-history
+     */
+    public function invalHistory(Request $request)
+    {
+        try {
+            $today = Carbon::today()->toDateString();
+
+            $assignments = InvalAssignment::query()
+                ->with([
+                    'schedule.timeSlot',
+                    'schedule.subject',
+                    'schedule.schoolClass',
+                    'replacementTeacher',
+                ])
+                ->whereDate('date', $today)
+                ->latest('created_at')
+                ->get()
+                ->map(function (InvalAssignment $assignment) {
+                    $schedule = $assignment->schedule;
+
+                    return [
+                        'id' => $assignment->id,
+                        'schedule_id' => $assignment->schedule_id,
+                        'subject' => $schedule?->subject?->name ?? '-',
+                        'class_name' => $schedule?->schoolClass?->name ?? '-',
+                        'time' => $schedule?->timeSlot
+                            ? substr($schedule->timeSlot->start_time, 0, 5)
+                                . ' - '
+                                . substr($schedule->timeSlot->end_time, 0, 5)
+                            : '-',
+                        'claimed_by_nip' => $assignment->replacement_teacher_id,
+                        'claimed_by_name' => $assignment->replacementTeacher?->name ?? '-',
+                        'status' => $assignment->status,
+                        'claimed_at' => $assignment->created_at?->format('H:i'),
+                    ];
+                })
+                ->values();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $assignments,
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal mengambil riwayat klaim inval.',
             ], 500);
         }
     }
@@ -322,13 +379,58 @@ class JournalController extends Controller
             'attendances.*.student_id' => 'required|integer',
             'attendances.*.status'     => 'required|string', // e.g. 'KBM_Hadir', 'KBM_Sakit', dsb.
             'attendances.*.notes'      => 'nullable|array', // Catatan sikap (Array of strings)
+            'attachment' => [
+                'nullable',
+                'file',
+                'max:10240',
+                'mimes:jpg,jpeg,png,webp,pdf,doc,docx,ppt,pptx,xls,xlsx,csv,zip,rar',
+            ],
         ]);
+
+        if ($request->hasFile('attachment')) {
+            $attachment = $request->file('attachment');
+            $imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+
+            if (
+                in_array(strtolower($attachment->getClientOriginalExtension()), $imageExtensions, true)
+                && $attachment->getSize() > 1024 * 1024
+            ) {
+                return response()->json([
+                    'message' => 'Ukuran lampiran gambar maksimal 1 MB.',
+                    'errors' => [
+                        'attachment' => ['Ukuran lampiran gambar maksimal 1 MB.'],
+                    ],
+                ], 422);
+            }
+        }
+
+        $attachmentPath = null;
 
         try {
             DB::beginTransaction();
 
             $user = $request->user();
             $todayString = Carbon::today()->toDateString();
+
+            $teacherAttendance = \App\Models\TeacherAttendance::where('user_id', $user->id)
+                ->whereDate('date', $todayString)
+                ->first();
+
+            if (! $teacherAttendance) {
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Silakan melakukan check-in presensi guru sebelum mengisi jurnal harian.',
+                ], 403);
+            }
+
+            if ($teacherAttendance->status !== 'hadir') {
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Jurnal tidak dapat diisi karena Anda tercatat tidak hadir hari ini.',
+                ], 403);
+            }
 
             // GUARD: Cegah duplikasi jurnal (submit ganda / double-tap)
             $duplicate = Journal::where('schedule_id', $request->schedule_id)
@@ -343,17 +445,9 @@ class JournalController extends Controller
                 ], 409);
             }
 
-            // VALIDASI BACKEND HARD-BLOCK: Cek apakah guru sedang Izin/Sakit/Tidak Hadir hari ini
-            $isAbsentToday = \App\Models\TeacherAttendance::where('user_id', $user->id)
-                ->where('date', $todayString)
-                ->where('status', 'tidak_hadir')
-                ->exists();
-
-            if ($isAbsentToday) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Akses ditolak. Anda tidak dijinkan mengisi Jurnal Mengajar saat berstatus Izin/Sakit absen pada hari ini.'
-                ], 403);
+            if ($request->hasFile('attachment')) {
+                $attachmentPath = $request->file('attachment')
+                    ->store('journal-attachments', 'public');
             }
 
             // 1. Simpan tabel journals Utama
@@ -363,6 +457,7 @@ class JournalController extends Controller
                 'is_inval'    => $request->is_inval,
                 'material'    => $request->materi,
                 'cleanliness' => $request->kebersihan_kelas,
+                'attachment_path' => $attachmentPath,
             ]);
 
             // 2. Loop per Siswa untuk menyimpan Catatan Sikap (StudentNote) & Rekam Jejak KBM
@@ -392,6 +487,45 @@ class JournalController extends Controller
                     'notes'      => $notesStr,
                 ]);
 
+                // Status sakit/izin dari jurnal otomatis masuk ke daftar
+                // perizinan wali kelas dan menunggu verifikasi BK.
+                if (in_array($statusKBM, ['KBM_Sakit', 'KBM_Izin', 'KBM_Sakit_atau_Izin'], true)) {
+                    $student = Student::with('schoolClass')->find($studentId);
+
+                    if ($student) {
+                        $permissionType = match ($statusKBM) {
+                            'KBM_Sakit' => 'sakit',
+                            'KBM_Izin' => 'izin',
+                            default => str_contains(strtolower((string) $notesStr), 'sakit')
+                                ? 'sakit'
+                                : 'izin',
+                        };
+
+                        $existingPermission = Permission::query()
+                            ->where('student_id', $studentId)
+                            ->whereDate('start_date', '<=', $today)
+                            ->whereDate('end_date', '>=', $today)
+                            ->first();
+
+                        $permissionData = [
+                            'nip_guru' => $student->schoolClass?->homeroom_teacher_id ?: $user->nip,
+                            'type' => $permissionType,
+                            'keterangan' => $notesStr ?: 'Dicatat dari jurnal mengajar oleh '.$user->name.'.',
+                        ];
+
+                        if ($existingPermission) {
+                            $existingPermission->update($permissionData);
+                        } else {
+                            Permission::create($permissionData + [
+                                'student_id' => $studentId,
+                                'start_date' => $today,
+                                'end_date' => $today,
+                                'status' => 'pending',
+                            ]);
+                        }
+                    }
+                }
+
                 // Opsional: Rekam di tabel attendances global (untuk monitoring BK)
                 // Hanya untuk siswa yang Alpa/Sakit/Izin (bukan Hadir)
                 if (in_array($statusKBM, ['KBM_Sakit_atau_Izin', 'KBM_Alpa', 'KBM_Sakit', 'KBM_Izin'])) {
@@ -403,7 +537,11 @@ class JournalController extends Controller
                                 'nip_guru'     => $user->nip,
                                 'nisn_student' => $student->nisn,
                                 'kelas'        => $student->class_id ?? 'N/A',
-                                'presensi'     => 'Alpa', // Default KBM absence
+                                'presensi'     => match ($statusKBM) {
+                                    'KBM_Sakit' => 'Sakit',
+                                    'KBM_Izin', 'KBM_Sakit_atau_Izin' => 'Izin',
+                                    default => 'Alpa',
+                                },
                                 'kegiatan'     => 'KBM',
                                 'keterangan'   => $notesStr,
                             ]);
@@ -450,6 +588,14 @@ class JournalController extends Controller
             ], 201);
 
         } catch (\Exception $e) {
+            if (DB::transactionLevel() > 0) {
+                DB::rollBack();
+            }
+
+            if ($attachmentPath) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($attachmentPath);
+            }
+
             return response()->json([
                 'status'  => 'error',
                 'message' => 'Gagal menyimpan Jurnal. Terdapat kesalahan sistem.',
@@ -506,6 +652,9 @@ class JournalController extends Controller
                     'material'    => $journal->material,
                     'cleanliness' => $journal->cleanliness,
                     'is_inval'    => $journal->is_inval,
+                    'attachment_url' => $journal->attachment_path
+                        ? url(\Illuminate\Support\Facades\Storage::disk('public')->url($journal->attachment_path))
+                        : null,
                     'total_absen' => $absenKosong,
                     'absensi'     => $rekapSiswa
                 ]

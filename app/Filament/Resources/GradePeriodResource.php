@@ -40,17 +40,43 @@ class GradePeriodResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nama Periode')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('is_active')
-                    ->label('Status Aktif')
-                    ->default(true),
-                Forms\Components\DatePicker::make('start_date')
-                    ->label('Tanggal Mulai'),
-                Forms\Components\DatePicker::make('end_date')
-                    ->label('Tanggal Selesai'),
+                Forms\Components\Grid::make(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->label('Nama Periode')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('academic_year')
+                            ->label('Tahun Ajaran')
+                            ->placeholder('2026/2027')
+                            ->mask('9999/9999')
+                            ->regex('/^\d{4}\/\d{4}$/')
+                            ->validationMessages([
+                                'regex' => 'Tahun ajaran harus menggunakan format 2026/2027.',
+                            ])
+                            ->required(),
+                        Forms\Components\Select::make('semester')
+                            ->label('Semester')
+                            ->options([
+                                'ganjil' => 'Ganjil',
+                                'genap' => 'Genap',
+                            ])
+                            ->native(false)
+                            ->required(),
+                        Forms\Components\DatePicker::make('start_date')
+                            ->label('Tanggal Mulai')
+                            ->native(false)
+                            ->required(),
+                        Forms\Components\DatePicker::make('end_date')
+                            ->label('Tanggal Selesai')
+                            ->native(false)
+                            ->afterOrEqual('start_date')
+                            ->required(),
+                        Forms\Components\Toggle::make('is_active')
+                            ->label('Jadikan Periode Aktif')
+                            ->helperText('Jika aktif, periode ini digunakan sebagai periode penilaian berjalan.')
+                            ->default(true),
+                    ]),
             ]);
     }
 
@@ -59,6 +85,24 @@ class GradePeriodResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Periode')->searchable(),
+                Tables\Columns\TextColumn::make('academic_year')
+                    ->label('Tahun Ajaran')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('semester')
+                    ->label('Semester')
+                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                        'ganjil' => 'Ganjil',
+                        'genap' => 'Genap',
+                        default => '-',
+                    })
+                    ->badge()
+                    ->color(fn (?string $state): string => match ($state) {
+                        'ganjil' => 'warning',
+                        'genap' => 'info',
+                        default => 'gray',
+                    })
+                    ->sortable(),
                 Tables\Columns\IconColumn::make('is_active')->label('Aktif')->boolean(),
                 Tables\Columns\TextColumn::make('start_date')->label('Mulai')->date('d M Y')->sortable(),
                 Tables\Columns\TextColumn::make('end_date')->label('Selesai')->date('d M Y')->sortable(),
@@ -67,12 +111,15 @@ class GradePeriodResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn (): bool => auth()->user()?->isStaff() ?? false),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn (): bool => auth()->user()?->isStaff() ?? false),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                ])->visible(fn (): bool => auth()->user()?->isStaff() ?? false),
             ]);
     }
 

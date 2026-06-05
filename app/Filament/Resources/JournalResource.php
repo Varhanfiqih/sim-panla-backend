@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\HtmlString;
 
 class JournalResource extends Resource
 {
@@ -78,6 +79,41 @@ class JournalResource extends Resource
                             ->disabled()
                             ->columnSpanFull(),
 
+                        Forms\Components\Placeholder::make('attachment_preview')
+                            ->label('Lampiran')
+                            ->content(function (?Journal $record): HtmlString|string {
+                                if (! $record?->attachment_path) {
+                                    return 'Tidak ada lampiran.';
+                                }
+
+                                $url = route('admin.journals.attachment.show', $record, false);
+                                $fileName = basename($record->attachment_path);
+                                $extension = strtolower(pathinfo($record->attachment_path, PATHINFO_EXTENSION));
+                                $isImage = in_array($extension, ['jpg', 'jpeg', 'png', 'webp'], true);
+
+                                if ($isImage) {
+                                    return new HtmlString(sprintf(
+                                        '<a href="%s" target="_blank" rel="noopener noreferrer">
+                                            <img src="%s" alt="%s" style="max-height: 260px; max-width: 100%%; border-radius: 6px; object-fit: contain;">
+                                        </a>
+                                        <div style="margin-top: 8px;">
+                                            <a href="%s" target="_blank" rel="noopener noreferrer">Lihat ukuran penuh</a>
+                                        </div>',
+                                        e($url),
+                                        e($url),
+                                        e($fileName),
+                                        e($url),
+                                    ));
+                                }
+
+                                return new HtmlString(sprintf(
+                                    '<a href="%s" target="_blank" rel="noopener noreferrer">Lihat / Unduh %s</a>',
+                                    e($url),
+                                    e($fileName),
+                                ));
+                            })
+                            ->columnSpanFull(),
+
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('cleanliness')
@@ -119,6 +155,15 @@ class JournalResource extends Resource
                     ->label('Materi')
                     ->limit(20)
                     ->searchable(),
+                Tables\Columns\TextColumn::make('attachment_path')
+                    ->label('Lampiran')
+                    ->formatStateUsing(fn (?string $state): string => filled($state) ? 'Download' : '-')
+                    ->icon(fn (?string $state): ?string => filled($state) ? 'heroicon-m-arrow-down-tray' : null)
+                    ->color(fn (?string $state): string => filled($state) ? 'primary' : 'gray')
+                    ->url(fn (Journal $record): ?string => $record->attachment_path
+                        ? route('admin.journals.attachment.download', $record, false)
+                        : null)
+                    ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('cleanliness')
                     ->label('Kebersihan')
                     ->badge()

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -75,6 +76,7 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'role',
         'is_inval_piket',
+        'profile_photo_path',
     ];
 
     public function getWaliKelasAttribute()
@@ -90,7 +92,20 @@ class User extends Authenticatable implements FilamentUser
     protected $hidden = [
         'password',
         'remember_token',
+        'profile_photo_path',
     ];
+
+    protected $appends = [
+        'wali_kelas',
+        'profile_photo_url',
+    ];
+
+    public function getProfilePhotoUrlAttribute(): ?string
+    {
+        return $this->profile_photo_path
+            ? url(Storage::disk('public')->url($this->profile_photo_path))
+            : null;
+    }
 
     /**
      * Get the attributes that should be cast.
