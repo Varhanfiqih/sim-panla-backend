@@ -9,6 +9,7 @@ use App\Models\Journal;
 use App\Models\StudentNote;
 use App\Models\Attendance;
 use App\Models\Permission;
+use App\Models\Schedule;
 use App\Models\Student;
 use App\Models\InvalAssignment;
 use Carbon\Carbon;
@@ -240,6 +241,21 @@ class JournalController extends Controller
                 ];
             }
             InvalAssignment::insert($inserts);
+
+            $firstSchedule = Schedule::with(['schoolClass', 'subject', 'timeSlot'])
+                ->find($scheduleIds[0]);
+            app(\App\Services\MobileNotificationService::class)->send(
+                $user,
+                'inval_claim',
+                'Jadwal Inval Berhasil Diambil',
+                $firstSchedule
+                    ? "Anda mengambil inval {$firstSchedule->subject?->name} di kelas {$firstSchedule->schoolClass?->name}."
+                    : 'Kelas inval berhasil masuk ke jadwal mengajar Anda.',
+                [
+                    'schedule_ids' => $scheduleIds,
+                    'class_id' => $firstSchedule?->class_id,
+                ],
+            );
 
             return response()->json([
                 'status' => 'success',
@@ -554,6 +570,17 @@ class JournalController extends Controller
             }
 
             DB::commit();
+
+            app(\App\Services\MobileNotificationService::class)->send(
+                $user,
+                'journal_submitted',
+                'Jurnal Berhasil Disimpan',
+                "Jurnal mengajar untuk kelas {$journal->schedule?->schoolClass?->name} telah selesai dikirim.",
+                [
+                    'journal_id' => $journal->id,
+                    'schedule_id' => $request->schedule_id,
+                ],
+            );
 
             // 3. TODO: Broadcast Event WebSockets di sini nantinya (Fase 9)
             // event(new ClassStartedEvent($journal));

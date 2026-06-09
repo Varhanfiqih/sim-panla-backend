@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Journal;
 use App\Models\Schedule;
+use App\Models\SchoolClass;
 use App\Models\TeacherAttendance;
 use Carbon\Carbon;
 use Filament\Widgets\Widget;
@@ -14,7 +15,14 @@ class TeacherJournalMonitoring extends Widget
 
     protected static ?int $sort = 2;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
+
+    public ?string $classFilter = null;
+
+    public function filterByClass(?string $classId): void
+    {
+        $this->classFilter = filled($classId) ? $classId : null;
+    }
 
     public static function canView(): bool
     {
@@ -33,6 +41,10 @@ class TeacherJournalMonitoring extends Widget
             ->with(['teacher', 'timeSlot', 'subject', 'schoolClass'])
             ->where('day_of_week', $day)
             ->whereHas('timeSlot', fn ($query) => $query->where('type', 'KBM'))
+            ->when(
+                filled($this->classFilter),
+                fn ($query) => $query->where('class_id', $this->classFilter),
+            )
             ->get()
             ->filter(fn (Schedule $schedule) => $schedule->teacher && $schedule->timeSlot)
             ->sortBy(fn (Schedule $schedule) => sprintf(
@@ -68,6 +80,7 @@ class TeacherJournalMonitoring extends Widget
                 if ($sameBlock) {
                     $current['end_time'] = $schedule->timeSlot->end_time;
                     $current['schedule_ids'][] = $schedule->id;
+
                     continue;
                 }
 
@@ -98,7 +111,7 @@ class TeacherJournalMonitoring extends Widget
                     ->sortByDesc('created_at')
                     ->first();
 
-                $startAt = Carbon::parse($today . ' ' . $group['start_time']);
+                $startAt = Carbon::parse($today.' '.$group['start_time']);
                 $isAbsent = in_array($group['teacher']->id, $absentUserIds, true);
 
                 [$status, $color] = match (true) {
@@ -113,7 +126,7 @@ class TeacherJournalMonitoring extends Widget
                     'nip' => $group['teacher']->nip,
                     'subject' => $group['subject'],
                     'class' => $group['class'],
-                    'time' => substr($group['start_time'], 0, 5) . ' - ' . substr($group['end_time'], 0, 5),
+                    'time' => substr($group['start_time'], 0, 5).' - '.substr($group['end_time'], 0, 5),
                     'status' => $status,
                     'color' => $color,
                     'submitted_at' => $journal?->created_at?->format('H:i'),
@@ -124,6 +137,9 @@ class TeacherJournalMonitoring extends Widget
 
         return [
             'rows' => $rows,
+            'classOptions' => SchoolClass::query()
+                ->orderBy('name')
+                ->pluck('name', 'id'),
             'dateLabel' => $now->copy()->locale('id')->translatedFormat('l, d F Y'),
             'summary' => [
                 'total' => $rows->count(),

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\BkController;
 use App\Http\Controllers\Api\GradeController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Models\User;
 
@@ -28,6 +29,12 @@ Route::prefix('v1')->group(function () {
         Route::post('/profile', [ProfileController::class, 'update']);
         Route::delete('/profile/photo', [ProfileController::class, 'destroyPhoto']);
         Route::post('/profile/change-password', [ProfileController::class, 'changePassword']);
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
+        Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead']);
+        Route::delete('/notifications/clear-all', [NotificationController::class, 'clearAll']);
+        Route::post('/notifications/{notification}/read', [NotificationController::class, 'markRead']);
+        Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy']);
 
         // Dashboard utama (response berbeda-beda berdasarkan role, logic di controller)
         Route::get('/dashboard', [DashboardController::class, 'index']);

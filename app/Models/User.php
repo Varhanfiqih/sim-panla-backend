@@ -74,10 +74,20 @@ class User extends Authenticatable implements FilamentUser
         'nip',
         'name',
         'password',
+        'password_changed_at',
         'role',
         'is_inval_piket',
         'profile_photo_path',
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (User $user): void {
+            if ($user->isDirty('password')) {
+                $user->password_changed_at = now();
+            }
+        });
+    }
 
     public function getWaliKelasAttribute()
     {
@@ -117,6 +127,7 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'password_changed_at' => 'datetime',
             'is_inval_piket' => 'boolean',
         ];
     }
@@ -139,6 +150,11 @@ class User extends Authenticatable implements FilamentUser
     public function schedules()
     {
         return $this->hasMany(Schedule::class, 'teacher_id', 'nip');
+    }
+
+    public function mobileNotifications()
+    {
+        return $this->hasMany(MobileNotification::class);
     }
 
     public function journals()

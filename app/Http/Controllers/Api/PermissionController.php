@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Permission;
 use App\Models\Student;
+use App\Models\User;
+use App\Services\MobileNotificationService;
 use Carbon\Carbon;
 
 class PermissionController extends Controller
@@ -107,6 +109,22 @@ class PermissionController extends Controller
                 'status'     => 'pending',
             ]);
 
+            $notificationService = app(MobileNotificationService::class);
+            $notificationService->send(
+                $user,
+                'permission_submitted',
+                'Izin Berhasil Diajukan',
+                "Pengajuan izin untuk {$student->name} berhasil dikirim ke Guru BK.",
+                ['permission_id' => $permission->id],
+            );
+            $notificationService->sendToUsers(
+                User::query()->where('role', User::ROLE_GURU_BK)->get(),
+                'permission_submitted',
+                'Pengajuan Izin Baru',
+                "{$student->name} dari kelas {$student->class_id} mengajukan izin.",
+                ['permission_id' => $permission->id],
+            );
+
             return response()->json([
                 'status'  => 'success',
                 'message' => 'Izin berhasil diajukan.',
@@ -159,6 +177,17 @@ class PermissionController extends Controller
 
         $permissionModel = Permission::findOrFail($permission);
         $permissionModel->update(['status' => 'approved']);
+        $permissionModel->load(['guru', 'student']);
+
+        if ($permissionModel->guru) {
+            app(MobileNotificationService::class)->send(
+                $permissionModel->guru,
+                'permission_approved',
+                'Pengajuan Izin Disetujui',
+                "Pengajuan izin {$permissionModel->student?->name} telah disetujui Guru BK.",
+                ['permission_id' => $permissionModel->id],
+            );
+        }
 
         return response()->json([
             'status'  => 'success',
@@ -179,6 +208,17 @@ class PermissionController extends Controller
 
         $permissionModel = Permission::findOrFail($permission);
         $permissionModel->update(['status' => 'rejected']);
+        $permissionModel->load(['guru', 'student']);
+
+        if ($permissionModel->guru) {
+            app(MobileNotificationService::class)->send(
+                $permissionModel->guru,
+                'permission_rejected',
+                'Pengajuan Izin Ditolak',
+                "Pengajuan izin {$permissionModel->student?->name} ditolak oleh Guru BK.",
+                ['permission_id' => $permissionModel->id],
+            );
+        }
 
         return response()->json([
             'status'  => 'success',

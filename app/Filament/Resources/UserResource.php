@@ -131,6 +131,11 @@ class UserResource extends Resource
                     ]),
                 Tables\Columns\TextColumn::make('homeroomClass.id')->label('Wali Kelas')->placeholder('—')->sortable(),
                 Tables\Columns\IconColumn::make('is_inval_piket')->label('Piket')->boolean(),
+                Tables\Columns\TextColumn::make('password_changed_at')
+                    ->label('Password Terakhir Diubah')
+                    ->dateTime('d M Y, H:i')
+                    ->placeholder('Belum tercatat')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')->label('Dibuat')->date('d M Y')->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

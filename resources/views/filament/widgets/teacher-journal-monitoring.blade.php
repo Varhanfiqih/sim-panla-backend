@@ -8,6 +8,24 @@
             {{ $dateLabel }}. Data diperbarui otomatis setiap 15 detik.
         </x-slot>
 
+        <div class="mb-5 flex justify-end">
+            <div class="w-full sm:max-w-xs">
+                <label for="journal-class-filter" class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Filter Kelas
+                </label>
+                <select
+                    id="journal-class-filter"
+                    wire:change="filterByClass($event.target.value)"
+                    class="block w-full rounded-lg border-gray-300 bg-white text-sm text-gray-900 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                >
+                    <option value="">Semua Kelas</option>
+                    @foreach ($classOptions as $classId => $className)
+                        <option value="{{ $classId }}" @selected($classFilter === (string) $classId)>{{ $className }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
         <div class="mb-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <div class="rounded-lg border border-gray-200 p-3 dark:border-white/10">
                 <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total sesi</p>
@@ -65,7 +83,7 @@
                     @empty
                         <tr>
                             <td colspan="7" class="px-4 py-10 text-center text-gray-500 dark:text-gray-400">
-                                Tidak ada jadwal mengajar pada hari ini.
+                                {{ filled($classFilter) ? 'Tidak ada jadwal mengajar untuk kelas yang dipilih pada hari ini.' : 'Tidak ada jadwal mengajar pada hari ini.' }}
                             </td>
                         </tr>
                     @endforelse
