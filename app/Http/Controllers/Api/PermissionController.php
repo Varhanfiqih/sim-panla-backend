@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Attendance;
 use App\Models\Permission;
 use App\Models\Student;
+use App\Models\StudentNote;
 use App\Models\User;
 use App\Services\MobileNotificationService;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PermissionController extends Controller
 {
@@ -175,9 +178,39 @@ class PermissionController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Akses ditolak.'], 403);
         }
 
-        $permissionModel = Permission::findOrFail($permission);
-        $permissionModel->update(['status' => 'approved']);
-        $permissionModel->load(['guru', 'student']);
+        $permissionModel = DB::transaction(function () use ($permission) {
+            $permissionModel = Permission::with('student')
+                ->lockForUpdate()
+                ->findOrFail($permission);
+
+            $permissionModel->update(['status' => 'approved']);
+
+            $journalStatus = $permissionModel->type === 'sakit'
+                ? 'KBM_Sakit'
+                : 'KBM_Izin';
+
+            StudentNote::query()
+                ->where('student_id', $permissionModel->student_id)
+                ->whereHas('journal', function ($query) use ($permissionModel) {
+                    $query
+                        ->whereDate('created_at', '>=', $permissionModel->start_date)
+                        ->whereDate('created_at', '<=', $permissionModel->end_date);
+                })
+                ->update(['note_type' => $journalStatus]);
+
+            if ($permissionModel->student?->nisn) {
+                Attendance::query()
+                    ->where('nisn_student', $permissionModel->student->nisn)
+                    ->where('kegiatan', 'KBM')
+                    ->whereDate('created_at', '>=', $permissionModel->start_date)
+                    ->whereDate('created_at', '<=', $permissionModel->end_date)
+                    ->update([
+                        'presensi' => $permissionModel->type === 'sakit' ? 'Sakit' : 'Izin',
+                    ]);
+            }
+
+            return $permissionModel->fresh(['guru', 'student']);
+        });
 
         if ($permissionModel->guru) {
             app(MobileNotificationService::class)->send(
@@ -187,6 +220,15 @@ class PermissionController extends Controller
                 "Pengajuan izin {$permissionModel->student?->name} telah disetujui Guru BK.",
                 ['permission_id' => $permissionModel->id],
             );
+        }
+
+        if ($permissionModel->student) {
+            event(new \App\Events\StudentStatusUpdated(
+                $permissionModel->student_id,
+                $permissionModel->student->class_id,
+                $permissionModel->type === 'sakit' ? 'KBM_Sakit' : 'KBM_Izin',
+                'BK'
+            ));
         }
 
         return response()->json([

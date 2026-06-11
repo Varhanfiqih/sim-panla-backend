@@ -655,12 +655,26 @@ class JournalController extends Controller
 
             // Hitung rekap absensi otomatis
             $absenKosong = $journal->studentNotes->count();
-            
+
+            $journalDate = $journal->created_at->toDateString();
+            $approvedPermissions = Permission::query()
+                ->whereIn('student_id', $journal->studentNotes->pluck('student_id'))
+                ->activeOnDate($journalDate)
+                ->latest('id')
+                ->get()
+                ->keyBy('student_id');
+
             // Siapkan Map data absensi
-            $rekapSiswa = $journal->studentNotes->map(function ($note) {
+            $rekapSiswa = $journal->studentNotes->map(function ($note) use ($approvedPermissions) {
+                $permission = $approvedPermissions->get($note->student_id);
+                $status = $permission
+                    ? ($permission->type === 'sakit' ? 'KBM_Sakit' : 'KBM_Izin')
+                    : $note->note_type;
+
                 return [
                     'student_name' => $note->student->name ?? 'Siswa',
-                    'status'       => $note->note_type, // KBM_Sakit, KBM_Izin, dsb.
+                    'nis'          => $note->student->nis,
+                    'status'       => $status,
                     'notes'        => $note->notes,
                 ];
             });
