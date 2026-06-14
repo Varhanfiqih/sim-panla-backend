@@ -34,7 +34,6 @@ Route::prefix('v1')->group(function () {
         Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead']);
         Route::delete('/notifications/clear-all', [NotificationController::class, 'clearAll']);
         Route::post('/notifications/{notification}/read', [NotificationController::class, 'markRead']);
-        Route::post('/notifications/{notification}/action', [NotificationController::class, 'action']);
         Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy']);
 
         // Dashboard utama (response berbeda-beda berdasarkan role, logic di controller)
