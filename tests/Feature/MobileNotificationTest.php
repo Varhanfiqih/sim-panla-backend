@@ -131,6 +131,42 @@ test('user cannot modify another users notification', function () {
         ->assertNotFound();
 });
 
+test('user can mark and delete notification through post action endpoint', function () {
+    $user = User::query()->create([
+        'nip' => 'guru-action',
+        'name' => 'Guru Action',
+        'password' => 'Password123',
+        'role' => User::ROLE_GURU,
+    ]);
+    Sanctum::actingAs($user);
+
+    $readNotification = MobileNotification::query()->create([
+        'user_id' => $user->id,
+        'type' => 'teacher_checkin',
+        'title' => 'Check-in Berhasil',
+        'body' => 'Kehadiran berhasil dikonfirmasi.',
+    ]);
+
+    $this->postJson("/api/v1/notifications/{$readNotification->id}/action", [
+        'action' => 'read',
+    ])->assertOk();
+
+    expect($readNotification->fresh()->read_at)->not->toBeNull();
+
+    $deleteNotification = MobileNotification::query()->create([
+        'user_id' => $user->id,
+        'type' => 'journal_submitted',
+        'title' => 'Jurnal Berhasil',
+        'body' => 'Jurnal berhasil dikirim.',
+    ]);
+
+    $this->postJson("/api/v1/notifications/{$deleteNotification->id}/action", [
+        'action' => 'delete',
+    ])->assertOk();
+
+    expect($deleteNotification->fresh())->toBeNull();
+});
+
 test('teacher absence notifies only teachers with an available inval slot', function () {
     $absentTeacher = User::query()->create([
         'nip' => 'guru-absen',

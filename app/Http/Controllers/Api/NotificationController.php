@@ -55,6 +55,25 @@ class NotificationController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    public function action(Request $request, MobileNotification $notification)
+    {
+        $this->authorizeNotification($request, $notification);
+
+        $validated = $request->validate([
+            'action' => ['required', 'in:read,delete'],
+        ]);
+
+        if ($validated['action'] === 'delete') {
+            $notification->delete();
+        } else {
+            $notification->update([
+                'read_at' => $notification->read_at ?? now(),
+            ]);
+        }
+
+        return response()->json(['status' => 'success']);
+    }
+
     public function clearAll(Request $request)
     {
         $request->user()->mobileNotifications()->delete();
