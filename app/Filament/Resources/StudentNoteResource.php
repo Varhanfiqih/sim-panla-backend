@@ -183,13 +183,15 @@ class StudentNoteResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->label('Detail'),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn (): bool => auth()->user()?->isSuperAdmin() ?? false),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn (): bool => auth()->user()?->isSuperAdmin() ?? false),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                ])->visible(fn (): bool => auth()->user()?->isSuperAdmin() ?? false),
             ])
             ->defaultSort('created_at', 'desc')
             ->emptyStateHeading('Belum ada riwayat izin siswa')
