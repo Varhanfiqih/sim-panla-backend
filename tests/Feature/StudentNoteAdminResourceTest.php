@@ -53,7 +53,7 @@ beforeEach(function () {
     });
 });
 
-test('super admin can open the student permission list and edit page', function () {
+test('super admin can open the student permission list', function () {
     $superAdmin = User::query()->create([
         'nip' => 'ADMIN-001',
         'name' => 'Super Admin',
@@ -81,7 +81,7 @@ test('super admin can open the student permission list and edit page', function 
         'gender' => 'L',
     ]);
 
-    $permission = Permission::query()->create([
+    Permission::query()->create([
         'nip_guru' => $teacher->nip,
         'student_id' => $student->id,
         'type' => 'izin',
@@ -93,11 +93,6 @@ test('super admin can open the student permission list and edit page', function 
 
     $this->actingAs($superAdmin)
         ->get('/admin/student-notes')
-        ->assertOk()
-        ->assertSee('Adam Rizky');
-
-    $this->actingAs($superAdmin)
-        ->get("/admin/student-notes/{$permission->id}/edit")
         ->assertOk()
         ->assertSee('Adam Rizky');
 });

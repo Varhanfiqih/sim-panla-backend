@@ -64,21 +64,21 @@ class StudentNoteResource extends Resource
             Forms\Components\Placeholder::make('class_name')
                 ->label('Kelas')
                 ->content(fn (Permission $record): string => $record->student?->schoolClass?->name ?? '-'),
-            Forms\Components\Select::make('type')
+            Forms\Components\Placeholder::make('type_label')
                 ->label('Jenis')
-                ->options([
+                ->content(fn (Permission $record): string => match ($record->type) {
                     'sakit' => 'Sakit',
-                    'izin' => 'Izin',
                     'keluarga' => 'Izin Keluarga',
-                ])
-                ->required(),
-            Forms\Components\DatePicker::make('start_date')
-                ->label('Tanggal Mulai')
-                ->required(),
-            Forms\Components\DatePicker::make('end_date')
-                ->label('Tanggal Selesai')
-                ->afterOrEqual('start_date')
-                ->required(),
+                    default => 'Izin',
+                }),
+            Forms\Components\Placeholder::make('date_range')
+                ->label('Tanggal Izin')
+                ->content(fn (Permission $record): string => sprintf(
+                    '%s - %s (%d hari)',
+                    $record->start_date?->format('d M Y'),
+                    $record->end_date?->format('d M Y'),
+                    $record->total_hari,
+                )),
             Forms\Components\Placeholder::make('requester')
                 ->label('Diajukan Oleh')
                 ->content(fn (Permission $record): string => $record->guru?->name ?? '-'),
@@ -89,10 +89,9 @@ class StudentNoteResource extends Resource
                     'rejected' => 'Ditolak BK',
                     default => 'Menunggu Persetujuan BK',
                 }),
-            Forms\Components\Textarea::make('keterangan')
+            Forms\Components\Placeholder::make('notes')
                 ->label('Keterangan')
-                ->maxLength(500)
-                ->rows(4)
+                ->content(fn (Permission $record): string => $record->keterangan ?: '-')
                 ->columnSpanFull(),
         ])->columns(2);
     }
@@ -184,6 +183,28 @@ class StudentNoteResource extends Resource
                 Tables\Actions\ViewAction::make()
                     ->label('Detail'),
                 Tables\Actions\EditAction::make()
+                    ->form([
+                        Forms\Components\Select::make('type')
+                            ->label('Jenis')
+                            ->options([
+                                'sakit' => 'Sakit',
+                                'izin' => 'Izin',
+                                'keluarga' => 'Izin Keluarga',
+                            ])
+                            ->required(),
+                        Forms\Components\DatePicker::make('start_date')
+                            ->label('Tanggal Mulai')
+                            ->required(),
+                        Forms\Components\DatePicker::make('end_date')
+                            ->label('Tanggal Selesai')
+                            ->afterOrEqual('start_date')
+                            ->required(),
+                        Forms\Components\Textarea::make('keterangan')
+                            ->label('Keterangan')
+                            ->maxLength(500)
+                            ->rows(4)
+                            ->columnSpanFull(),
+                    ])
                     ->visible(fn (): bool => auth()->user()?->isSuperAdmin() ?? false),
                 Tables\Actions\DeleteAction::make()
                     ->visible(fn (): bool => auth()->user()?->isSuperAdmin() ?? false),
@@ -214,7 +235,6 @@ class StudentNoteResource extends Resource
     {
         return [
             'index' => Pages\ListStudentNotes::route('/'),
-            'edit' => Pages\EditStudentNote::route('/{record}/edit'),
         ];
     }
 }
