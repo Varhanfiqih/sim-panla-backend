@@ -15,11 +15,17 @@ use Illuminate\Database\Eloquent\Model;
 class StudentNoteResource extends Resource
 {
     protected static ?string $model = Permission::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
+
     protected static ?string $navigationGroup = 'Operasional';
+
     protected static ?string $navigationLabel = 'Izin Siswa';
+
     protected static ?string $modelLabel = 'Izin Siswa';
+
     protected static ?string $pluralModelLabel = 'Izin Siswa';
+
     protected static ?int $navigationSort = 1;
 
     public static function canViewAny(): bool
@@ -36,7 +42,7 @@ class StudentNoteResource extends Resource
 
     public static function canEdit(Model $record): bool
     {
-        return false;
+        return auth()->user()?->isSuperAdmin() ?? false;
     }
 
     public static function canDelete(Model $record): bool
@@ -58,21 +64,21 @@ class StudentNoteResource extends Resource
             Forms\Components\Placeholder::make('class_name')
                 ->label('Kelas')
                 ->content(fn (Permission $record): string => $record->student?->schoolClass?->name ?? '-'),
-            Forms\Components\Placeholder::make('type_label')
+            Forms\Components\Select::make('type')
                 ->label('Jenis')
-                ->content(fn (Permission $record): string => match ($record->type) {
+                ->options([
                     'sakit' => 'Sakit',
+                    'izin' => 'Izin',
                     'keluarga' => 'Izin Keluarga',
-                    default => 'Izin',
-                }),
-            Forms\Components\Placeholder::make('date_range')
-                ->label('Tanggal Izin')
-                ->content(fn (Permission $record): string => sprintf(
-                    '%s - %s (%d hari)',
-                    $record->start_date?->format('d M Y'),
-                    $record->end_date?->format('d M Y'),
-                    $record->total_hari,
-                )),
+                ])
+                ->required(),
+            Forms\Components\DatePicker::make('start_date')
+                ->label('Tanggal Mulai')
+                ->required(),
+            Forms\Components\DatePicker::make('end_date')
+                ->label('Tanggal Selesai')
+                ->afterOrEqual('start_date')
+                ->required(),
             Forms\Components\Placeholder::make('requester')
                 ->label('Diajukan Oleh')
                 ->content(fn (Permission $record): string => $record->guru?->name ?? '-'),
@@ -83,9 +89,10 @@ class StudentNoteResource extends Resource
                     'rejected' => 'Ditolak BK',
                     default => 'Menunggu Persetujuan BK',
                 }),
-            Forms\Components\Placeholder::make('notes')
+            Forms\Components\Textarea::make('keterangan')
                 ->label('Keterangan')
-                ->content(fn (Permission $record): string => $record->keterangan ?: '-')
+                ->maxLength(500)
+                ->rows(4)
                 ->columnSpanFull(),
         ])->columns(2);
     }
@@ -176,6 +183,7 @@ class StudentNoteResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->label('Detail'),
+                Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -204,6 +212,7 @@ class StudentNoteResource extends Resource
     {
         return [
             'index' => Pages\ListStudentNotes::route('/'),
+            'edit' => Pages\EditStudentNote::route('/{record}/edit'),
         ];
     }
 }

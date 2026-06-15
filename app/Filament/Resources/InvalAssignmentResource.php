@@ -3,15 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\InvalAssignmentResource\Pages;
-use App\Filament\Resources\InvalAssignmentResource\RelationManagers;
 use App\Models\InvalAssignment;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 
 class InvalAssignmentResource extends Resource
 {
@@ -24,18 +22,35 @@ class InvalAssignmentResource extends Resource
     protected static ?string $pluralModelLabel = 'Daftar Penugasan Inval';
 
     protected static ?string $navigationGroup = 'Operasional';
-    
+
     protected static ?int $navigationSort = 2;
 
     public static function canViewAny(): bool
     {
         $user = auth()->user();
+
         return $user?->isStaff() || $user?->isKepsek();
     }
 
-    public static function canCreate(): bool { return auth()->user()?->isStaff() ?? false; }
-    public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool { return auth()->user()?->isStaff() ?? false; }
-    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool { return auth()->user()?->isStaff() ?? false; }
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->isStaff() ?? false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()?->isSuperAdmin() ?? false;
+    }
 
     public static function form(Form $form): Form
     {
@@ -102,6 +117,7 @@ class InvalAssignmentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
