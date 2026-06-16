@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\BkController;
 use App\Http\Controllers\Api\GradeController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\DeviceTokenController;
 use App\Models\User;
 
 Route::prefix('v1')->group(function () {
@@ -35,6 +36,8 @@ Route::prefix('v1')->group(function () {
         Route::delete('/notifications/clear-all', [NotificationController::class, 'clearAll']);
         Route::post('/notifications/{notification}/read', [NotificationController::class, 'markRead']);
         Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy']);
+        Route::post('/device-tokens', [DeviceTokenController::class, 'store']);
+        Route::delete('/device-tokens', [DeviceTokenController::class, 'destroy']);
 
         // Dashboard utama (response berbeda-beda berdasarkan role, logic di controller)
         Route::get('/dashboard', [DashboardController::class, 'index']);

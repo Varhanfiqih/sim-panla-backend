@@ -31,6 +31,12 @@ class MobileNotificationService
             Log::warning('Realtime mobile notification failed: '.$error->getMessage());
         }
 
+        try {
+            app(FirebaseCloudMessagingService::class)->sendToUser($user, $notification);
+        } catch (\Throwable $error) {
+            Log::warning('FCM mobile notification failed: '.$error->getMessage());
+        }
+
         return $notification;
     }
 

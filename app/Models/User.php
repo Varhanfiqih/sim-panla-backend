@@ -157,6 +157,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(MobileNotification::class);
     }
 
+    public function mobileDeviceTokens()
+    {
+        return $this->hasMany(MobileDeviceToken::class);
+    }
+
     public function journals()
     {
         return $this->hasMany(Journal::class, 'nip_guru', 'nip');
