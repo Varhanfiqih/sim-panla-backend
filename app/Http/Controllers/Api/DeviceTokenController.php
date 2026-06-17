@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\MobileDeviceToken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DeviceTokenController extends Controller
 {
@@ -15,7 +16,7 @@ class DeviceTokenController extends Controller
             'platform' => ['nullable', 'string', 'max:20'],
         ]);
 
-        MobileDeviceToken::updateOrCreate(
+        $deviceToken = MobileDeviceToken::updateOrCreate(
             ['token' => $validated['token']],
             [
                 'user_id' => $request->user()->id,
@@ -23,6 +24,12 @@ class DeviceTokenController extends Controller
                 'last_seen_at' => now(),
             ],
         );
+
+        Log::info('Mobile device token registered', [
+            'user_id' => $request->user()->id,
+            'device_token_id' => $deviceToken->id,
+            'platform' => $deviceToken->platform,
+        ]);
 
         return response()->json(['status' => 'success']);
     }

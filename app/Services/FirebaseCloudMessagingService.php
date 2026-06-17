@@ -22,6 +22,16 @@ class FirebaseCloudMessagingService
             ->where('user_id', $user->id)
             ->pluck('token');
 
+        if ($tokens->isEmpty()) {
+            Log::info('FCM push skipped: user has no registered mobile device token', [
+                'user_id' => $user->id,
+                'notification_id' => $notification->id,
+                'type' => $notification->type,
+            ]);
+
+            return;
+        }
+
         foreach ($tokens as $token) {
             $this->sendToToken($token, $notification);
         }
@@ -59,6 +69,11 @@ class FirebaseCloudMessagingService
             ->post("https://fcm.googleapis.com/v1/projects/{$projectId}/messages:send", $payload);
 
         if ($response->successful()) {
+            Log::info('FCM push sent', [
+                'notification_id' => $notification->id,
+                'type' => $notification->type,
+            ]);
+
             return;
         }
 
@@ -75,7 +90,7 @@ class FirebaseCloudMessagingService
     private function dataPayload(MobileNotification $notification): array
     {
         return collect($notification->data ?? [])
-            ->mapWithKeys(fn ($value, $key) => [(string) $key => (string) $value])
+            ->mapWithKeys(fn ($value, $key) => [(string) $key => $this->stringifyDataValue($value)])
             ->merge([
                 'notification_id' => (string) $notification->id,
                 'type' => $notification->type,
@@ -146,6 +161,15 @@ class FirebaseCloudMessagingService
     {
         return filled(config('services.firebase.project_id'))
             && filled(config('services.firebase.service_account_path'));
+    }
+
+    private function stringifyDataValue(mixed $value): string
+    {
+        if (is_scalar($value) || $value === null) {
+            return (string) $value;
+        }
+
+        return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?: '';
     }
 
     private function base64UrlEncode(string $value): string

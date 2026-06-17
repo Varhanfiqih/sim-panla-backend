@@ -145,19 +145,6 @@ class TeacherAttendanceController extends Controller
         $notificationService = app(MobileNotificationService::class);
 
         foreach ($candidates as $candidate) {
-            $occupiedSlots = Schedule::query()
-                ->where('teacher_id', $candidate->nip)
-                ->where('day_of_week', $day)
-                ->pluck('time_slot_id');
-
-            $available = $invalSchedules
-                ->whereNotIn('time_slot_id', $occupiedSlots)
-                ->values();
-
-            if ($available->isEmpty()) {
-                continue;
-            }
-
             $alreadyNotified = MobileNotification::query()
                 ->where('user_id', $candidate->id)
                 ->where('type', 'inval_available')
@@ -169,8 +156,8 @@ class TeacherAttendanceController extends Controller
                 continue;
             }
 
-            $first = $available->first();
-            $classNames = $available
+            $first = $invalSchedules->first();
+            $classNames = $invalSchedules
                 ->map(fn (Schedule $schedule) => $schedule->schoolClass?->name ?? $schedule->class_id)
                 ->unique()
                 ->implode(', ');
@@ -179,10 +166,10 @@ class TeacherAttendanceController extends Controller
                 $candidate,
                 'inval_available',
                 'Jadwal Inval Tersedia',
-                "{$absentTeacher->name} tidak hadir ({$reason}). Tersedia {$available->count()} sesi inval untuk kelas {$classNames}.",
+                "{$absentTeacher->name} tidak hadir ({$reason}). Tersedia {$invalSchedules->count()} sesi inval untuk kelas {$classNames}.",
                 [
                     'absent_teacher_id' => $absentTeacher->id,
-                    'schedule_ids' => $available->pluck('id')->all(),
+                    'schedule_ids' => $invalSchedules->pluck('id')->all(),
                     'first_schedule_id' => $first->id,
                 ],
             );
