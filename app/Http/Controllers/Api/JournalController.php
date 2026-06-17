@@ -244,7 +244,9 @@ class JournalController extends Controller
 
             $firstSchedule = Schedule::with(['schoolClass', 'subject', 'timeSlot'])
                 ->find($scheduleIds[0]);
-            app(\App\Services\MobileNotificationService::class)->send(
+            $notificationService = app(\App\Services\MobileNotificationService::class);
+
+            $notificationService->send(
                 $user,
                 'inval_claim',
                 'Jadwal Inval Berhasil Diambil',
@@ -256,6 +258,21 @@ class JournalController extends Controller
                     'class_id' => $firstSchedule?->class_id,
                 ],
             );
+
+            if ($firstSchedule?->teacher) {
+                $notificationService->send(
+                    $firstSchedule->teacher,
+                    'inval_claimed_by_replacement',
+                    'Jadwal Inval Sudah Diambil',
+                    "{$user->name} telah mengambil inval {$firstSchedule->subject?->name} di kelas {$firstSchedule->schoolClass?->name}.",
+                    [
+                        'replacement_teacher_id' => $user->id,
+                        'replacement_teacher_nip' => $user->nip,
+                        'schedule_ids' => $scheduleIds,
+                        'class_id' => $firstSchedule->class_id,
+                    ],
+                );
+            }
 
             return response()->json([
                 'status' => 'success',

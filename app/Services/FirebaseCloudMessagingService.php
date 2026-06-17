@@ -15,6 +15,13 @@ class FirebaseCloudMessagingService
     public function sendToUser(User $user, MobileNotification $notification): void
     {
         if (! $this->isConfigured()) {
+            Log::warning('FCM push skipped: firebase service is not configured', [
+                'user_id' => $user->id,
+                'notification_id' => $notification->id,
+                'project_id' => config('services.firebase.project_id'),
+                'service_account_path' => config('services.firebase.service_account_path'),
+            ]);
+
             return;
         }
 
@@ -64,9 +71,20 @@ class FirebaseCloudMessagingService
             ],
         ];
 
-        $response = Http::withToken($accessToken)
-            ->acceptJson()
-            ->post("https://fcm.googleapis.com/v1/projects/{$projectId}/messages:send", $payload);
+        try {
+            $response = Http::timeout(20)
+                ->withToken($accessToken)
+                ->acceptJson()
+                ->post("https://fcm.googleapis.com/v1/projects/{$projectId}/messages:send", $payload);
+        } catch (\Throwable $error) {
+            Log::warning('FCM push request failed before response', [
+                'notification_id' => $notification->id,
+                'type' => $notification->type,
+                'error' => $error->getMessage(),
+            ]);
+
+            return;
+        }
 
         if ($response->successful()) {
             Log::info('FCM push sent', [
@@ -124,10 +142,18 @@ class FirebaseCloudMessagingService
             openssl_sign($unsigned, $signature, $serviceAccount['private_key'], OPENSSL_ALGO_SHA256);
             $jwt = "{$unsigned}.{$this->base64UrlEncode($signature)}";
 
-            $response = Http::asForm()->post('https://oauth2.googleapis.com/token', [
-                'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-                'assertion' => $jwt,
-            ]);
+            try {
+                $response = Http::timeout(20)->asForm()->post('https://oauth2.googleapis.com/token', [
+                    'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+                    'assertion' => $jwt,
+                ]);
+            } catch (\Throwable $error) {
+                Log::warning('FCM token request failed before response', [
+                    'error' => $error->getMessage(),
+                ]);
+
+                return null;
+            }
 
             if (! $response->successful()) {
                 Log::warning('FCM token request failed', [
@@ -146,11 +172,19 @@ class FirebaseCloudMessagingService
     {
         $path = config('services.firebase.service_account_path');
         if (! $path || ! file_exists($path)) {
+            Log::warning('FCM service account file not found', [
+                'path' => $path,
+            ]);
+
             return null;
         }
 
         $json = json_decode(file_get_contents($path), true);
         if (! is_array($json)) {
+            Log::warning('FCM service account JSON is invalid', [
+                'path' => $path,
+            ]);
+
             return null;
         }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\MobileNotification;
 use App\Models\Schedule;
 use App\Models\TeacherAttendance;
 use App\Models\User;
@@ -145,17 +144,6 @@ class TeacherAttendanceController extends Controller
         $notificationService = app(MobileNotificationService::class);
 
         foreach ($candidates as $candidate) {
-            $alreadyNotified = MobileNotification::query()
-                ->where('user_id', $candidate->id)
-                ->where('type', 'inval_available')
-                ->whereDate('created_at', $date)
-                ->where('data->absent_teacher_id', $absentTeacher->id)
-                ->exists();
-
-            if ($alreadyNotified) {
-                continue;
-            }
-
             $first = $invalSchedules->first();
             $classNames = $invalSchedules
                 ->map(fn (Schedule $schedule) => $schedule->schoolClass?->name ?? $schedule->class_id)
