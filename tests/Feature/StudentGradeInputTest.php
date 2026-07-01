@@ -1,0 +1,131 @@
+<?php
+
+use App\Models\GradeCategory;
+use App\Models\GradePeriod;
+use App\Models\Student;
+use App\Models\StudentGrade;
+use App\Models\Subject;
+use App\Models\User;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Laravel\Sanctum\Sanctum;
+
+beforeEach(function () {
+    Schema::dropIfExists('student_grades');
+    Schema::dropIfExists('grade_categories');
+    Schema::dropIfExists('grade_periods');
+    Schema::dropIfExists('schedules');
+    Schema::dropIfExists('time_slots');
+    Schema::dropIfExists('subjects');
+    Schema::dropIfExists('students');
+    Schema::dropIfExists('school_classes');
+    Schema::dropIfExists('users');
+
+    Schema::create('users', function (Blueprint $table) {
+        $table->id();
+        $table->string('nip')->unique()->nullable();
+        $table->string('name');
+        $table->string('password');
+        $table->timestamp('password_changed_at')->nullable();
+        $table->string('role')->default(User::ROLE_GURU);
+        $table->boolean('is_inval_piket')->default(false);
+        $table->rememberToken();
+        $table->timestamps();
+    });
+    Schema::create('school_classes', function (Blueprint $table) {
+        $table->string('id')->primary();
+        $table->string('name');
+        $table->string('homeroom_teacher_id')->nullable();
+        $table->timestamps();
+    });
+    Schema::create('students', function (Blueprint $table) {
+        $table->id();
+        $table->string('nisn')->unique();
+        $table->string('nis')->nullable();
+        $table->string('class_id');
+        $table->string('name');
+        $table->string('gender');
+        $table->string('qr_code')->nullable();
+        $table->timestamps();
+    });
+    Schema::create('subjects', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->timestamps();
+    });
+    Schema::create('time_slots', function (Blueprint $table) {
+        $table->id();
+        $table->time('start_time');
+        $table->time('end_time');
+        $table->timestamps();
+    });
+    Schema::create('schedules', function (Blueprint $table) {
+        $table->id();
+        $table->string('day_of_week')->nullable();
+        $table->string('class_id');
+        $table->foreignId('subject_id');
+        $table->foreignId('time_slot_id');
+        $table->string('teacher_id')->nullable();
+        $table->timestamps();
+    });
+    Schema::create('grade_periods', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->boolean('is_active')->default(false);
+        $table->timestamps();
+    });
+    Schema::create('grade_categories', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->boolean('is_active')->default(true);
+        $table->boolean('is_repeatable')->default(false);
+        $table->integer('max_item')->default(1);
+        $table->integer('max_score')->default(100);
+        $table->integer('sort_order')->default(1);
+        $table->timestamps();
+    });
+    Schema::create('student_grades', function (Blueprint $table) {
+        $table->id();
+        $table->string('student_nisn');
+        $table->foreignId('subject_id');
+        $table->foreignId('grade_category_id');
+        $table->foreignId('grade_period_id');
+        $table->integer('item_no')->default(1);
+        $table->decimal('score', 5, 2);
+        $table->string('notes')->nullable();
+        $table->timestamps();
+    });
+});
+
+function seedGradeInputData(): array
+{
+    $wali = User::query()->create(['nip' => 'WALI-NILAI-001', 'name' => 'Wali Nilai', 'password' => 'Password123', 'role' => User::ROLE_GURU]);
+    DB::table('school_classes')->insert(['id' => '7N', 'name' => 'Kelas 7N', 'homeroom_teacher_id' => $wali->nip, 'created_at' => now(), 'updated_at' => now()]);
+    $student = Student::query()->create(['nisn' => '5000000001', 'nis' => '5001', 'class_id' => '7N', 'name' => 'Siswa Nilai', 'gender' => 'L']);
+    $subject = Subject::query()->create(['name' => 'Matematika']);
+    $period = GradePeriod::query()->create(['name' => 'Semester Ganjil', 'is_active' => true]);
+    $category = GradeCategory::query()->create(['name' => 'Ulangan Harian', 'is_active' => true]);
+    DB::table('time_slots')->insert(['id' => 1, 'start_time' => '07:00:00', 'end_time' => '07:45:00', 'created_at' => now(), 'updated_at' => now()]);
+    DB::table('schedules')->insert(['class_id' => '7N', 'subject_id' => $subject->id, 'time_slot_id' => 1, 'created_at' => now(), 'updated_at' => now()]);
+
+    return compact('wali', 'student', 'subject', 'period', 'category');
+}
+
+test('homeroom teacher can input student grade', function () {
+    ['wali' => $wali, 'student' => $student, 'subject' => $subject, 'period' => $period, 'category' => $category] = seedGradeInputData();
+    Sanctum::actingAs($wali);
+
+    $this->postJson('/api/v1/grades/scores/bulk-upsert', [
+        'period_id' => $period->id,
+        'subject_id' => $subject->id,
+        'entries' => [[
+            'student_id' => $student->id,
+            'category_id' => $category->id,
+            'item_no' => 1,
+            'score' => 90,
+        ]],
+    ])->assertOk()->assertJsonPath('status', 'success');
+
+    expect(StudentGrade::query()->where('student_nisn', $student->nisn)->where('score', 90)->exists())->toBeTrue();
+});

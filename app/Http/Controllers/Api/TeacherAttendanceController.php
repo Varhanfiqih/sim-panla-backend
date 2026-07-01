@@ -142,8 +142,19 @@ class TeacherAttendanceController extends Controller
             ->get();
 
         $notificationService = app(MobileNotificationService::class);
+        $invalTimeSlotIds = $invalSchedules->pluck('time_slot_id')->filter()->unique()->values();
 
         foreach ($candidates as $candidate) {
+            $hasScheduleConflict = Schedule::query()
+                ->where('teacher_id', $candidate->nip)
+                ->where('day_of_week', $day)
+                ->whereIn('time_slot_id', $invalTimeSlotIds)
+                ->exists();
+
+            if ($hasScheduleConflict) {
+                continue;
+            }
+
             $first = $invalSchedules->first();
             $classNames = $invalSchedules
                 ->map(fn (Schedule $schedule) => $schedule->schoolClass?->name ?? $schedule->class_id)

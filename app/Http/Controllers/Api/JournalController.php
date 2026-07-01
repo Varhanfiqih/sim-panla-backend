@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\JournalSubmitted;
+use App\Events\StudentStatusUpdated;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Journal;
-use App\Models\StudentNote;
 use App\Models\Attendance;
+use App\Models\InvalAssignment;
+use App\Models\Journal;
 use App\Models\Permission;
 use App\Models\Schedule;
+use App\Models\SchoolClass;
 use App\Models\Student;
-use App\Models\InvalAssignment;
+use App\Models\StudentNote;
+use App\Models\TeacherAttendance;
+use App\Services\MobileNotificationService;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class JournalController extends Controller
 {
@@ -29,7 +36,7 @@ class JournalController extends Controller
             $hariIniStr = strtoupper($now->isoFormat('dddd'));
 
             // 1. Ambil ID Guru (NIP) yang absen hari ini
-            $absentTeacherNips = \App\Models\TeacherAttendance::where('date', $today)
+            $absentTeacherNips = TeacherAttendance::where('date', $today)
                 ->where('status', 'tidak_hadir')
                 ->join('users', 'teacher_attendances.user_id', '=', 'users.id')
                 ->pluck('users.nip')
@@ -44,36 +51,36 @@ class JournalController extends Controller
             $claimedInvalIds = InvalAssignment::where('date', $today)
                 ->pluck('schedule_id')
                 ->toArray();
-                
+
             $excludedIds = array_merge($filledInvalIds, $claimedInvalIds);
 
             // 2. Ambil Jadwal dari Guru-guru yang absen tersebut pada hari ini
-            $invalSchedules = \App\Models\Schedule::with(['timeSlot', 'schoolClass', 'subject', 'teacher'])
+            $invalSchedules = Schedule::with(['timeSlot', 'schoolClass', 'subject', 'teacher'])
                 ->where('day_of_week', $hariIniStr)
                 ->whereIn('teacher_id', $absentTeacherNips)
                 ->get();
 
             // 3. Ambil time_slot_id dari jadwal Reguler guru yang sedang login (untuk mencegah bentrok/overlap)
             $user = $request->user();
-            $myRegularTimeSlots = \App\Models\Schedule::where('teacher_id', $user->nip)
+            $myRegularTimeSlots = Schedule::where('teacher_id', $user->nip)
                 ->where('day_of_week', $hariIniStr)
                 ->pluck('time_slot_id')
                 ->toArray();
 
             // Filter: hapus yang sudah diisi/diklaim ATAU yang BENTROK dengan jadwal Reguler sendiri
             $availableSchedules = $invalSchedules->filter(function ($s) use ($excludedIds, $myRegularTimeSlots) {
-                return !in_array($s->id, $excludedIds) && !in_array($s->time_slot_id, $myRegularTimeSlots);
+                return ! in_array($s->id, $excludedIds) && ! in_array($s->time_slot_id, $myRegularTimeSlots);
             })->sortBy('time_slot_id')->values();
 
             $groupedInval = [];
             $currentGroup = null;
 
             foreach ($availableSchedules as $schedule) {
-                if ($currentGroup !== null && 
-                    $currentGroup['subject_name'] == ($schedule->subject->name ?? '') && 
+                if ($currentGroup !== null &&
+                    $currentGroup['subject_name'] == ($schedule->subject->name ?? '') &&
                     $currentGroup['className'] == ($schedule->schoolClass->name ?? '') &&
                     $currentGroup['teacher_id'] == $schedule->teacher_id) {
-                    
+
                     // Nyambung -> Update End Time
                     if ($schedule->timeSlot) {
                         $currentGroup['end_time'] = substr($schedule->timeSlot->end_time, 0, 5);
@@ -83,23 +90,23 @@ class JournalController extends Controller
                     if ($currentGroup !== null) {
                         $groupedInval[] = $currentGroup;
                     }
-                    
-                    $reason = \App\Models\TeacherAttendance::whereHas('teacher', function ($query) use ($schedule) {
+
+                    $reason = TeacherAttendance::whereHas('teacher', function ($query) use ($schedule) {
                         $query->where('nip', $schedule->teacher_id);
                     })
                         ->where('date', $today)
                         ->value('reason') ?? 'Tanpa Keterangan';
 
                     $currentGroup = [
-                        'id'            => $schedule->id, 
-                        'schedule_ids'  => [$schedule->id],
-                        'date'          => $today,
-                        'teacher_id'    => $schedule->teacher_id,
-                        'subject_name'  => $schedule->subject->name ?? 'Unknown Mapel',
-                        'className'     => $schedule->schoolClass->name ?? 'Unknown Kelas',
-                        'start_time'    => $schedule->timeSlot ? substr($schedule->timeSlot->start_time, 0, 5) : '00:00',
-                        'end_time'      => $schedule->timeSlot ? substr($schedule->timeSlot->end_time, 0, 5) : '00:00',
-                        'teacherAbsent' => ($schedule->teacher->name ?? 'Unknown Teacher') . ' (' . $reason . ')',
+                        'id' => $schedule->id,
+                        'schedule_ids' => [$schedule->id],
+                        'date' => $today,
+                        'teacher_id' => $schedule->teacher_id,
+                        'subject_name' => $schedule->subject->name ?? 'Unknown Mapel',
+                        'className' => $schedule->schoolClass->name ?? 'Unknown Kelas',
+                        'start_time' => $schedule->timeSlot ? substr($schedule->timeSlot->start_time, 0, 5) : '00:00',
+                        'end_time' => $schedule->timeSlot ? substr($schedule->timeSlot->end_time, 0, 5) : '00:00',
+                        'teacherAbsent' => ($schedule->teacher->name ?? 'Unknown Teacher').' ('.$reason.')',
                     ];
                 }
             }
@@ -113,28 +120,28 @@ class JournalController extends Controller
                 $end = Carbon::createFromFormat('H:i', $g['end_time']);
 
                 return [
-                    'id'            => $g['id'],
-                    'schedule_ids'  => $g['schedule_ids'],
-                    'date'          => $g['date'],
-                    'subject'       => $g['subject_name'],
-                    'time'          => $g['start_time'] . ' - ' . $g['end_time'],
+                    'id' => $g['id'],
+                    'schedule_ids' => $g['schedule_ids'],
+                    'date' => $g['date'],
+                    'subject' => $g['subject_name'],
+                    'time' => $g['start_time'].' - '.$g['end_time'],
                     'duration_minutes' => $start->diffInMinutes($end),
-                    'className'     => $g['className'],
+                    'className' => $g['className'],
                     'teacherAbsent' => $g['teacherAbsent'],
                 ];
             }, $groupedInval));
 
             return response()->json([
                 'status' => 'success',
-                'data'   => $remaining,
-                'total'  => count($remaining),
+                'data' => $remaining,
+                'total' => count($remaining),
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Gagal mengambil daftar kelas kosong.',
-                'error'   => $e->getMessage(),
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -168,8 +175,8 @@ class JournalController extends Controller
                         'class_name' => $schedule?->schoolClass?->name ?? '-',
                         'time' => $schedule?->timeSlot
                             ? substr($schedule->timeSlot->start_time, 0, 5)
-                                . ' - '
-                                . substr($schedule->timeSlot->end_time, 0, 5)
+                                .' - '
+                                .substr($schedule->timeSlot->end_time, 0, 5)
                             : '-',
                         'claimed_by_nip' => $assignment->replacement_teacher_id,
                         'claimed_by_name' => $assignment->replacementTeacher?->name ?? '-',
@@ -198,9 +205,9 @@ class JournalController extends Controller
     public function claimInvalClass(Request $request)
     {
         $request->validate([
-            'schedule_ids'   => 'required_without:schedule_id|array',
+            'schedule_ids' => 'required_without:schedule_id|array',
             'schedule_ids.*' => 'integer',
-            'schedule_id'    => 'required_without:schedule_ids|integer',
+            'schedule_id' => 'required_without:schedule_ids|integer',
         ]);
 
         try {
@@ -222,6 +229,7 @@ class JournalController extends Controller
                         'message' => 'Anda sudah mengklaim kelas-kelas ini sebelumnya.',
                     ], 200);
                 }
+
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Maaf, sebagian atau seluruh kelas ini baru saja diklaim oleh guru lain.',
@@ -232,19 +240,19 @@ class JournalController extends Controller
             $inserts = [];
             foreach ($scheduleIds as $id) {
                 $inserts[] = [
-                    'schedule_id'            => $id,
+                    'schedule_id' => $id,
                     'replacement_teacher_id' => $user->nip,
-                    'date'                   => $today,
-                    'status'                 => 'claimed',
-                    'created_at'             => now(),
-                    'updated_at'             => now(),
+                    'date' => $today,
+                    'status' => 'claimed',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ];
             }
             InvalAssignment::insert($inserts);
 
             $firstSchedule = Schedule::with(['schoolClass', 'subject', 'timeSlot'])
                 ->find($scheduleIds[0]);
-            $notificationService = app(\App\Services\MobileNotificationService::class);
+            $notificationService = app(MobileNotificationService::class);
 
             $notificationService->send(
                 $user,
@@ -279,7 +287,7 @@ class JournalController extends Controller
                 'message' => 'Kelas berhasil diklaim dan masuk ke Jadwal Mengajar Anda hari ini.',
             ], 200);
 
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             // Tangkap error jika unique constraint dilanggar di DB secara concurrent
             $errorCode = $e->errorInfo[1] ?? 0;
             if ($errorCode == 1062 || $errorCode == 19) { // Duplicate entry MySQL/SQLite
@@ -288,56 +296,57 @@ class JournalController extends Controller
                     'message' => 'Maaf, balapan klaim terdeteksi. Kelas ini sudah diamankan guru lain.',
                 ], 400);
             }
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Terjadi kesalahan sistem database.',
             ], 500);
         } catch (\Exception $e) {
             return response()->json([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Gagal melakukan klaim kelas.',
-                'error'   => $e->getMessage(),
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
-    public function students($scheduleId)
+    public function students(Request $request, $scheduleId)
     {
         try {
             // Coba ambil dari Schedule biasa (Bila ID ditemukan, sertakan relasi kelas dan mapel)
-            $schedule = \App\Models\Schedule::with(['schoolClass', 'subject'])->find($scheduleId);
-            
+            $schedule = Schedule::with(['schoolClass', 'subject'])->find($scheduleId);
+
             if ($schedule) {
                 $classId = $schedule->class_id;
                 $className = $schedule->schoolClass->name ?? 'Kelas Tidak Ditemukan';
                 $subjectName = $schedule->subject->name ?? 'Mata Pelajaran';
-                
+
                 $students = Student::where('class_id', $classId)->get();
                 $scheduleData = [
-                    'id'             => $schedule->id,
-                    'kelas'          => $className,
+                    'id' => $schedule->id,
+                    'kelas' => $className,
                     'mata_pelajaran' => $subjectName,
-                    'is_inval_mock'  => false,
+                    'is_inval_mock' => false,
                 ];
             } else {
                 // FALLBACK KHUSUS INVAL (Toleransi ID Dummy dari Flutter)
-                // Di Flutter, id 101 = 7A, id 102 = 8C  
+                // Di Flutter, id 101 = 7A, id 102 = 8C
                 $className = ($scheduleId == 102) ? '8C' : '7A';
-                
+
                 // Cari ID aslinya jika ada
-                $schoolClass = \App\Models\SchoolClass::where('name', $className)->first();
+                $schoolClass = SchoolClass::where('name', $className)->first();
                 $students = $schoolClass ? Student::where('class_id', $schoolClass->id)->get() : collect([]);
-                
+
                 $scheduleData = [
-                    'id'             => (int) $scheduleId,
-                    'kelas'          => $className,
+                    'id' => (int) $scheduleId,
+                    'kelas' => $className,
                     'mata_pelajaran' => 'Inval',
-                    'is_inval_mock'  => true,
+                    'is_inval_mock' => true,
                 ];
             }
 
             // ── SMART PRE-FILL: Sinkronisasi status hadir & izin wali kelas ──
-            $today = Carbon::today()->toDateString();
+            $today = Carbon::parse($request->query('date', Carbon::today()->toDateString()))->toDateString();
 
             // 1. Ambil daftar NISN siswa yang sudah scan gerbang masuk hari ini
             $scannedNisns = Attendance::whereDate('created_at', $today)
@@ -346,19 +355,19 @@ class JournalController extends Controller
                 ->toArray();
 
             // 2. Ambil seluruh cuti izin (Permission) yang sah pada hari ini berdasarkan model
-            $activePermissions = \App\Models\Permission::activeOnDate($today)->get()->keyBy('student_id');
+            $activePermissions = Permission::activeOnDate($today)->get()->keyBy('student_id');
 
             // Tambahkan field status_awal, is_locked, & keterangan_izin ke setiap siswa
             $studentsWithStatus = $students->map(function ($student) use ($scannedNisns, $activePermissions) {
                 $statusAwal = 'none';
-                $isLocked   = false;
+                $isLocked = false;
                 $keterangan = null;
-                
+
                 // Prioritas 1: Izin/Sakit dari Wali Kelas (Single Source of Truth mutlak)
                 if ($activePermissions->has($student->id)) {
                     $permission = $activePermissions->get($student->id);
                     $statusAwal = $permission->type === 'sakit' ? 'KBM_Sakit' : 'KBM_Izin';
-                    $isLocked   = true;
+                    $isLocked = true;
                     $keterangan = $permission->keterangan;
                 }
                 // Prioritas 2: Tap Scan QR Gerbang
@@ -367,35 +376,36 @@ class JournalController extends Controller
                 }
 
                 return [
-                    'id'                 => $student->id,
-                    'name'               => $student->name,
-                    'nisn'               => $student->nisn,
-                    'nis'                => $student->nis,
-                    'class_id'           => $student->class_id,
-                    'status_awal'        => $statusAwal,
-                    'is_locked'          => $isLocked,
-                    'keterangan_izin'    => $keterangan,
+                    'id' => $student->id,
+                    'name' => $student->name,
+                    'nisn' => $student->nisn,
+                    'nis' => $student->nis,
+                    'class_id' => $student->class_id,
+                    'status_awal' => $statusAwal,
+                    'is_locked' => $isLocked,
+                    'keterangan_izin' => $keterangan,
                     'sudah_scan_gerbang' => in_array($student->nisn, $scannedNisns),
                 ];
             });
 
             return response()->json([
                 'status' => 'success',
-                'data'   => [
+                'data' => [
                     'schedule' => $scheduleData,
                     'students' => $studentsWithStatus,
                     'total_sudah_scan' => count($scannedNisns),
-                ]
+                ],
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Gagal mengambil data siswa kelas.',
-                'error'   => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
+
     /**
      * Menyimpan data Jurnal Kelas & Rekap Presensi KBM
      * POST /api/v1/journal/store
@@ -403,15 +413,16 @@ class JournalController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'schedule_id'      => 'required|integer',
-            'materi'           => 'required|string',
+            'schedule_id' => 'required|integer',
+            'materi' => 'required|string',
             'kebersihan_kelas' => 'nullable|string',
-            'koordinat'        => 'nullable|string',
-            'is_inval'         => 'required|boolean',
-            'attendances'      => 'required|array',
+            'koordinat' => 'nullable|string',
+            'is_inval' => 'required|boolean',
+            'journal_date' => 'nullable|date',
+            'attendances' => 'required|array',
             'attendances.*.student_id' => 'required|integer',
-            'attendances.*.status'     => 'required|string', // e.g. 'KBM_Hadir', 'KBM_Sakit', dsb.
-            'attendances.*.notes'      => 'nullable|array', // Catatan sikap (Array of strings)
+            'attendances.*.status' => 'required|string', // e.g. 'KBM_Hadir', 'KBM_Sakit', dsb.
+            'attendances.*.notes' => 'nullable|array', // Catatan sikap (Array of strings)
             'attachment' => [
                 'nullable',
                 'file',
@@ -443,22 +454,30 @@ class JournalController extends Controller
             DB::beginTransaction();
 
             $user = $request->user();
-            $todayString = Carbon::today()->toDateString();
+            $todayString = Carbon::parse($request->input('journal_date', Carbon::today()->toDateString()))->toDateString();
+            $journalDate = Carbon::parse($todayString);
+            $journalTimestamp = $journalDate->copy()->setTime(
+                (int) now()->format('H'),
+                (int) now()->format('i'),
+                (int) now()->format('s')
+            );
 
-            $teacherAttendance = \App\Models\TeacherAttendance::where('user_id', $user->id)
+            $teacherAttendance = TeacherAttendance::where('user_id', $user->id)
                 ->whereDate('date', $todayString)
                 ->first();
 
-            if (! $teacherAttendance) {
+            if ($journalDate->isToday() && ! $teacherAttendance) {
                 DB::rollBack();
+
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Silakan melakukan check-in presensi guru sebelum mengisi jurnal harian.',
                 ], 403);
             }
 
-            if ($teacherAttendance->status !== 'hadir') {
+            if ($teacherAttendance && $teacherAttendance->status !== 'hadir') {
                 DB::rollBack();
+
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Jurnal tidak dapat diisi karena Anda tercatat tidak hadir hari ini.',
@@ -472,8 +491,9 @@ class JournalController extends Controller
 
             if ($duplicate) {
                 DB::rollBack();
+
                 return response()->json([
-                    'status'  => 'error',
+                    'status' => 'error',
                     'message' => 'Jurnal untuk kelas ini sudah pernah diisi hari ini.',
                 ], 409);
             }
@@ -486,18 +506,22 @@ class JournalController extends Controller
             // 1. Simpan tabel journals Utama
             $journal = Journal::create([
                 'schedule_id' => $request->schedule_id,
-                'user_id'     => $user->nip,
-                'is_inval'    => $request->is_inval,
-                'material'    => $request->materi,
+                'user_id' => $user->nip,
+                'is_inval' => $request->is_inval,
+                'material' => $request->materi,
                 'cleanliness' => $request->kebersihan_kelas,
                 'attachment_path' => $attachmentPath,
             ]);
 
+            $journal->created_at = $journalTimestamp;
+            $journal->updated_at = $journalTimestamp;
+            $journal->save();
+
             // 2. Loop per Siswa untuk menyimpan Catatan Sikap (StudentNote) & Rekam Jejak KBM
-            $today = Carbon::today()->toDateString();
-            
+            $today = $todayString;
+
             // Tarik ulang daftar izin wali kelas aktif HARI INI sebagai perisai Backend
-            $activePermissions = \App\Models\Permission::activeOnDate($today)->get()->keyBy('student_id');
+            $activePermissions = Permission::activeOnDate($today)->get()->keyBy('student_id');
 
             foreach ($request->attendances as $att) {
                 $studentId = $att['student_id'];
@@ -516,8 +540,8 @@ class JournalController extends Controller
                 StudentNote::create([
                     'journal_id' => $journal->id,
                     'student_id' => $att['student_id'],
-                    'note_type'  => $statusKBM,
-                    'notes'      => $notesStr,
+                    'note_type' => $statusKBM,
+                    'notes' => $notesStr,
                 ]);
 
                 // Status sakit/izin dari jurnal otomatis masuk ke daftar
@@ -564,23 +588,23 @@ class JournalController extends Controller
                 if (in_array($statusKBM, ['KBM_Sakit_atau_Izin', 'KBM_Alpa', 'KBM_Sakit', 'KBM_Izin'])) {
                     $student = Student::find($att['student_id']);
                     // Guard: pastikan siswa ditemukan dan punya nisn valid
-                    if ($student && !empty($student->nisn)) {
+                    if ($student && ! empty($student->nisn)) {
                         try {
                             Attendance::create([
-                                'nip_guru'     => $user->nip,
+                                'nip_guru' => $user->nip,
                                 'nisn_student' => $student->nisn,
-                                'kelas'        => $student->class_id ?? 'N/A',
-                                'presensi'     => match ($statusKBM) {
+                                'kelas' => $student->class_id ?? 'N/A',
+                                'presensi' => match ($statusKBM) {
                                     'KBM_Sakit' => 'Sakit',
                                     'KBM_Izin', 'KBM_Sakit_atau_Izin' => 'Izin',
                                     default => 'Alpa',
                                 },
-                                'kegiatan'     => 'KBM',
-                                'keterangan'   => $notesStr,
+                                'kegiatan' => 'KBM',
+                                'keterangan' => $notesStr,
                             ]);
                         } catch (\Exception $attErr) {
                             // Log saja, jangan batalkan seluruh transaksi
-                            \Log::warning('Gagal insert attendance KBM: ' . $attErr->getMessage());
+                            \Log::warning('Gagal insert attendance KBM: '.$attErr->getMessage());
                         }
                     }
                 }
@@ -588,7 +612,7 @@ class JournalController extends Controller
 
             DB::commit();
 
-            app(\App\Services\MobileNotificationService::class)->send(
+            app(MobileNotificationService::class)->send(
                 $user,
                 'journal_submitted',
                 'Jurnal Berhasil Disimpan',
@@ -603,14 +627,14 @@ class JournalController extends Controller
             // event(new ClassStartedEvent($journal));
 
             try {
-                $scheduleModel = \App\Models\Schedule::find($request->schedule_id);
+                $scheduleModel = Schedule::find($request->schedule_id);
                 if ($scheduleModel) {
-                    event(new \App\Events\JournalSubmitted($scheduleModel->id, $user->name, $scheduleModel->class_id));
+                    event(new JournalSubmitted($scheduleModel->id, $user->name, $scheduleModel->class_id));
 
                     foreach ($request->attendances as $att) {
                         $stKBM = $att['status'];
                         if (in_array($stKBM, ['KBM_Sakit', 'KBM_Izin', 'KBM_Alpa', 'KBM_Sakit_atau_Izin'])) {
-                            event(new \App\Events\StudentStatusUpdated(
+                            event(new StudentStatusUpdated(
                                 $att['student_id'],
                                 $scheduleModel->class_id,
                                 $stKBM,
@@ -621,14 +645,13 @@ class JournalController extends Controller
                 }
             } catch (\Exception $bcErr) {
                 // Jangan batalkan save jika broadcast gagal
-                \Log::error('Broadcast error JournalController: ' . $bcErr->getMessage());
+                \Log::error('Broadcast error JournalController: '.$bcErr->getMessage());
             }
 
-
             return response()->json([
-                'status'  => 'success',
+                'status' => 'success',
                 'message' => 'Jurnal kelas berhasil disimpan',
-                'data'    => ['journal_id' => $journal->id]
+                'data' => ['journal_id' => $journal->id],
             ], 201);
 
         } catch (\Exception $e) {
@@ -637,13 +660,13 @@ class JournalController extends Controller
             }
 
             if ($attachmentPath) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($attachmentPath);
+                Storage::disk('public')->delete($attachmentPath);
             }
 
             return response()->json([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Gagal menyimpan Jurnal. Terdapat kesalahan sistem.',
-                'error'   => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -656,17 +679,17 @@ class JournalController extends Controller
     {
         try {
             $journal = Journal::with([
-                'schedule.subject', 
-                'schedule.schoolClass', 
+                'schedule.subject',
+                'schedule.schoolClass',
                 'schedule.timeSlot',
-                'teacher', 
-                'studentNotes.student'
+                'teacher',
+                'studentNotes.student',
             ])->find($journal_id);
 
-            if (!$journal) {
+            if (! $journal) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Data jurnal tidak ditemukan'
+                    'message' => 'Data jurnal tidak ditemukan',
                 ], 404);
             }
 
@@ -690,9 +713,9 @@ class JournalController extends Controller
 
                 return [
                     'student_name' => $note->student->name ?? 'Siswa',
-                    'nis'          => $note->student->nis,
-                    'status'       => $status,
-                    'notes'        => $note->notes,
+                    'nis' => $note->student->nis,
+                    'status' => $status,
+                    'notes' => $note->notes,
                 ];
             });
 
@@ -701,28 +724,28 @@ class JournalController extends Controller
                 'data' => [
                     'journal_id' => $journal->id,
                     'created_at' => $journal->created_at->format('Y-m-d H:i:s'),
-                    'subject'    => $journal->schedule->subject->name ?? 'N/A',
+                    'subject' => $journal->schedule->subject->name ?? 'N/A',
                     'class_name' => $journal->schedule->schoolClass->name ?? 'N/A',
-                    'time_slot'  => [
+                    'time_slot' => [
                         'start_time' => $journal->schedule->timeSlot ? substr($journal->schedule->timeSlot->start_time, 0, 5) : '00:00',
-                        'end_time'   => $journal->schedule->timeSlot ? substr($journal->schedule->timeSlot->end_time, 0, 5) : '00:00',
+                        'end_time' => $journal->schedule->timeSlot ? substr($journal->schedule->timeSlot->end_time, 0, 5) : '00:00',
                     ],
-                    'material'    => $journal->material,
+                    'material' => $journal->material,
                     'cleanliness' => $journal->cleanliness,
-                    'is_inval'    => $journal->is_inval,
+                    'is_inval' => $journal->is_inval,
                     'attachment_url' => $journal->attachment_path
-                        ? url(\Illuminate\Support\Facades\Storage::disk('public')->url($journal->attachment_path))
+                        ? url(Storage::disk('public')->url($journal->attachment_path))
                         : null,
                     'total_absen' => $absenKosong,
-                    'absensi'     => $rekapSiswa
-                ]
+                    'absensi' => $rekapSiswa,
+                ],
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Gagal memuat history jurnal.',
-                'error'   => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
