@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
-use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -112,9 +111,14 @@ class User extends Authenticatable implements FilamentUser
 
     public function getProfilePhotoUrlAttribute(): ?string
     {
-        return $this->profile_photo_path
-            ? url(Storage::disk('public')->url($this->profile_photo_path))
-            : null;
+        if (! $this->profile_photo_path) {
+            return null;
+        }
+
+        return route('profile-photos.show', [
+            'user' => $this->id,
+            'filename' => basename($this->profile_photo_path),
+        ]);
     }
 
     /**

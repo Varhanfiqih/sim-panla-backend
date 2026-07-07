@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JournalAttachmentController;
+use App\Http\Controllers\ProfilePhotoController;
 use App\Http\Controllers\ReportExportController;
 use App\Http\Controllers\StudentQrPdfController;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/admin');
 });
+
+Route::get('/profile-photos/{user}/{filename}', [ProfilePhotoController::class, 'show'])
+    ->where('filename', '[^/]+')
+    ->name('profile-photos.show');
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/admin/journals/{journal}/attachment', [JournalAttachmentController::class, 'show'])
