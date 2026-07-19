@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="flex justify-end gap-2 pt-2">
-                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ route('admin.reports.attendance.pdf', [], false) }}">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/attendance.pdf') }}">
                         Unduh PDF
                     </x-filament::button>
                     <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
@@ -45,7 +45,7 @@
                 </p>
 
                 <div class="flex justify-end gap-2 pt-2">
-                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ route('admin.reports.journal.pdf', [], false) }}">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/journal.pdf') }}">
                         Unduh PDF
                     </x-filament::button>
                     <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="flex justify-end gap-2 pt-2">
-                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ route('admin.reports.grades.pdf', [], false) }}">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/grades.pdf') }}">
                         Unduh PDF
                     </x-filament::button>
                     <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
