@@ -20,7 +20,10 @@
                     </select>
                 </div>
 
-                <div class="flex justify-end pt-2">
+                <div class="flex justify-end gap-2 pt-2">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ route('admin.reports.attendance.pdf', [], false) }}">
+                        Unduh PDF
+                    </x-filament::button>
                     <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
                         Unduh Excel
                     </x-filament::button>
@@ -41,7 +44,10 @@
                     Rekapan otomatis mencakup: Mata Pelajaran, Guru Pengajar, Kelas, Jam Ke, Materi yang diisi serta <strong>Daftar Siswa yang Absen (Sakit/Izin/Alpa)</strong> di jam tersebut.
                 </p>
 
-                <div class="flex justify-end pt-2">
+                <div class="flex justify-end gap-2 pt-2">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ route('admin.reports.journal.pdf', [], false) }}">
+                        Unduh PDF
+                    </x-filament::button>
                     <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
                         Unduh Excel
                     </x-filament::button>
@@ -95,7 +101,10 @@
                     </div>
                 </div>
 
-                <div class="flex justify-end pt-2">
+                <div class="flex justify-end gap-2 pt-2">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ route('admin.reports.grades.pdf', [], false) }}">
+                        Unduh PDF
+                    </x-filament::button>
                     <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
                         Unduh Excel
                     </x-filament::button>

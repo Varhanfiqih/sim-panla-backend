@@ -21,10 +21,16 @@ Route::middleware('auth')->group(function (): void {
         ->name('admin.journals.attachment.download');
     Route::get('/admin/reports/attendance.xlsx', [ReportExportController::class, 'attendance'])
         ->name('admin.reports.attendance');
+    Route::get('/admin/reports/attendance.pdf', [ReportExportController::class, 'attendancePdf'])
+        ->name('admin.reports.attendance.pdf');
     Route::get('/admin/reports/journal.xlsx', [ReportExportController::class, 'journal'])
         ->name('admin.reports.journal');
+    Route::get('/admin/reports/journal.pdf', [ReportExportController::class, 'journalPdf'])
+        ->name('admin.reports.journal.pdf');
     Route::get('/admin/reports/grades.xlsx', [ReportExportController::class, 'grades'])
         ->name('admin.reports.grades');
+    Route::get('/admin/reports/grades.pdf', [ReportExportController::class, 'gradesPdf'])
+        ->name('admin.reports.grades.pdf');
     Route::get('/admin/students/{student}/qr.pdf', [StudentQrPdfController::class, 'download'])
         ->name('admin.students.qr.download');
 });
