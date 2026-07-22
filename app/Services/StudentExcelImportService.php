@@ -34,6 +34,21 @@ class StudentExcelImportService
                 $values = $this->rowValues($row);
 
                 $classId = $this->classIdFromRow($values) ?? $classId;
+                $presensiData = $this->presensiRowData($values);
+
+                if ($presensiData !== null) {
+                    $result = $this->importRow($presensiData, $classId, $sheet->getName(), $rowNumber);
+
+                    $summary['created'] += $result['created'];
+                    $summary['updated'] += $result['updated'];
+                    $summary['skipped'] += $result['skipped'];
+
+                    if ($result['message']) {
+                        $summary['errors'][] = $result['message'];
+                    }
+
+                    continue;
+                }
 
                 if ($headers === []) {
                     $headers = $this->normalizeHeaders($values);
@@ -150,6 +165,30 @@ class StudentExcelImportService
             'gender' => $this->value($headers, $values, 'gender'),
             'class' => $this->value($headers, $values, 'class'),
             'qr_code' => $this->value($headers, $values, 'qr_code'),
+        ];
+    }
+
+    /**
+     * @param  array<int, string>  $values
+     * @return array<string, string|null>|null
+     */
+    private function presensiRowData(array $values): ?array
+    {
+        $nis = $this->numericText($values[1] ?? null);
+        $name = trim((string) ($values[2] ?? ''));
+        $gender = $this->normalizeGender((string) ($values[3] ?? ''));
+
+        if (! is_numeric($values[0] ?? null) || blank($nis) || blank($name) || blank($gender)) {
+            return null;
+        }
+
+        return [
+            'nisn' => null,
+            'nis' => $nis,
+            'name' => $name,
+            'gender' => $gender,
+            'class' => null,
+            'qr_code' => null,
         ];
     }
 
