@@ -148,7 +148,23 @@ class UserResource extends Resource
                 ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->using(function (Model $record, array $data): Model {
+                        $record->fill([
+                            'nip' => $data['nip'],
+                            'name' => $data['name'],
+                            'role' => $data['role'],
+                            'is_inval_piket' => $data['is_inval_piket'] ?? false,
+                        ]);
+
+                        if (filled($data['password'] ?? null)) {
+                            $record->password = $data['password'];
+                        }
+
+                        $record->save();
+
+                        return $record;
+                    }),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
