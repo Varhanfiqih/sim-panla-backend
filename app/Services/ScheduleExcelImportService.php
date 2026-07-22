@@ -36,8 +36,13 @@ class ScheduleExcelImportService
                     $row->toArray(),
                 );
 
-                if ($rowNumber === 1) {
+                if ($headers === []) {
                     $headers = $this->normalizeHeaders($values);
+
+                    if (! $this->hasRequiredHeaders($headers)) {
+                        continue;
+                    }
+
                     continue;
                 }
 
@@ -47,7 +52,9 @@ class ScheduleExcelImportService
 
                 $data = $this->rowData($headers, $values);
                 $result = $this->importRow($data, $rowNumber);
-                $summary[$result['status']]++;
+                $summary['created'] += $result['created'];
+                $summary['updated'] += $result['updated'];
+                $summary['skipped'] += $result['skipped'];
 
                 if ($result['message']) {
                     $summary['errors'][] = $result['message'];
@@ -73,6 +80,11 @@ class ScheduleExcelImportService
             'day' => 'day',
             'kelas' => 'class',
             'class' => 'class',
+            'jam_ke' => 'periods',
+            'jam' => 'periods',
+            'periode' => 'periods',
+            'period' => 'periods',
+            'periods' => 'periods',
             'jam_mulai' => 'start_time',
             'mulai' => 'start_time',
             'start' => 'start_time',
@@ -123,6 +135,7 @@ class ScheduleExcelImportService
         return [
             'day' => $this->value($headers, $values, 'day'),
             'class' => $this->value($headers, $values, 'class'),
+            'periods' => $this->value($headers, $values, 'periods'),
             'start_time' => $this->value($headers, $values, 'start_time'),
             'end_time' => $this->value($headers, $values, 'end_time'),
             'subject' => $this->value($headers, $values, 'subject'),
@@ -134,16 +147,18 @@ class ScheduleExcelImportService
 
     /**
      * @param  array<string, string|null>  $data
-     * @return array{status: 'created'|'updated'|'skipped', message: string|null}
+     * @return array{created: int, updated: int, skipped: int, message: string|null}
      */
     private function importRow(array $data, int $rowNumber): array
     {
-        $required = ['day', 'class', 'start_time', 'end_time', 'subject'];
+        $required = ['day', 'class', 'subject'];
 
         foreach ($required as $field) {
             if (blank($data[$field])) {
                 return [
-                    'status' => 'skipped',
+                    'created' => 0,
+                    'updated' => 0,
+                    'skipped' => 1,
                     'message' => "Baris {$rowNumber} dilewati: kolom {$field} kosong.",
                 ];
             }
@@ -153,18 +168,21 @@ class ScheduleExcelImportService
 
         if (! $day) {
             return [
-                'status' => 'skipped',
+                'created' => 0,
+                'updated' => 0,
+                'skipped' => 1,
                 'message' => "Baris {$rowNumber} dilewati: hari tidak valid.",
             ];
         }
 
-        $startTime = $this->normalizeTime((string) $data['start_time']);
-        $endTime = $this->normalizeTime((string) $data['end_time']);
+        $timeSlots = $this->timeSlotsForRow($data);
 
-        if (! $startTime || ! $endTime) {
+        if ($timeSlots === []) {
             return [
-                'status' => 'skipped',
-                'message' => "Baris {$rowNumber} dilewati: format jam tidak valid.",
+                'created' => 0,
+                'updated' => 0,
+                'skipped' => 1,
+                'message' => "Baris {$rowNumber} dilewati: kolom Jam ke atau format jam tidak valid.",
             ];
         }
 
@@ -172,7 +190,9 @@ class ScheduleExcelImportService
 
         if (! $teacher) {
             return [
-                'status' => 'skipped',
+                'created' => 0,
+                'updated' => 0,
+                'skipped' => 1,
                 'message' => "Baris {$rowNumber} dilewati: guru tidak ditemukan.",
             ];
         }
@@ -180,29 +200,32 @@ class ScheduleExcelImportService
         $classId = strtoupper(str_replace(' ', '', (string) $data['class']));
         SchoolClass::firstOrCreate(['id' => $classId], ['name' => $classId]);
 
-        $subject = Subject::firstOrCreate([
-            'name' => trim((string) $data['subject']),
-        ]);
+        $subject = $this->findOrCreateSubject((string) $data['subject']);
+        $created = 0;
+        $updated = 0;
 
-        $timeSlot = TimeSlot::firstOrCreate([
-            'start_time' => $startTime,
-            'end_time' => $endTime,
-        ], [
-            'type' => 'KBM',
-        ]);
+        foreach ($timeSlots as $timeSlot) {
+            $schedule = Schedule::updateOrCreate([
+                'day_of_week' => $day,
+                'class_id' => $classId,
+                'time_slot_id' => $timeSlot->id,
+            ], [
+                'subject_id' => $subject->id,
+                'teacher_id' => $teacher->nip,
+                'keterangan' => filled($data['description']) ? $data['description'] : null,
+            ]);
 
-        $schedule = Schedule::updateOrCreate([
-            'day_of_week' => $day,
-            'class_id' => $classId,
-            'time_slot_id' => $timeSlot->id,
-        ], [
-            'subject_id' => $subject->id,
-            'teacher_id' => $teacher->nip,
-            'keterangan' => filled($data['description']) ? $data['description'] : null,
-        ]);
+            if ($schedule->wasRecentlyCreated) {
+                $created++;
+            } else {
+                $updated++;
+            }
+        }
 
         return [
-            'status' => $schedule->wasRecentlyCreated ? 'created' : 'updated',
+            'created' => $created,
+            'updated' => $updated,
+            'skipped' => 0,
             'message' => null,
         ];
     }
@@ -296,10 +319,126 @@ class ScheduleExcelImportService
         }
 
         if (filled($data['teacher_name'])) {
-            return User::where('name', (string) $data['teacher_name'])->first();
+            $needle = $this->normalizeSearchText((string) $data['teacher_name']);
+
+            return User::query()
+                ->get()
+                ->first(fn (User $user): bool => $this->normalizeSearchText((string) $user->name) === $needle)
+                ?? User::query()
+                    ->get()
+                    ->first(fn (User $user): bool => str_contains($this->normalizeSearchText((string) $user->name), $needle));
         }
 
         return null;
+    }
+
+    /**
+     * @param  array<string, string|null>  $data
+     * @return array<int, TimeSlot>
+     */
+    private function timeSlotsForRow(array $data): array
+    {
+        if (filled($data['periods'])) {
+            return collect($this->parsePeriods((string) $data['periods']))
+                ->map(fn (int $period): TimeSlot => $this->timeSlotForPeriod($period))
+                ->filter()
+                ->values()
+                ->all();
+        }
+
+        $startTime = $this->normalizeTime((string) $data['start_time']);
+        $endTime = $this->normalizeTime((string) $data['end_time']);
+
+        if (! $startTime || ! $endTime) {
+            return [];
+        }
+
+        return [
+            TimeSlot::firstOrCreate([
+                'start_time' => $startTime,
+                'end_time' => $endTime,
+            ], [
+                'type' => 'KBM',
+            ]),
+        ];
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    private function parsePeriods(string $periods): array
+    {
+        $periods = trim(str_replace(' ', '', $periods));
+
+        if (preg_match('/^(\d+)-(\d+)$/', $periods, $matches) === 1) {
+            $start = (int) $matches[1];
+            $end = (int) $matches[2];
+
+            if ($start > $end) {
+                return [];
+            }
+
+            return range($start, $end);
+        }
+
+        if (preg_match('/^\d+$/', $periods) === 1) {
+            return [(int) $periods];
+        }
+
+        return collect(explode(',', $periods))
+            ->map(fn (string $period): int => (int) $period)
+            ->filter(fn (int $period): bool => $period > 0)
+            ->values()
+            ->all();
+    }
+
+    private function findOrCreateSubject(string $name): Subject
+    {
+        $needle = $this->normalizeSearchText($name);
+        $subject = Subject::query()
+            ->get()
+            ->first(fn (Subject $subject): bool => $this->normalizeSearchText((string) $subject->name) === $needle);
+
+        return $subject ?? Subject::create(['name' => trim($name)]);
+    }
+
+    private function timeSlotForPeriod(int $period): TimeSlot
+    {
+        $timeSlot = TimeSlot::find($period);
+
+        if ($timeSlot) {
+            return $timeSlot;
+        }
+
+        $timeSlot = new TimeSlot();
+        $timeSlot->forceFill([
+            'id' => $period,
+            'start_time' => sprintf('%02d:00:00', 6 + $period),
+            'end_time' => sprintf('%02d:45:00', 6 + $period),
+            'type' => 'KBM',
+        ]);
+        $timeSlot->save();
+
+        return $timeSlot;
+    }
+
+    /**
+     * @param  array<string, int>  $headers
+     */
+    private function hasRequiredHeaders(array $headers): bool
+    {
+        return isset($headers['day'], $headers['class'], $headers['subject'])
+            && (isset($headers['periods']) || (isset($headers['start_time'], $headers['end_time'])))
+            && (isset($headers['teacher_nip']) || isset($headers['teacher_name']));
+    }
+
+    private function normalizeSearchText(string $value): string
+    {
+        $value = strtolower($value);
+        $value = preg_replace('/\b(s|m|drs?|dra|ir|h|hj|spd|skom|spsi|mpd|pd|kom|psi)\b/u', '', $value);
+        $value = preg_replace('/[^a-z0-9]+/', '', (string) $value);
+
+        return (string) $value;
     }
 
     /**
