@@ -162,7 +162,8 @@ class StudentExcelImportService
     private function importRow(array $data, ?string $sheetClassId, string $sheetName, int $rowNumber): array
     {
         $nis = $this->numericText($data['nis']);
-        $nisn = $this->numericText($data['nisn']) ?: $nis;
+        $providedNisn = $this->numericText($data['nisn']);
+        $nisn = $providedNisn ?: $nis;
         $name = trim((string) $data['name']);
         $gender = $this->normalizeGender((string) $data['gender']);
         $classId = $this->normalizeClassId((string) ($data['class'] ?: $sheetClassId));
@@ -187,19 +188,37 @@ class StudentExcelImportService
 
         SchoolClass::firstOrCreate(['id' => $classId], ['name' => $classId]);
 
-        $student = Student::updateOrCreate([
-            'nisn' => $nisn,
-        ], [
+        $student = $this->findStudent($providedNisn, $nis);
+        $attributes = [
             'nis' => $nis,
             'name' => $name,
             'class_id' => $classId,
             'gender' => $gender,
-            'qr_code' => filled($data['qr_code']) ? $data['qr_code'] : null,
+        ];
+
+        if (filled($data['qr_code'])) {
+            $attributes['qr_code'] = $data['qr_code'];
+        }
+
+        if ($student) {
+            $student->update($attributes);
+
+            return [
+                'created' => 0,
+                'updated' => 1,
+                'skipped' => 0,
+                'message' => null,
+            ];
+        }
+
+        $student = Student::create([
+            'nisn' => $nisn,
+            ...$attributes,
         ]);
 
         return [
-            'created' => $student->wasRecentlyCreated ? 1 : 0,
-            'updated' => $student->wasRecentlyCreated ? 0 : 1,
+            'created' => 1,
+            'updated' => 0,
             'skipped' => 0,
             'message' => null,
         ];
@@ -289,6 +308,26 @@ class StudentExcelImportService
         }
 
         return $value;
+    }
+
+    private function findStudent(?string $nisn, ?string $nis): ?Student
+    {
+        if (filled($nisn)) {
+            $student = Student::where('nisn', $nisn)->first();
+
+            if ($student) {
+                return $student;
+            }
+        }
+
+        if (filled($nis)) {
+            return Student::where('nis', $nis)
+                ->get()
+                ->sortBy(fn (Student $student): int => $student->nisn === $nis ? 1 : 0)
+                ->first();
+        }
+
+        return null;
     }
 
     private function normalizeCellValue(mixed $value): string
