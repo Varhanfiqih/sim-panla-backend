@@ -3,8 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\StudentResource\Pages;
+use App\Models\SchoolClass;
 use App\Models\Student;
-use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -78,7 +78,7 @@ class StudentResource extends Resource
                         ->columnSpanFull(),
                     Forms\Components\Select::make('class_id')
                         ->label('Kelas')
-                        ->relationship('schoolClass', 'id')
+                        ->options(fn (): array => SchoolClass::singleClassOptions())
                         ->required()
                         ->searchable(),
                     Forms\Components\Select::make('gender')
@@ -101,8 +101,11 @@ class StudentResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('class_id')
-                    ->relationship('schoolClass', 'id')
-                    ->label('Filter Kelas'),
+                    ->label('Filter Kelas')
+                    ->options(fn (): array => SchoolClass::singleClassOptions())
+                    ->query(fn ($query, array $data) => filled($data['value'] ?? null)
+                        ? $query->where('class_id', $data['value'])
+                        : $query),
             ])
             ->defaultSort('class_id')
             ->actions([

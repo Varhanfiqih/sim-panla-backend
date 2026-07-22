@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Models\SchoolClass;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -102,9 +103,11 @@ class UserResource extends Resource
                         ->multiple()
                         ->preload()
                         ->columnSpanFull(),
-                    Forms\Components\Select::make('homeroomClass')
+                    Forms\Components\Select::make('homeroom_class_id')
                         ->label('Wali Kelas dari')
-                        ->relationship('homeroomClass', 'id')
+                        ->options(fn (): array => SchoolClass::singleClassOptions())
+                        ->searchable()
+                        ->afterStateHydrated(fn ($component, ?Model $record) => $component->state($record?->homeroomClass?->id))
                         ->helperText('Kosongkan jika bukan wali kelas'),
                     Forms\Components\Toggle::make('is_inval_piket')
                         ->label('Guru Piket / Inval')
@@ -150,6 +153,8 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->using(function (Model $record, array $data): Model {
+                        $originalNip = $record->nip;
+
                         $record->fill([
                             'nip' => $data['nip'],
                             'name' => $data['name'],
@@ -162,6 +167,15 @@ class UserResource extends Resource
                         }
 
                         $record->save();
+
+                        SchoolClass::query()
+                            ->whereIn('homeroom_teacher_id', [$originalNip, $record->nip])
+                            ->update(['homeroom_teacher_id' => null]);
+
+                        if (filled($data['homeroom_class_id'] ?? null)) {
+                            SchoolClass::whereKey($data['homeroom_class_id'])
+                                ->update(['homeroom_teacher_id' => $record->nip]);
+                        }
 
                         return $record;
                     }),
