@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\SchoolClass;
 use App\Models\Student;
+use OpenSpout\Common\Entity\Row;
 use Illuminate\Support\Arr;
 use OpenSpout\Reader\XLSX\Reader;
 
@@ -30,10 +31,7 @@ class StudentExcelImportService
             $previousValues = [];
 
             foreach ($sheet->getRowIterator() as $rowNumber => $row) {
-                $values = array_map(
-                    fn ($value): string => $this->normalizeCellValue($value),
-                    $row->toArray(),
-                );
+                $values = $this->rowValues($row);
 
                 $classId = $this->classIdFromRow($values) ?? $classId;
 
@@ -337,6 +335,22 @@ class StudentExcelImportService
         }
 
         return trim((string) $value);
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function rowValues(Row $row): array
+    {
+        $values = [];
+
+        for ($index = 0; $index < $row->getNumCells(); $index++) {
+            $values[$index] = $this->normalizeCellValue(
+                $row->getCellAtIndex($index)?->getValue(),
+            );
+        }
+
+        return $values;
     }
 
     /**
