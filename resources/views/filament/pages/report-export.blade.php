@@ -21,10 +21,10 @@
                 </div>
 
                 <div class="grid grid-cols-1 gap-2 pt-2 sm:flex sm:justify-end">
-                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/attendance.pdf') }}" class="w-full sm:w-auto">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/attendance.pdf') }}">
                         Unduh PDF
                     </x-filament::button>
-                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray" class="w-full sm:w-auto">
+                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
                         Unduh Excel
                     </x-filament::button>
                 </div>
@@ -45,10 +45,10 @@
                 </p>
 
                 <div class="grid grid-cols-1 gap-2 pt-2 sm:flex sm:justify-end">
-                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/journal.pdf') }}" class="w-full sm:w-auto">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/journal.pdf') }}">
                         Unduh PDF
                     </x-filament::button>
-                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray" class="w-full sm:w-auto">
+                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
                         Unduh Excel
                     </x-filament::button>
                 </div>
@@ -102,10 +102,10 @@
                 </div>
 
                 <div class="grid grid-cols-1 gap-2 pt-2 sm:flex sm:justify-end">
-                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/grades.pdf') }}" class="w-full sm:w-auto">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/grades.pdf') }}">
                         Unduh PDF
                     </x-filament::button>
-                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray" class="w-full sm:w-auto">
+                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
                         Unduh Excel
                     </x-filament::button>
                 </div>
