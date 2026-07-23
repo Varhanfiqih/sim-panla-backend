@@ -1,12 +1,12 @@
 <div class="space-y-6">
     <!-- Header Controls -->
-    <div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
-        <h2 class="text-xl font-bold tracking-tight text-gray-950 dark:text-white">
+    <div class="flex flex-col gap-3 p-4 bg-white rounded-xl shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="text-lg font-bold tracking-tight text-gray-950 dark:text-white sm:text-xl">
             Papan Jadwal Interaktif
         </h2>
-        <div class="flex items-center gap-3">
-            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Pilih Kelas:</label>
-            <select wire:model.live="selectedClass" class="block w-48 rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white sm:text-sm">
+        <div class="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300" for="schedule-class-select">Pilih Kelas:</label>
+            <select id="schedule-class-select" wire:model.live="selectedClass" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white sm:w-48 sm:text-sm">
                 @foreach($classes as $c)
                     <option value="{{ $c->id }}">{{ $c->id }} - {{ $c->name ?? 'Kelas ' . $c->id }}</option>
                 @endforeach
@@ -16,7 +16,7 @@
 
     <!-- The Schedule Grid Matrix -->
     <div class="overflow-x-auto rounded-xl shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10 bg-white dark:bg-gray-900 p-2">
-        <table class="w-full text-sm text-left table-fixed min-w-[1000px]">
+        <table class="w-full text-left text-xs table-fixed min-w-[760px] sm:min-w-[1000px] sm:text-sm">
             <thead class="bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
                 <tr>
                     <th class="w-24 px-4 py-3 font-semibold text-center border-b border-r dark:border-gray-700">Waktu</th>

@@ -55,6 +55,7 @@
                         size="sm"
                         icon="heroicon-m-arrow-right"
                         icon-position="after"
+                        class="w-full sm:w-auto"
                     >
                         {{ $check['action'] }}
                     </x-filament::button>

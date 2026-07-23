@@ -1,0 +1,65 @@
+@import 'tailwindcss';
+
+@source '../../../../app/Filament/**/*.php';
+@source '../../../../resources/views/**/*.blade.php';
+@source '../../../../vendor/filament/**/*.blade.php';
+
+@media (max-width: 640px) {
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .fi-main,
+    .fi-page,
+    .fi-page-content,
+    .fi-section,
+    .fi-fo-component-ctn,
+    .fi-ta,
+    .fi-ta-ctn,
+    .fi-modal-window {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .fi-page-header {
+        gap: 0.75rem;
+    }
+
+    .fi-page-header-heading {
+        overflow-wrap: anywhere;
+        line-height: 1.2;
+    }
+
+    .fi-page-header-actions,
+    .fi-ac {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .fi-page-header-actions > *,
+    .fi-ac > * {
+        min-width: 0;
+    }
+
+    .fi-btn {
+        max-width: 100%;
+        white-space: normal;
+    }
+
+    .fi-ta-content,
+    .fi-ta-table {
+        min-width: max-content;
+    }
+
+    .fi-dropdown-panel {
+        max-width: calc(100vw - 1rem);
+    }
+
+    .choices,
+    .choices__inner,
+    .choices__list--dropdown {
+        max-width: 100%;
+    }
+}

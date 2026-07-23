@@ -20,11 +20,11 @@
                     </select>
                 </div>
 
-                <div class="flex justify-end gap-2 pt-2">
-                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/attendance.pdf') }}">
+                <div class="grid grid-cols-1 gap-2 pt-2 sm:flex sm:justify-end">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/attendance.pdf') }}" class="w-full sm:w-auto">
                         Unduh PDF
                     </x-filament::button>
-                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
+                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray" class="w-full sm:w-auto">
                         Unduh Excel
                     </x-filament::button>
                 </div>
@@ -44,11 +44,11 @@
                     Rekapan otomatis mencakup: Mata Pelajaran, Guru Pengajar, Kelas, Jam Ke, Materi yang diisi serta <strong>Daftar Siswa yang Absen (Sakit/Izin/Alpa)</strong> di jam tersebut.
                 </p>
 
-                <div class="flex justify-end gap-2 pt-2">
-                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/journal.pdf') }}">
+                <div class="grid grid-cols-1 gap-2 pt-2 sm:flex sm:justify-end">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/journal.pdf') }}" class="w-full sm:w-auto">
                         Unduh PDF
                     </x-filament::button>
-                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
+                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray" class="w-full sm:w-auto">
                         Unduh Excel
                     </x-filament::button>
                 </div>
@@ -101,11 +101,11 @@
                     </div>
                 </div>
 
-                <div class="flex justify-end gap-2 pt-2">
-                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/grades.pdf') }}">
+                <div class="grid grid-cols-1 gap-2 pt-2 sm:flex sm:justify-end">
+                    <x-filament::button type="submit" color="gray" icon="heroicon-m-document-arrow-down" formaction="{{ url('/admin/reports/grades.pdf') }}" class="w-full sm:w-auto">
                         Unduh PDF
                     </x-filament::button>
-                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray">
+                    <x-filament::button type="submit" color="success" icon="heroicon-m-arrow-down-tray" class="w-full sm:w-auto">
                         Unduh Excel
                     </x-filament::button>
                 </div>

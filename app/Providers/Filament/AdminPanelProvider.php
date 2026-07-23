@@ -29,9 +29,9 @@ class AdminPanelProvider extends PanelProvider
             ->login(\App\Filament\Pages\Auth\Login::class)
             ->brandName('SMP NEGERI 8 PASURUAN')
             ->brandLogo(fn () => new \Illuminate\Support\HtmlString('
-                <div class="flex items-center gap-3">
-                    <img src="' . asset('logo.png') . '" alt="Logo" style="height: 3.5rem;">
-                    <span class="font-bold text-lg tracking-tight text-gray-900 dark:text-white whitespace-nowrap">
+                <div class="flex min-w-0 items-center gap-3">
+                    <img src="' . asset('logo.png') . '" alt="Logo" class="h-10 shrink-0 sm:h-14">
+                    <span class="min-w-0 truncate text-sm font-bold tracking-tight text-gray-900 dark:text-white sm:text-lg">
                         SMP NEGERI 8 PASURUAN
                     </span>
                 </div>
@@ -41,6 +41,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
