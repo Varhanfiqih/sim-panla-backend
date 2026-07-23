@@ -60,10 +60,10 @@ class DashboardController extends Controller
                 'persentase_kehadiran'  => 98 // Dummy %
             ];
 
-            // Admin juga lihat jadwal global hari ini
-            $response['data']['jadwal_hari_ini'] = Schedule::with('guru:nip,name')
-                ->where('hari', $hariIniStr)
-                ->orderBy('jam_ke', 'asc')
+            // Admin juga lihat jadwal global hari ini.
+            $response['data']['jadwal_hari_ini'] = Schedule::with(['timeSlot', 'subject', 'schoolClass', 'teacher:nip,name'])
+                ->where('day_of_week', $hariIniStr)
+                ->orderBy('time_slot_id', 'asc')
                 ->get();
 
         } elseif ($user->role === \App\Models\User::ROLE_KEPALA_SEKOLAH) {
@@ -76,9 +76,9 @@ class DashboardController extends Controller
             ];
 
             // Kepsek lihat jadwal global hari ini (read-only)
-            $response['data']['jadwal_hari_ini'] = Schedule::with('guru:nip,name')
-                ->where('hari', $hariIniStr)
-                ->orderBy('jam_ke', 'asc')
+            $response['data']['jadwal_hari_ini'] = Schedule::with(['timeSlot', 'subject', 'schoolClass', 'teacher:nip,name'])
+                ->where('day_of_week', $hariIniStr)
+                ->orderBy('time_slot_id', 'asc')
                 ->get();
 
         } else {

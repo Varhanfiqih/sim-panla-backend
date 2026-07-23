@@ -41,6 +41,7 @@ Route::prefix('v1')->group(function () {
 
         // Dashboard utama (response berbeda-beda berdasarkan role, logic di controller)
         Route::get('/dashboard', [DashboardController::class, 'index']);
+        Route::get('/schedules', [\App\Http\Controllers\Api\ScheduleController::class, 'index']);
 
         // ─── Endpoint Guru BK ─────────────────────────────────────────────────
         Route::middleware('role:' . User::ROLE_GURU_BK)->group(function () {
@@ -63,7 +64,6 @@ Route::prefix('v1')->group(function () {
             Route::post('/teacher/check-in', [\App\Http\Controllers\Api\TeacherAttendanceController::class, 'storeCheckIn']);
             Route::get('/attendance/categories', [\App\Http\Controllers\Api\AttendanceController::class, 'categories']);
             Route::post('/attendance/scan', [\App\Http\Controllers\Api\AttendanceController::class, 'scan']);
-            Route::get('/schedules', [\App\Http\Controllers\Api\ScheduleController::class, 'index']);
             Route::get('/journal/inval-classes', [\App\Http\Controllers\Api\JournalController::class, 'invalClasses']);
             Route::get('/journal/inval-history', [\App\Http\Controllers\Api\JournalController::class, 'invalHistory']);
             Route::post('/journal/inval-claim', [\App\Http\Controllers\Api\JournalController::class, 'claimInvalClass']);
