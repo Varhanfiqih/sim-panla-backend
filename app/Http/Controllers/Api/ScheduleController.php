@@ -18,8 +18,6 @@ class ScheduleController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        Carbon::setLocale('id');
-
         // Terima parameter date dari query, default hari ini
         $dateParam = $request->query('date');
         if ($dateParam) {
@@ -28,7 +26,7 @@ class ScheduleController extends Controller
             $currentDate = Carbon::now();
         }
 
-        $hariIniStr = strtoupper($currentDate->isoFormat('dddd'));
+        $hariIniStr = $this->indonesianDayName($currentDate);
         $sekarang = Carbon::now(); // Waktu aktual jam
         $todayString = $currentDate->toDateString(); // Tanggal kalender dicari
 
@@ -158,5 +156,18 @@ class ScheduleController extends Controller
             'tanggal'  => $todayString,
             'data'     => $data
         ]);
+    }
+
+    private function indonesianDayName(Carbon $date): string
+    {
+        return [
+            1 => 'SENIN',
+            2 => 'SELASA',
+            3 => 'RABU',
+            4 => 'KAMIS',
+            5 => 'JUMAT',
+            6 => 'SABTU',
+            7 => 'MINGGU',
+        ][$date->dayOfWeekIso];
     }
 }
