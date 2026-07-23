@@ -69,7 +69,7 @@ class ManageSchedules extends ManageRecords
                                 ->required(fn (Get $get): bool => ! (bool) $get('use_excel_import')),
                             Select::make('class_id')
                                 ->label('Kelas')
-                                ->options(fn (): array => SchoolClass::query()->orderBy('name')->pluck('name', 'id')->toArray())
+                                ->options(fn (): array => SchoolClass::singleClassOptions())
                                 ->searchable()
                                 ->required(fn (Get $get): bool => ! (bool) $get('use_excel_import')),
                             Select::make('subject_id')

@@ -4,12 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ScheduleResource\Pages;
 use App\Models\Schedule;
-use App\Models\User;
+use App\Models\SchoolClass;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class ScheduleResource extends Resource
@@ -54,9 +55,6 @@ class ScheduleResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $kelasOptions = collect(['7A','7B','7C','7D','7E','7F','7G','8A','8B','8C','8D','8E','8F','8G','9A','9B','9C','9D','9E','9F','9G'])
-            ->mapWithKeys(fn($k) => [$k => $k])->toArray();
-
         return $form->schema([
             Forms\Components\Section::make('Detail Jadwal')
                 ->columns(2)
@@ -68,7 +66,7 @@ class ScheduleResource extends Resource
                         ->required(),
                     Forms\Components\Select::make('class_id')
                         ->label('Kelas')
-                        ->relationship('schoolClass', 'id')
+                        ->options(fn (): array => SchoolClass::singleClassOptions())
                         ->required()
                         ->searchable(),
                     Forms\Components\Select::make('subject_id')
@@ -128,7 +126,10 @@ class ScheduleResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('class_id')
                     ->label('Kelas')
-                    ->relationship('schoolClass', 'id'),
+                    ->options(fn (): array => SchoolClass::singleClassOptions())
+                    ->query(fn (Builder $query, array $data): Builder => filled($data['value'] ?? null)
+                        ? $query->where('class_id', $data['value'])
+                        : $query),
                 Tables\Filters\SelectFilter::make('day_of_week')
                     ->label('Hari')
                     ->options(['SENIN'=>'Senin','SELASA'=>'Selasa','RABU'=>'Rabu','KAMIS'=>'Kamis','JUMAT'=>'Jumat','SABTU'=>'Sabtu']),

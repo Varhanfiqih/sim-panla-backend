@@ -18,7 +18,13 @@ class ScheduleBoard extends Component
 
     public function mount()
     {
-        $this->classes = SchoolClass::orderBy('id')->get();
+        $singleClassIds = array_keys(SchoolClass::singleClassOptions());
+
+        $this->classes = SchoolClass::query()
+            ->orderBy('id')
+            ->whereIn('id', $singleClassIds)
+            ->get()
+            ->values();
         $this->slots = TimeSlot::orderBy('id')->get();
         $this->selectedClass = $this->classes->first()->id ?? null;
         $this->loadMatrix();
