@@ -111,6 +111,7 @@ class FirebaseCloudMessagingService
             ->mapWithKeys(fn ($value, $key) => [(string) $key => $this->stringifyDataValue($value)])
             ->merge([
                 'notification_id' => (string) $notification->id,
+                'user_id' => (string) $notification->user_id,
                 'type' => $notification->type,
             ])
             ->all();
